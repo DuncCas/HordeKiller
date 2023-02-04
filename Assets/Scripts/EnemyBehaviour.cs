@@ -32,10 +32,16 @@ public class EnemyBehaviour : MonoBehaviour
             //mettere nello script dello spawner la lista dei nascosti. Servirà per fare un unica eliminazione una volta che si riempe completamente
                 }
             }
-        
-    
 
-    public void OnTriggerStay(Collider Coll) { 
+    public void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Projectyle") {
+            GetDamaged(player.damage);
+        }
+    }
+
+
+
+    public void OnTriggerStay(Collider Coll) {     
         if(Coll.gameObject.tag == "Player") {
             player.ChangeLife(damage, false);
             if (Time.time > lastAttackedAt + cooldown) {

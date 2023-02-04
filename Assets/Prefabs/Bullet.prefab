@@ -110,7 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be45d5c5ecf19f4b89da891368904ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  canShoot: 0
   speed: 2
   damage: 10
   life: 3
   enemy: {fileID: 0}
+  baseMat: {fileID: 2100000, guid: 7d8e8bb0b29f7ff4ba942463ecc66497, type: 2}
