@@ -4,38 +4,26 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    enum states {
-        SHOT,
-        EXPLODED
-    }
 
-    public bool canShoot; // per delay tra un colpo e l'altro
-    public float speed;
-    public float damage;
-    public float life = 3;
-    private states status;
-    public EnemyBehaviour enemy;
+
+    public Material baseMat;
     // Start is called before the first frame update
    
 
     void Start()
     {
-        status = states.SHOT;
     }
 
     // Update is called once per frame
 
-
-    private void Awake() {
-        Destroy(gameObject, life);
+    private void Update() {
+   // mettere un set active qua dopo tot frame
     }
 
 
-
-
-    public void OnCollisionEnter(Collision other) {
+    public void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Enemy") {
-            enemy.GetDamaged(damage);
+            gameObject.SetActive(false);
         }
     }
 }
