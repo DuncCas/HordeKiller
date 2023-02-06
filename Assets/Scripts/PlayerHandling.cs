@@ -31,7 +31,9 @@ public class PlayerHandling : MonoBehaviour
             //canShoot = false;
             //StartCoroutine("AllowToShoot");
             GameObject[] allTargets = GameObject.FindGameObjectsWithTag("Enemy"); //Genera memoryleak da fixare
-            if (allTargets != null) {//manca settare l'eccezzione nel caso non ci siano nemici altrimenti mi sbrocca unity
+            //GameObject[] someTargets = new GameObject[5];
+            //System.Array.Copy(allTargets, someTargets, 5);
+            if (allTargets != null && allTargets.Length > 0) {//manca settare l'eccezzione nel caso non ci siano nemici altrimenti mi sbrocca unity
                 target = allTargets[0];
                 foreach (GameObject tmptarget in allTargets) {
                     if (Vector3.Distance(transform.position, tmptarget.transform.position) < Vector3.Distance(transform.position, target.transform.position)) {

@@ -9,6 +9,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float hp;
     public float damage;
     public PlayerHandling player;
+    public Experience_orb exp;
     //public EnemySpawner spawner; 
 
 
@@ -28,7 +29,11 @@ public class EnemyBehaviour : MonoBehaviour
                 hp -= dmg;
                 if (hp <= 0) {
                     hp = 0;
+            if (Random.Range(0, 3) < 2) {
+                Instantiate(exp, transform.position, transform.rotation);
+            }
             gameObject.SetActive(false);
+
             //mettere nello script dello spawner la lista dei nascosti. Servirà per fare un unica eliminazione una volta che si riempe completamente
                 }
             }
