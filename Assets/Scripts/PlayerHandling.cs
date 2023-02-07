@@ -8,7 +8,7 @@ public class PlayerHandling : MonoBehaviour
     private GameObject target;  //Per i test switcharlo a public
     public float Maxhp = 100f;
     public float damage=3f;
-    private float hp;
+    public float hp;
     public int lvl = 1;
     private int exp;
     public int MaxExp = 1;
@@ -22,6 +22,10 @@ public class PlayerHandling : MonoBehaviour
     {
         hp = Maxhp * lvl;
         exp = 0;
+    }
+
+    public float GetDamage() {
+        return damage;
     }
 
     // Update is called once per frame
@@ -55,11 +59,6 @@ public class PlayerHandling : MonoBehaviour
         tmpbullet.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
     }
 
-
-    /*IEnumerator AllowToShoot() {
-        yield return new WaitForSeconds(fireRate);
-        canShoot = true;
-    }*/
 
     public void ChangeLife(float tot, bool gained) {
         if (gained) {

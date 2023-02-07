@@ -9,14 +9,14 @@ public class EnemyBehaviour : MonoBehaviour
     public float hp;
     public float damage;
     public PlayerHandling player;
-    public Experience_orb exp;
+    public GameObject exp;
+    public EnemySpawner spawner;
     //public EnemySpawner spawner; 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -33,7 +33,7 @@ public class EnemyBehaviour : MonoBehaviour
                 Instantiate(exp, transform.position, transform.rotation);
             }
             gameObject.SetActive(false);
-
+            spawner.OnDeathEnemy();
             //mettere nello script dello spawner la lista dei nascosti. Servirà per fare un unica eliminazione una volta che si riempe completamente
                 }
             }
