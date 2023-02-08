@@ -15,7 +15,7 @@ public class PlayerHandling : MonoBehaviour
     public Projectile bullet;
     public Transform bulletSpawn;
     public float bulletSpeed =10f;
-    public float fireRate = 3f;
+    public float fireRate = 2f;
     private float nextFire = 0f;
     // Start is called before the first frame update
     void Start()

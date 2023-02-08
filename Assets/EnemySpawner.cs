@@ -6,10 +6,10 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject EnemyPrefab;
-
-    public float DistanceOffset = 5f;
+    //private bool[] ActiveEnemies;
+    public float DistanceOffset = 50f;
     public long MaxSpawned;
-    private long Spawned;
+    public long Spawned;
     public bool active;
 
 
@@ -32,9 +32,14 @@ public class EnemySpawner : MonoBehaviour
 
 
     public void SpawnEnemy() {
-        Vector3 newPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
-        GameObject enemy = Instantiate(EnemyPrefab, newPosition, transform.rotation);
-    }
+        Vector3 newPosition = new Vector3(Random.Range(-5f, 5f), transform.position.y, Random.Range(-5f, 5f));
+        /*Collider[] intersecting = Physics.OverlapSphere(newPosition, 0.01f);
+        if (intersecting.Length != 0) {
+            SpawnEnemy();
+        } else {*/
+            GameObject enemy = Instantiate(EnemyPrefab, newPosition*DistanceOffset, transform.rotation);
+        //}
+     }
 
     public void OnDeathEnemy() { 
         Spawned--;

@@ -8,15 +8,15 @@ public class EnemyBehaviour : MonoBehaviour
     private float lastAttackedAt = -9999f;
     public float hp;
     public float damage;
-    public PlayerHandling player;
+    public GameObject player;
     public GameObject exp;
-    public EnemySpawner spawner;
     //public EnemySpawner spawner; 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -33,14 +33,14 @@ public class EnemyBehaviour : MonoBehaviour
                 Instantiate(exp, transform.position, transform.rotation);
             }
             gameObject.SetActive(false);
-            spawner.OnDeathEnemy();
+            player.GetComponent<EnemySpawner>().OnDeathEnemy();
             //mettere nello script dello spawner la lista dei nascosti. Servirà per fare un unica eliminazione una volta che si riempe completamente
                 }
             }
 
     public void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Projectyle") {
-            GetDamaged(player.damage);
+            GetDamaged(player.GetComponent<PlayerHandling>().damage);
         }
     }
 
@@ -48,7 +48,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void OnTriggerStay(Collider Coll) {     
         if(Coll.gameObject.tag == "Player") {
-            player.ChangeLife(damage, false);
+            player.GetComponent<PlayerHandling>().ChangeLife(damage, false);
             if (Time.time > lastAttackedAt + cooldown) {
                 //do the attack
                 lastAttackedAt = Time.time;

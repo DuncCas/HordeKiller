@@ -5,14 +5,14 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
-    private float lifetime = 10f;
+    private float Lifetime = 5f;
     public Material baseMat;
     // Start is called before the first frame update
    
 
     void Start()
     {
-        StartCoroutine(DestroyOverLifetime(lifetime));
+        StartCoroutine(DestroyOverLifetime(Lifetime));
     }
 
     // Update is called once per frame
