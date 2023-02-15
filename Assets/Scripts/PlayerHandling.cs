@@ -5,12 +5,13 @@ using UnityEngine;
 public class PlayerHandling : MonoBehaviour
 {
     [Tooltip("Change player starting health")]
+    public Experience_bar ExpBar;
     private GameObject target;  //Per i test switcharlo a public
     public float Maxhp = 100f;
     public float damage=3f;
     public float hp;
     public int lvl = 1;
-    private int exp;
+    public int exp;
     public int MaxExp = 1;
     public Projectile bullet;
     public Transform bulletSpawn;
@@ -22,6 +23,7 @@ public class PlayerHandling : MonoBehaviour
     {
         hp = Maxhp * lvl;
         exp = 0;
+        ExpBar.SetMaxExp(MaxExp);
     }
 
     public float GetDamage() {
@@ -76,9 +78,11 @@ public class PlayerHandling : MonoBehaviour
 
     public void IncreaseExp() {
         exp++;
+        ExpBar.SetExp(exp);
         if (exp >= MaxExp) {
             lvlUp();
         }
+
     }
 
 
@@ -88,6 +92,7 @@ public class PlayerHandling : MonoBehaviour
             exp = 0;
             MaxExp = MaxExp * lvl;
             Maxhp = Maxhp * lvl;
+            ExpBar.SetMaxExp(MaxExp);
             ChangeLife((Maxhp * 0.3f), true);
         }
     }
