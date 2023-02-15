@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private GameObject EnemyPrefab;
     //private bool[] ActiveEnemies;
-    public float DistanceOffset = 50f;
+    public float DistanceOffset;
     public long MaxSpawned;
     public long Spawned;
     public bool active;
