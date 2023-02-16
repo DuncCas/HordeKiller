@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject EnemyPrefab;
-    //private bool[] ActiveEnemies;
+    public List<GameObject> EnemyOnSite; //List.findWithLambda? da cercare
     public float DistanceOffset;
     public long MaxSpawned;
     public long Spawned;
@@ -25,7 +25,9 @@ public class EnemySpawner : MonoBehaviour
         if (active) {
             if (Spawned < MaxSpawned) {
                 SpawnEnemy();
+                EnemyOnSite.Add(EnemyPrefab);
                 Spawned++;
+
             }
         }
     }
