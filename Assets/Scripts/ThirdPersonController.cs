@@ -25,7 +25,7 @@ namespace StarterAssets
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
-        public float RotationSmoothTime = 0.0f;
+        public float RotationSmoothTime;
 
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
@@ -41,8 +41,8 @@ namespace StarterAssets
         public float Gravity = -15.0f;
 
         [Space(10)]
-        [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
-        public float JumpTimeout = 0.50f;
+        //[Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
+        //public float JumpTimeout = 0.50f;
 
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         public float FallTimeout = 0.15f;
@@ -89,7 +89,7 @@ namespace StarterAssets
         private float _terminalVelocity = 53.0f;
 
         // timeout deltatime
-        private float _jumpTimeoutDelta;
+        //private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
 
         // animation IDs
@@ -149,7 +149,7 @@ namespace StarterAssets
             AssignAnimationIDs();
 
             // reset our timeouts on start
-            _jumpTimeoutDelta = JumpTimeout;
+            //_jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
         }
 
@@ -300,15 +300,15 @@ namespace StarterAssets
                 }
 
                 // jump timeout
-                if (_jumpTimeoutDelta >= 0.0f)
+                /*if (_jumpTimeoutDelta >= 0.0f)
                 {
                     _jumpTimeoutDelta -= Time.deltaTime;
-                }
+                }*/
             }
             else
             {
                 // reset the jump timeout timer
-                _jumpTimeoutDelta = JumpTimeout;
+                //_jumpTimeoutDelta = JumpTimeout;
 
                 // fall timeout
                 if (_fallTimeoutDelta >= 0.0f)
@@ -325,7 +325,7 @@ namespace StarterAssets
                 }
 
                 // if we are not grounded, do not jump
-                _input.jump = false;
+                //_input.jump = false;
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
