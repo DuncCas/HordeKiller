@@ -34,15 +34,7 @@ namespace StarterAssets
 			}
 		}
 
-		/*public void OnJump(InputValue value)
-		{
-			JumpInput(value.isPressed);
-		}
-
-		public void OnSprint(InputValue value)
-		{
-			SprintInput(value.isPressed);
-		}*/
+		
 #endif
 
 
@@ -56,15 +48,7 @@ namespace StarterAssets
 			look = newLookDirection;
 		}
 
-		/*public void JumpInput(bool newJumpState)
-		{
-			jump = newJumpState;
-		}
-
-		public void SprintInput(bool newSprintState)
-		{
-			sprint = newSprintState;
-		}*/
+		
 
 		private void OnApplicationFocus(bool hasFocus)
 		{
