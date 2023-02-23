@@ -6,7 +6,7 @@ public class EnemyBehaviour : MonoBehaviour
 {
     public float cooldown = 3f; //seconds
     private float lastAttackedAt = -9999f;
-    public float hp;
+    private float hp;
     public float damage;
     public GameObject player;
     public GameObject exp;
@@ -28,13 +28,7 @@ public class EnemyBehaviour : MonoBehaviour
     public void GetDamaged(float dmg) {
                 hp -= dmg;
                 if (hp <= 0) {
-                    hp = 0;
-            if (Random.Range(0, 3) < 2) {
-                Instantiate(exp, transform.position, transform.rotation);
-            }
-            gameObject.SetActive(false);
-            player.GetComponent<EnemySpawner>().OnDeathEnemy();
-            //mettere nello script dello spawner la lista dei nascosti. Servirà per fare un unica eliminazione una volta che si riempe completamente
+                OnDeath();
                 }
             }
 
@@ -56,6 +50,21 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    public void OnDeath() {
+        hp = 0;
+        //Drop exp al 50%
+        if (Random.Range(0, 3) < 2) {
+            Instantiate(exp, transform.position, transform.rotation);
+        }
+        //Ricolloco oggetto
+        gameObject.SetActive(false);
+        EnemySpawner Spawner = player.GetComponent<EnemySpawner>();
+        Spawner.Spawned--;
+        Vector3 newPosition = Spawner.GetNewPosition();
+        transform.position = newPosition;
+        hp = Spawner.hp_Enemy;
+        gameObject.SetActive(true);
+    }
 
 
 

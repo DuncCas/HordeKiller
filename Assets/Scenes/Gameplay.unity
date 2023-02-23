@@ -662,11 +662,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
+      propertyPath: hp
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
+      propertyPath: MaxSpawned
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
       propertyPath: ExpBar
       value: 
       objectReference: {fileID: 473029921}
+    - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 8142190802647146565, guid: f573ebd416c76484dbabeeabf2f47657,
+        type: 3}
     - target: {fileID: 7287488041747845300, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
       propertyPath: RotationSmoothTime
