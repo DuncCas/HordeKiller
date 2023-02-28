@@ -5,23 +5,29 @@ using UnityEngine;
 public class PlayerHandling : MonoBehaviour
 {
     [Tooltip("Change player starting health")]
+    public Experience_bar ExpBar;
     private GameObject target;  //Per i test switcharlo a public
     public float Maxhp = 100f;
     public float damage=3f;
-    private float hp;
+    public float hp;
     public int lvl = 1;
-    private int exp;
+    public int exp;
     public int MaxExp = 1;
     public Projectile bullet;
     public Transform bulletSpawn;
     public float bulletSpeed =10f;
-    public float fireRate = 3f;
-    private float nextFire = 0f;
+    public float fireRate;
+    private float nextFire;
     // Start is called before the first frame update
     void Start()
     {
         hp = Maxhp * lvl;
         exp = 0;
+        ExpBar.SetMaxExp(MaxExp);
+    }
+
+    public float GetDamage() {
+        return damage;
     }
 
     // Update is called once per frame
@@ -31,7 +37,9 @@ public class PlayerHandling : MonoBehaviour
             //canShoot = false;
             //StartCoroutine("AllowToShoot");
             GameObject[] allTargets = GameObject.FindGameObjectsWithTag("Enemy"); //Genera memoryleak da fixare
-            if (allTargets != null) {   //manca settare l'eccezzione nel caso non ci siano nemici altrimenti mi sbrocca unity
+            //GameObject[] someTargets = new GameObject[5];
+            //System.Array.Copy(allTargets, someTargets, 5);
+            if (allTargets != null && allTargets.Length > 0) {//manca settare l'eccezzione nel caso non ci siano nemici altrimenti mi sbrocca unity
                 target = allTargets[0];
                 foreach (GameObject tmptarget in allTargets) {
                     if (Vector3.Distance(transform.position, tmptarget.transform.position) < Vector3.Distance(transform.position, target.transform.position)) {
@@ -54,11 +62,6 @@ public class PlayerHandling : MonoBehaviour
     }
 
 
-    /*IEnumerator AllowToShoot() {
-        yield return new WaitForSeconds(fireRate);
-        canShoot = true;
-    }*/
-
     public void ChangeLife(float tot, bool gained) {
         if (gained) {
             hp += tot;
@@ -75,9 +78,11 @@ public class PlayerHandling : MonoBehaviour
 
     public void IncreaseExp() {
         exp++;
+        ExpBar.SetExp(exp);
         if (exp >= MaxExp) {
             lvlUp();
         }
+
     }
 
 
@@ -87,6 +92,7 @@ public class PlayerHandling : MonoBehaviour
             exp = 0;
             MaxExp = MaxExp * lvl;
             Maxhp = Maxhp * lvl;
+            ExpBar.SetMaxExp(MaxExp);
             ChangeLife((Maxhp * 0.3f), true);
         }
     }

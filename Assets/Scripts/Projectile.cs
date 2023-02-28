@@ -5,13 +5,14 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
-
+    private float Lifetime = 5f;
     public Material baseMat;
     // Start is called before the first frame update
    
 
     void Start()
     {
+        StartCoroutine(DestroyOverLifetime(Lifetime));
     }
 
     // Update is called once per frame
@@ -22,9 +23,14 @@ public class Projectile : MonoBehaviour
 
 
     public void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "Enemy") {
+        if (other.gameObject.tag != "Player") {
             gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerator DestroyOverLifetime(float lifetime) {
+        yield return new WaitForSeconds(lifetime);
+        Destroy(gameObject);
     }
 }
 

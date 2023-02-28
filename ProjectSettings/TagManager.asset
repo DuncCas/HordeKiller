@@ -8,6 +8,7 @@ TagManager:
   - Exp
   - Projectyle
   - Enemy
+  - Enviroment
   layers:
   - Default
   - TransparentFX
