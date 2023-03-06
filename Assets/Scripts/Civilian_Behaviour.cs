@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using HordeKiller;
 using UnityEngine;
 
-public class Civilian_Behaviour : MonoBehaviour
+public class Civilian_Behaviour : MonoBehaviour, ISpawnable
 {
     public float SetTimer;
     private float TimeLeft;
     public bool CivilianActive = false;
-    public TextAlignment TimerTxt;
+    //public TextAlignment TimerTxt;
 
 
 
@@ -33,13 +34,13 @@ public class Civilian_Behaviour : MonoBehaviour
                 TimeLeft = 0;
                 CivilianActive = false;
                 GameObject plyer = GameObject.FindGameObjectWithTag("Player");
-                Relocate(plyer.transform.position);
+                Spawn(plyer.transform.position);
             }
         }
         
     }
 
-    public Vector3 GetNewPosition() {
+    public Vector3 newLocation() {
 
         Vector3 newPosition = new Vector3(Random.Range(-50f, 50f), 0, Random.Range(-50f, 50f));
         return newPosition;
@@ -49,8 +50,8 @@ public class Civilian_Behaviour : MonoBehaviour
         }*/
     }
 
-    public void Relocate(Vector3 pos) { //UGUALE IDENTICO A GETNEWPOSITION IN ENEMYSPAWNER, DA CREARE INTERFACCIA
-        gameObject.transform.position = pos + GetNewPosition(); // da cambiare usa solo val pos.
+    public void Spawn(Vector3 pos) { //UGUALE IDENTICO A GETNEWPOSITION IN ENEMYSPAWNER, DA CREARE INTERFACCIA
+        gameObject.transform.position = pos + newLocation(); // da cambiare usa solo val pos.
         gameObject.SetActive(true);
         TimeLeft = SetTimer;
     }
@@ -63,7 +64,7 @@ public class Civilian_Behaviour : MonoBehaviour
             // E SPOSTA Il NUOVO GRUPPO DI CIVILI
             CivilianActive = false;
             gameObject.SetActive(false);
-            Relocate(collision.transform.position);
+            Spawn(collision.transform.position);
         }
     }
 
