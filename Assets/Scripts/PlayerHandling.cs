@@ -18,12 +18,18 @@ public class PlayerHandling : MonoBehaviour
     public float bulletSpeed =10f;
     public float fireRate;
     private float nextFire;
+    public byte ArmorPieces;
     // Start is called before the first frame update
     void Start()
     {
         hp = Maxhp * lvl;
         exp = 0;
         ExpBar.SetMaxExp(MaxExp);
+        ArmorPieces = 0;
+    }
+
+    public void IncreaseArmor() {
+        ArmorPieces++;
     }
 
     public float GetDamage() {
