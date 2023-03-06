@@ -54,6 +54,7 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable
         gameObject.transform.position = pos + newLocation(); // da cambiare usa solo val pos.
         gameObject.SetActive(true);
         TimeLeft = SetTimer;
+        CivilianActive = true;
     }
 
     private void OnTriggerEnter(Collider collision) {

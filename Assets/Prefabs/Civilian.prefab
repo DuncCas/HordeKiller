@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4169268516679020131}
   - component: {fileID: 3739166781324533914}
   - component: {fileID: 3779500387919836943}
+  - component: {fileID: 5980742969351473975}
   m_Layer: 0
   m_Name: Civilian
   m_TagString: Untagged
@@ -97,3 +98,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5980742969351473975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4581649949438616017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8188356f5fd36b4d9a3cd12fa5b52ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SetTimer: 60
+  CivilianActive: 0
