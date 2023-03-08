@@ -7,7 +7,7 @@ public class BossHandler : MonoBehaviour
 {
 
     //PER ORA STATI VANNO QUA MA LI DEVO METTERE IN UNA NUOVA FUNZIONE SRY NOT SRY
-  public  enum BOSS_STATES {
+  public enum BOSS_STATES {
         IDLE,
         MOVING,
         SPAWNING
@@ -26,7 +26,9 @@ public class BossHandler : MonoBehaviour
 
     public float movementSpeed = 1.5f;
     public float damageOnTouch = 40f;
-    public float damageOnStomp; //Magari se vieni schiacciato muori e basta?
+    //public float damageOnStomp; 
+    
+    //Se vieni schiacciato muori
 
 
     public float timeBeforeBossMoves;
