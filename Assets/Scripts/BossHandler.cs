@@ -9,10 +9,9 @@ public class BossHandler : MonoBehaviour
     //PER ORA STATI VANNO QUA MA LI DEVO METTERE IN UNA NUOVA FUNZIONE SRY NOT SRY
   public enum BOSS_STATES {
         IDLE,
-        MOVING,
-        SPAWNING
-        //ENDFIRSTPHASE
-        //ENDGAME
+        ARRIVING,
+        GROUND,
+        LEAVING
 
     }
     public GameLogic gameManager;
@@ -21,21 +20,34 @@ public class BossHandler : MonoBehaviour
     BOSS_STATES state;
     BOSS_STATES previousState;
 
+    public float timeBeforeNextStomp;
+    public float maxTimeBeforeNextStomp;
+
+    public float timeOnGround;
+    public float maxTimeOnGround;
+
+    public float fallingSpeed;
+    public float raisingSpeed;
+
+    public Transform spawnHeight;
+
+    public GameObject foot;
+
     #region VAR MOVEMENT
-    public BossMovement movement;
+    /*public BossMovement movement;
     public float movementSpeed = 1.5f;
     public float damageOnTouch = 40f;
     public float timeBeforeBossMoves;
     public float maxtimeBeforeBossMoves;
     public float movementDuration;
     public float maxMovementDuration;
-    //Se vieni schiacciato muori
+    //Se vieni schiacciato muori*/
     #endregion
 
     #region VAR ENEMY SPAWN
-    public float timeBetweenNewSpawns; //alcuni nemici partono da lui
-    public float maxTimeBeforeNewSpawns;
-    public GameObject enemyType;
+    /* public float timeBetweenNewSpawns; //alcuni nemici partono da lui
+     public float maxTimeBeforeNewSpawns;
+     public GameObject enemyType;*/
     #endregion
 
 
@@ -44,9 +56,10 @@ public class BossHandler : MonoBehaviour
     {
         state = BOSS_STATES.IDLE;
         previousState = BOSS_STATES.IDLE;
-        timeBetweenNewSpawns = 0;
-        timeBeforeBossMoves=0;
-    }
+        timeBeforeNextStomp=0;
+    //timeBetweenNewSpawns = 0;
+    //timeBeforeBossMoves=0;
+}
 
     #region STATES
 
@@ -58,33 +71,49 @@ public class BossHandler : MonoBehaviour
                 case BOSS_STATES.IDLE:
                     Enter_IDLE();
                     break;
-                case BOSS_STATES.MOVING:
-                    Enter_MOVING();
+                case BOSS_STATES.ARRIVING:
+                    Enter_ARRIVING();
                     break;
-                case BOSS_STATES.SPAWNING:
-                    Enter_SPAWNING();
+                case BOSS_STATES.GROUND:
+                    Enter_GROUND();
                     break;
+                case BOSS_STATES.LEAVING:
+                    Enter_LEAVING();
+                    break;
+                    /*case BOSS_STATES.SPAWNING:
+                        Enter_SPAWNING();
+                        break;*/
             }
         }
     }
 
+    private void Enter_LEAVING() {
+        //1OP QUANDO SE NE VA PIEDE
+    }
+
+    private void Enter_GROUND() {
+        //1OP QUANDO ARRIVA AD ESSERE NEL TERRENO
+        timeOnGround = 0;
+    }
+
+    private void Enter_ARRIVING() {
+        //1OP QUANDO ARRIVA
+    }
+
     private void Enter_IDLE() {
-        //OP PASSAGGIO IN IDLE
+        //1OP QUANDO IN IDLE
+        foot.SetActive(false);
     }
 
-    private void Enter_MOVING() {
-        //OP PASSAGGIO A MOVING
-    }
-
-    private void Enter_SPAWNING() {
+    /*private void Enter_SPAWNING() {
         //OP PASSAGGIO A SPAWNING
-    }
+    }*/
 
-    private void Exit_MOVING() {
+    private void Exit_IDLE() {
         //OP USCITA DA MOVING
     }
 
-    private void Exit_SPAWNING() {
+    private void Exit_STOMPING() {
         //OP USCITA DA SPAWNING
     }
 
@@ -96,67 +125,110 @@ public class BossHandler : MonoBehaviour
     {
         switch (state) {
             case BOSS_STATES.IDLE:
-                Update_IDLE();
+                UPDATE_IDLE();
                 break;
-            case BOSS_STATES.MOVING:
-                Update_MOVING();
+            case BOSS_STATES.ARRIVING:
+                UPDATE_ARRIVING();
                 break;
-            case BOSS_STATES.SPAWNING:
-                Update_SPAWNING();
+            case BOSS_STATES.GROUND:
+                UPDATE_GROUND();
                 break;
-
-
+            case BOSS_STATES.LEAVING:
+                UPDATE_LEAVING();
+                break;
         }
     }
 
+    private void UPDATE_IDLE() {
+        if (timeBeforeNextStomp >= maxTimeBeforeNextStomp) {
+            ChangeState(BOSS_STATES.ARRIVING);
+        } else {
+            timeBeforeNextStomp+= Time.deltaTime;
+        }
+    }
 
+    private void UPDATE_ARRIVING() {
+        if (!foot.GetComponent<LegBehaviour>().IsOnGround()) {
+            foot.transform.position = Vector3.down * fallingSpeed;
+        } else {
+            ChangeState(BOSS_STATES.GROUND);
+        }
+    }
 
+    private void UPDATE_GROUND() {
+        if (timeOnGround >= maxTimeOnGround) {
+            ChangeState(BOSS_STATES.LEAVING);
+        } else {
+            timeOnGround += Time.deltaTime;
+        }
+    }
+
+    private void UPDATE_LEAVING() {
+        if (foot.transform.position == spawnHeight.position) {
+            ChangeState(BOSS_STATES.IDLE);
+        } else {
+            foot.transform.position += Vector3.up * raisingSpeed;
+        }
+    }
 
     private void Update_IDLE() {
         // RIMANE FERMO, MAGARI METTERE DEI EFFETTI TIPO CIOTTOLI CHE CADONO DALL'ALTO O QUALCOSA DEL GENERE
 
 
-        timeBeforeBossMoves += Time.deltaTime;
-        // QUANDO FINISCE TIMER MOVIMENTO => MOVING
-        if (timeBeforeBossMoves >= maxtimeBeforeBossMoves) {
-            ChangeState(BOSS_STATES.MOVING);
+        timeBeforeNextStomp += Time.deltaTime;
+        // QUANDO FINISCE TIMER STOMP => STOMP
+        if (timeBeforeNextStomp >= maxTimeBeforeNextStomp) {
+            ChangeState(BOSS_STATES.ARRIVING);
             return;
         }
-        timeBetweenNewSpawns += Time.deltaTime;
-        // QUANDO FINISCE TIMER SPAWN => SPAWNING
-        if (timeBetweenNewSpawns >= maxTimeBeforeNewSpawns) { 
-            ChangeState(BOSS_STATES.SPAWNING);
-            return;
+    }
+
+        private void Update_STOMPING() {
+
         }
-        // SE GIOCATORE OTTIENE TUTTI PEZZI ARMATURA => ENDFIRSTPHASE
-        
-        // if (gameManager.status== ENDFIRSTPHASE){
-        //  ChangeState(BOSS_STATES.ENDFIRSTPHASE)
-        //  }
-        
-        // SE MUORE GIOCATORE => ENDGAME
 
-        
-    }
 
-    private void Update_MOVING() {
-        //MUOVE LE GAMBE DEL BOSS,
-        //movement.MoveTo(Vector3 Direction);
-        // SE FINISCE TEMPO DI MOVIMENTO => SE IL TIMER DELLO SPAWN HA FINITO => SPAWN /ELSE/ IDLE
-        --movementDuration;
-        if ((movementDuration <= 0)&&(movement.AllLegsOnGround())) {
-            if (timeBetweenNewSpawns >= maxTimeBeforeNewSpawns) {
-                ChangeState(BOSS_STATES.SPAWNING);
-            } else {
-                ChangeState(BOSS_STATES.IDLE);
-            }
-        }   
-    }
 
-    private void Update_SPAWNING() {
-        //OP DI SPAWN
-        //Spawn();
-        ChangeState(BOSS_STATES.IDLE);
+
+
+
+
+
+
+    /*timeBetweenNewSpawns += Time.deltaTime;
+    // QUANDO FINISCE TIMER SPAWN => SPAWNING
+    if (timeBetweenNewSpawns >= maxTimeBeforeNewSpawns) { 
+        ChangeState(BOSS_STATES.SPAWNING);
+        return;
     }
+    // SE GIOCATORE OTTIENE TUTTI PEZZI ARMATURA => ENDFIRSTPHASE
+
+    // if (gameManager.status== ENDFIRSTPHASE){
+    //  ChangeState(BOSS_STATES.ENDFIRSTPHASE)
+    //  }
+
+    // SE MUORE GIOCATORE => ENDGAME
+
+
+}*/
     #endregion
 }
+/*private void Update_MOVING() {
+    //MUOVE LE GAMBE DEL BOSS,
+    //movement.MoveTo(Vector3 Direction);
+    // SE FINISCE TEMPO DI MOVIMENTO => SE IL TIMER DELLO SPAWN HA FINITO => SPAWN /ELSE/ IDLE
+    --movementDuration;
+    if ((movementDuration <= 0)&&(movement.AllLegsOnGround())) {
+        if (timeBetweenNewSpawns >= maxTimeBeforeNewSpawns) {
+            ChangeState(BOSS_STATES.SPAWNING);
+        } else {
+            ChangeState(BOSS_STATES.IDLE);
+        }
+    }   
+}
+
+private void Update_SPAWNING() {
+    //OP DI SPAWN
+    //Spawn();
+    ChangeState(BOSS_STATES.IDLE);
+}*/

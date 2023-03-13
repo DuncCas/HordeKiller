@@ -28,14 +28,14 @@ public class BossMovement : MonoBehaviour {
 
 
     //Controlla se tutte le gambe sono a terra
-    public bool AllLegsOnGround() {
+   /* public bool AllLegsOnGround() {
         foreach (LegBehaviour leg in LegList) {
             if (!leg.IsOnGround) {
                 return false;
             }
         }
         return true;
-    }
+    }*/
 
 
     //Op per alzare la gamba. Aggiungerò anche quella per abassare
@@ -50,22 +50,12 @@ public class BossMovement : MonoBehaviour {
     }
 
     //Op per spostamento gamba nella nuova direzione, da cambiare perchè fa schifo
-    public void MovementDirectional() {
-        if (LegList[currentLeg].movingUp) {
-            MovementPrepUp();
-        } else {
-            //transform.position +=
-        }
-    }
+ 
     // Start is called before the first frame update
     void Start()
     {
         //init
-        foreach (LegBehaviour leg in LegList) {
-            leg.IsOnGround = true;
-            
-        }
-        currentLeg = 1;
+       
         //LastLeg = -1;
 
     }
