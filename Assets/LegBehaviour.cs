@@ -13,7 +13,9 @@ public class LegBehaviour : MonoBehaviour {
     private bool OnGround;
     
     public RaycastHit underFoot;
-    private float distToGround;
+    public Transform ground;
+    public Transform plant;
+    private float distToGround = 10;
     private float fallingSpeed;
     private float raisingSpeed;
 
@@ -24,9 +26,12 @@ public class LegBehaviour : MonoBehaviour {
 
     //Controlla se è a terra
     public bool IsOnGround() {
-        return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround + 0.1));
+        return Physics.Raycast(plant.position, -Vector3.up, (float)(distToGround + 0.1));
     }
-
+    
+    public void falling() {
+        transform.position += Vector3.down * fallingSpeed;
+    }
 
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "Player") {

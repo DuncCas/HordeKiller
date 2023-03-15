@@ -15,17 +15,18 @@ public class BossHandler : MonoBehaviour
 
     }
 
-    public bool IsComing;
+    public bool ComingAndLeaving;
 
     public GameLogic gameManager;
-    public PlayerHandling player;
+    public GameObject player;
 
-    BOSS_STATES state;
-    BOSS_STATES previousState;
+    public BOSS_STATES state;
+    public BOSS_STATES previousState;
 
     public float timeBeforeNextStomp;
     public float maxTimeBeforeNextStomp;
     public float timeShowShadow; //Prima quanti tot secondi mostri l'ombra del piede
+    public float offset;
 
     public float timeOnGround;
     public float maxTimeOnGround;
@@ -48,11 +49,6 @@ public class BossHandler : MonoBehaviour
     //Se vieni schiacciato muori*/
     #endregion
 
-    #region VAR ENEMY SPAWN
-    /* public float timeBetweenNewSpawns; //alcuni nemici partono da lui
-     public float maxTimeBeforeNewSpawns;
-     public GameObject enemyType;*/
-    #endregion
 
 
     // Start is called before the first frame update
@@ -61,6 +57,7 @@ public class BossHandler : MonoBehaviour
         state = BOSS_STATES.IDLE;
         previousState = BOSS_STATES.IDLE;
         timeBeforeNextStomp=0;
+        gameManager = GameLogic.instance;
     //timeBetweenNewSpawns = 0;
     //timeBeforeBossMoves=0;
 }
@@ -92,21 +89,24 @@ public class BossHandler : MonoBehaviour
     }
 
     private void Enter_LEAVING() {
-        //1OP QUANDO SE NE VA PIEDE
+        ComingAndLeaving = true;
+
+
     }
 
     private void Enter_GROUND() {
         //1OP QUANDO ARRIVA AD ESSERE NEL TERRENO
-        IsComing = false;
+        ComingAndLeaving = false;
         timeOnGround = 0;
     }
 
     private void Enter_ARRIVING() {
         //1OP QUANDO ARRIVA
+        transform.position += new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z );
     }
 
     private void Enter_IDLE() {
-        //1OP QUANDO IN IDLE
+        ComingAndLeaving = false;
         foot.SetActive(false);
     }
 
@@ -146,14 +146,14 @@ public class BossHandler : MonoBehaviour
             timeBeforeNextStomp+= Time.deltaTime;
             if (timeBeforeNextStomp > maxTimeBeforeNextStomp - timeShowShadow) {
                 //CODICE PER MOSTRARE OMBRA
-                IsComing = true;
+                ComingAndLeaving = true;
             }
         }
     }
 
     private void UPDATE_ARRIVING() {
         if (!foot.GetComponent<LegBehaviour>().IsOnGround()) {
-            foot.transform.position = Vector3.down * fallingSpeed;
+            foot.transform.position += Vector3.down * fallingSpeed;
         } else {
             ChangeState(BOSS_STATES.GROUND);
         }
