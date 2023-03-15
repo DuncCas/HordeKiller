@@ -60,14 +60,17 @@ public class EnemyBehaviour : MonoBehaviour
         gameObject.SetActive(false);
         EnemySpawner Spawner = player.GetComponent<EnemySpawner>();
         Spawner.Spawned--;
-        Vector3 newPosition = Spawner.GetNewPosition();
+        Vector3 newPosition = Spawner.newLocation();
         transform.position = newPosition;
         hp = Spawner.hp_Enemy;
         gameObject.SetActive(true);
     }
 
 
-
+    public void Squashed() {
+        OnDeath();
+        //codice per lasciare chiazza di nemico morto
+    }
 
 
 }

@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using HordeKiller;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
-{
+public class EnemySpawner : MonoBehaviour, ISpawnable {
     [SerializeField]
     private GameObject EnemyPrefab;
     public List<GameObject> EnemyOnSite; //List.findWithLambda? da cercare
@@ -18,15 +18,15 @@ public class EnemySpawner : MonoBehaviour
     void Awake()
     {
         Spawned = 0;
-        InitEnemies();
+        Spawn(new Vector3(0,0,0));
 
     }
 
-    private void InitEnemies() { //Questo per spawn iniziale nemici
+    public void Spawn(Vector3 pos) { //Questo per spawn iniziale nemici
         Debug.Log("InitEnemies");
         if (active) {
             while (Spawned < MaxSpawned) {
-                Vector3 newPosition = GetNewPosition();
+                Vector3 newPosition = newLocation();
                 GameObject enemy = Instantiate(EnemyPrefab, newPosition * DistanceOffset, transform.rotation);
                 //}
                 EnemyOnSite.Add(EnemyPrefab);
@@ -44,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
 
 
     //Questo serve per ottenere una nuova posizione dove far spawnare nemico mor
-    public Vector3 GetNewPosition() { 
+    public Vector3 newLocation() { 
 
         Vector3 newPosition = new Vector3(Random.Range(-5f, 5f), transform.position.y, Random.Range(-5f, 5f));
         Spawned++;
