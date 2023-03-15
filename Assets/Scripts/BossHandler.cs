@@ -14,6 +14,9 @@ public class BossHandler : MonoBehaviour
         LEAVING
 
     }
+
+    public bool IsComing;
+
     public GameLogic gameManager;
     public PlayerHandling player;
 
@@ -22,6 +25,7 @@ public class BossHandler : MonoBehaviour
 
     public float timeBeforeNextStomp;
     public float maxTimeBeforeNextStomp;
+    public float timeShowShadow; //Prima quanti tot secondi mostri l'ombra del piede
 
     public float timeOnGround;
     public float maxTimeOnGround;
@@ -93,6 +97,7 @@ public class BossHandler : MonoBehaviour
 
     private void Enter_GROUND() {
         //1OP QUANDO ARRIVA AD ESSERE NEL TERRENO
+        IsComing = false;
         timeOnGround = 0;
     }
 
@@ -105,17 +110,12 @@ public class BossHandler : MonoBehaviour
         foot.SetActive(false);
     }
 
-    /*private void Enter_SPAWNING() {
-        //OP PASSAGGIO A SPAWNING
-    }*/
+   
 
     private void Exit_IDLE() {
         //OP USCITA DA MOVING
     }
 
-    private void Exit_STOMPING() {
-        //OP USCITA DA SPAWNING
-    }
 
     #endregion
 
@@ -144,6 +144,10 @@ public class BossHandler : MonoBehaviour
             ChangeState(BOSS_STATES.ARRIVING);
         } else {
             timeBeforeNextStomp+= Time.deltaTime;
+            if (timeBeforeNextStomp > maxTimeBeforeNextStomp - timeShowShadow) {
+                //CODICE PER MOSTRARE OMBRA
+                IsComing = true;
+            }
         }
     }
 
@@ -173,8 +177,6 @@ public class BossHandler : MonoBehaviour
 
     private void Update_IDLE() {
         // RIMANE FERMO, MAGARI METTERE DEI EFFETTI TIPO CIOTTOLI CHE CADONO DALL'ALTO O QUALCOSA DEL GENERE
-
-
         timeBeforeNextStomp += Time.deltaTime;
         // QUANDO FINISCE TIMER STOMP => STOMP
         if (timeBeforeNextStomp >= maxTimeBeforeNextStomp) {
@@ -183,9 +185,7 @@ public class BossHandler : MonoBehaviour
         }
     }
 
-        private void Update_STOMPING() {
-
-        }
+ 
 
 
 

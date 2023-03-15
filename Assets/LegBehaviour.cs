@@ -27,13 +27,19 @@ public class LegBehaviour : MonoBehaviour {
         return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround + 0.1));
     }
 
-  
 
-    
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "Player") {
+            collision.gameObject.GetComponent<PlayerHandling>().Squashed();
+        } else if(collision.gameObject.tag== "Enemy") {
+            collision.gameObject.GetComponent<EnemyBehaviour>().Squashed();
+        }
+    }
+
 
 
     // Update is called once per frame
-    
 
-    
+
+
 }

@@ -67,7 +67,10 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
 
-
+    public void Squashed() {
+        OnDeath();
+        //codice per lasciare chiazza di nemico morto
+    }
 
 
 }
