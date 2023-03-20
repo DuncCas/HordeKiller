@@ -15,52 +15,38 @@ public class BossHandler : MonoBehaviour
 
     }
 
-    public bool ComingAndLeaving;
+    public Vector3 returnPos;
 
-    public GameLogic gameManager;
-    public GameObject player;
+    private GameObject player;
+
+    public Vector3 boxSize;
+    public float maxDistance;
+    public LayerMask layerMask;
 
     public BOSS_STATES state;
     public BOSS_STATES previousState;
 
-    public float timeBeforeNextStomp;
-    public float maxTimeBeforeNextStomp;
-    public float timeShowShadow; //Prima quanti tot secondi mostri l'ombra del piede
-    public float offset;
+    public float maxTimeBeforeStomp;
+    public float timeBeforeStomp;
 
-    public float timeOnGround;
-    public float maxTimeOnGround;
-
+    public float offset = 0.5f;
     public float fallingSpeed;
-    public float raisingSpeed;
 
-    public Transform spawnHeight;
+    public float maxTimeGround;
+    public float TimeGround;
 
-    public GameObject foot;
+    public float risingSpeed;
 
-    #region VAR MOVEMENT
-    /*public BossMovement movement;
-    public float movementSpeed = 1.5f;
-    public float damageOnTouch = 40f;
-    public float timeBeforeBossMoves;
-    public float maxtimeBeforeBossMoves;
-    public float movementDuration;
-    public float maxMovementDuration;
-    //Se vieni schiacciato muori*/
-    #endregion
 
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        state = BOSS_STATES.IDLE;
+        player = GameObject.FindGameObjectWithTag("Player");
+        ChangeState(BOSS_STATES.IDLE);
         previousState = BOSS_STATES.IDLE;
-        timeBeforeNextStomp=0;
-        gameManager = GameLogic.instance;
-    //timeBetweenNewSpawns = 0;
-    //timeBeforeBossMoves=0;
-}
+    }
 
     #region STATES
 
@@ -81,42 +67,33 @@ public class BossHandler : MonoBehaviour
                 case BOSS_STATES.LEAVING:
                     Enter_LEAVING();
                     break;
-                    /*case BOSS_STATES.SPAWNING:
-                        Enter_SPAWNING();
-                        break;*/
             }
         }
     }
-
-    private void Enter_LEAVING() {
-        ComingAndLeaving = true;
-
-
+   private void Enter_IDLE() {
+        timeBeforeStomp = 0;
+        leg.SetActive(false);
     }
 
+  private void Enter_ARRIVING() {
+        //1OP QUANDO ARRIVA
+      
+        leg.SetActive(true);
+        Vector3 newPosFoot = player.transform.position + Vector3.up * transform.position.y;
+        transform.position = newPosFoot;
+        returnPos = newPosFoot;
+        leg.transform.position = newPosFoot;
+
+    } 
+    
     private void Enter_GROUND() {
         //1OP QUANDO ARRIVA AD ESSERE NEL TERRENO
-        ComingAndLeaving = false;
-        timeOnGround = 0;
+        leg.transform.position = Vector3.up;
+        TimeGround = 0;
     }
+    private void Enter_LEAVING() {
 
-    private void Enter_ARRIVING() {
-        //1OP QUANDO ARRIVA
-        transform.position += new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z );
     }
-
-    private void Enter_IDLE() {
-        ComingAndLeaving = false;
-        foot.SetActive(false);
-    }
-
-   
-
-    private void Exit_IDLE() {
-        //OP USCITA DA MOVING
-    }
-
-
     #endregion
 
     #region UPDATES
@@ -140,53 +117,47 @@ public class BossHandler : MonoBehaviour
     }
 
     private void UPDATE_IDLE() {
-        if (timeBeforeNextStomp >= maxTimeBeforeNextStomp) {
+        timeBeforeStomp += Time.deltaTime;
+        if (timeBeforeStomp >= maxTimeBeforeStomp) {
             ChangeState(BOSS_STATES.ARRIVING);
-        } else {
-            timeBeforeNextStomp+= Time.deltaTime;
-            if (timeBeforeNextStomp > maxTimeBeforeNextStomp - timeShowShadow) {
-                //CODICE PER MOSTRARE OMBRA
-                ComingAndLeaving = true;
-            }
         }
     }
 
     private void UPDATE_ARRIVING() {
-        if (!foot.GetComponent<LegBehaviour>().IsOnGround()) {
-            foot.transform.position += Vector3.down * fallingSpeed;
-        } else {
+        leg.transform.position += Vector3.down * Time.deltaTime * fallingSpeed;
+        if (GroundCheck()) {
             ChangeState(BOSS_STATES.GROUND);
         }
     }
 
     private void UPDATE_GROUND() {
-        if (timeOnGround >= maxTimeOnGround) {
+        TimeGround += Time.deltaTime;
+        if (TimeGround >= maxTimeGround) {
             ChangeState(BOSS_STATES.LEAVING);
-        } else {
-            timeOnGround += Time.deltaTime;
         }
     }
 
     private void UPDATE_LEAVING() {
-        if (foot.transform.position == spawnHeight.position) {
+        leg.transform.position += Vector3.up * risingSpeed * Time.deltaTime;
+        if (leg.transform.position == returnPos) {
             ChangeState(BOSS_STATES.IDLE);
-        } else {
-            foot.transform.position += Vector3.up * raisingSpeed;
         }
     }
 
     private void Update_IDLE() {
         // RIMANE FERMO, MAGARI METTERE DEI EFFETTI TIPO CIOTTOLI CHE CADONO DALL'ALTO O QUALCOSA DEL GENERE
-        timeBeforeNextStomp += Time.deltaTime;
+
         // QUANDO FINISCE TIMER STOMP => STOMP
-        if (timeBeforeNextStomp >= maxTimeBeforeNextStomp) {
-            ChangeState(BOSS_STATES.ARRIVING);
-            return;
-        }
     }
 
- 
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(transform.position-transform.up*maxDistance, boxSize);
+    }
 
+    public bool GroundCheck() {
+            return Physics.BoxCast(leg.transform.position, boxSize, -transform.up, transform.rotation, maxDistance, layerMask);   
+    }
 
 
 
@@ -213,22 +184,3 @@ public class BossHandler : MonoBehaviour
 }*/
     #endregion
 }
-/*private void Update_MOVING() {
-    //MUOVE LE GAMBE DEL BOSS,
-    //movement.MoveTo(Vector3 Direction);
-    // SE FINISCE TEMPO DI MOVIMENTO => SE IL TIMER DELLO SPAWN HA FINITO => SPAWN /ELSE/ IDLE
-    --movementDuration;
-    if ((movementDuration <= 0)&&(movement.AllLegsOnGround())) {
-        if (timeBetweenNewSpawns >= maxTimeBeforeNewSpawns) {
-            ChangeState(BOSS_STATES.SPAWNING);
-        } else {
-            ChangeState(BOSS_STATES.IDLE);
-        }
-    }   
-}
-
-private void Update_SPAWNING() {
-    //OP DI SPAWN
-    //Spawn();
-    ChangeState(BOSS_STATES.IDLE);
-}*/
