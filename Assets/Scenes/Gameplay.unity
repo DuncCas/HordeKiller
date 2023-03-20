@@ -179,6 +179,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1368599914806495486, guid: 37cef2bc1449d0c43a586efcb19bc99e,
+        type: 3}
+      propertyPath: m_Mass
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368599914806495486, guid: 37cef2bc1449d0c43a586efcb19bc99e,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 122
+      objectReference: {fileID: 0}
     - target: {fileID: 4118772094897005822, guid: 37cef2bc1449d0c43a586efcb19bc99e,
         type: 3}
       propertyPath: m_RootOrder
@@ -803,6 +813,11 @@ PrefabInstance:
       propertyPath: RotationSmoothTime
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7287488041747845300, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
+      propertyPath: GroundLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 7287488041747845311, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
       propertyPath: m_Name
@@ -1081,7 +1096,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1438391232
 AudioSource:
   m_ObjectHideFlags: 0
