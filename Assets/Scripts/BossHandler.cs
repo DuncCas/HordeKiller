@@ -15,14 +15,11 @@ public class BossHandler : MonoBehaviour
 
     }
 
+    public float dmg;
 
     public Vector3 returnPos;
 
     private GameObject player;
-
-    public Vector3 boxSize;
-    public float maxDistance;
-    public LayerMask layerMask;
 
     public BOSS_STATES state;
     public BOSS_STATES previousState;
@@ -30,7 +27,6 @@ public class BossHandler : MonoBehaviour
     public float maxTimeBeforeStomp;
     public float timeBeforeStomp;
 
-    public float offset = 0.5f;
     public float fallingSpeed;
 
     public float maxTimeGround;
@@ -149,53 +145,26 @@ public class BossHandler : MonoBehaviour
             ChangeState(BOSS_STATES.IDLE);
         }
     }
-
-    private void Update_IDLE() {
-        // RIMANE FERMO, MAGARI METTERE DEI EFFETTI TIPO CIOTTOLI CHE CADONO DALL'ALTO O QUALCOSA DEL GENERE
-
-        // QUANDO FINISCE TIMER STOMP => STOMP
-    }
-
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawCube(transform.position-transform.up*maxDistance, boxSize);
-    }
+    #endregion
 
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.layer == 9) {
             OnGround = true;
-           
         }
-        if (collision.gameObject.tag == "Player") {
-            player.GetComponent<PlayerHandling>().Squashed();
+        if (collision.gameObject.tag == "Player"){
+            if (OnGround) {
+                player.GetComponent<PlayerHandling>().Squashed();
+            } else {
+                player.GetComponent<PlayerHandling>().ChangeLife(dmg, false);
+                //Creare funzione di cooldown;
+            }
         }
-        if (collision.gameObject.tag== "Enemy") {
-            collision.gameObject.GetComponent<EnemyBehaviour>().Squashed();
+        if (collision.gameObject.tag == "Enemy") {
+            if (!OnGround) {
+                collision.gameObject.GetComponent<EnemyBehaviour>().Squashed();
+            } else {
+                collision.gameObject.GetComponent<EnemyBehaviour>().GetDamaged(dmg);
+            }
+        }
         }
     }
-
-
-
-
-
-
-
-
-    /*timeBetweenNewSpawns += Time.deltaTime;
-    // QUANDO FINISCE TIMER SPAWN => SPAWNING
-    if (timeBetweenNewSpawns >= maxTimeBeforeNewSpawns) { 
-        ChangeState(BOSS_STATES.SPAWNING);
-        return;
-    }
-    // SE GIOCATORE OTTIENE TUTTI PEZZI ARMATURA => ENDFIRSTPHASE
-
-    // if (gameManager.status== ENDFIRSTPHASE){
-    //  ChangeState(BOSS_STATES.ENDFIRSTPHASE)
-    //  }
-
-    // SE MUORE GIOCATORE => ENDGAME
-
-
-}*/
-    #endregion
-}
