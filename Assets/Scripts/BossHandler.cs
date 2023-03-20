@@ -15,6 +15,7 @@ public class BossHandler : MonoBehaviour
 
     }
 
+
     public Vector3 returnPos;
 
     private GameObject player;
@@ -37,6 +38,7 @@ public class BossHandler : MonoBehaviour
 
     public float risingSpeed;
 
+    public bool OnGround;
 
 
 
@@ -71,28 +73,31 @@ public class BossHandler : MonoBehaviour
         }
     }
    private void Enter_IDLE() {
-        timeBeforeStomp = 0;
-        leg.SetActive(false);
+        if (player) {
+            timeBeforeStomp = 0;
+        } else {
+            gameObject.SetActive(false);
+        }
+
     }
 
   private void Enter_ARRIVING() {
         //1OP QUANDO ARRIVA
       
-        leg.SetActive(true);
+    
         Vector3 newPosFoot = player.transform.position + Vector3.up * transform.position.y;
         transform.position = newPosFoot;
         returnPos = newPosFoot;
-        leg.transform.position = newPosFoot;
+
 
     } 
     
     private void Enter_GROUND() {
         //1OP QUANDO ARRIVA AD ESSERE NEL TERRENO
-        leg.transform.position = Vector3.up;
         TimeGround = 0;
     }
     private void Enter_LEAVING() {
-
+        OnGround = false;
     }
     #endregion
 
@@ -124,9 +129,10 @@ public class BossHandler : MonoBehaviour
     }
 
     private void UPDATE_ARRIVING() {
-        leg.transform.position += Vector3.down * Time.deltaTime * fallingSpeed;
-        if (GroundCheck()) {
+        transform.position += Vector3.down * Time.deltaTime * fallingSpeed;
+        if (OnGround) {
             ChangeState(BOSS_STATES.GROUND);
+            
         }
     }
 
@@ -138,8 +144,8 @@ public class BossHandler : MonoBehaviour
     }
 
     private void UPDATE_LEAVING() {
-        leg.transform.position += Vector3.up * risingSpeed * Time.deltaTime;
-        if (leg.transform.position == returnPos) {
+        transform.position += Vector3.up * risingSpeed * Time.deltaTime;
+        if (transform.position.y >= returnPos.y) {
             ChangeState(BOSS_STATES.IDLE);
         }
     }
@@ -155,8 +161,17 @@ public class BossHandler : MonoBehaviour
         Gizmos.DrawCube(transform.position-transform.up*maxDistance, boxSize);
     }
 
-    public bool GroundCheck() {
-            return Physics.BoxCast(leg.transform.position, boxSize, -transform.up, transform.rotation, maxDistance, layerMask);   
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.layer == 9) {
+            OnGround = true;
+           
+        }
+        if (collision.gameObject.tag == "Player") {
+            player.GetComponent<PlayerHandling>().Squashed();
+        }
+        if (collision.gameObject.tag== "Enemy") {
+            collision.gameObject.GetComponent<EnemyBehaviour>().Squashed();
+        }
     }
 
 
