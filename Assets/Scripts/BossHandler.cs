@@ -15,6 +15,8 @@ public class BossHandler : MonoBehaviour
 
     }
 
+
+    //public GameObject footShadow;
     public float dmg;
 
     public Vector3 returnPos;
@@ -39,11 +41,13 @@ public class BossHandler : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         ChangeState(BOSS_STATES.IDLE);
         previousState = BOSS_STATES.IDLE;
+        //Instantiate(footShadow, new Vector3(transform.position.x, 0, transform.position.z), transform.rotation);
+        //footShadow.SetActive(false);
     }
 
     #region STATES
@@ -79,8 +83,8 @@ public class BossHandler : MonoBehaviour
 
   private void Enter_ARRIVING() {
         //1OP QUANDO ARRIVA
-      
-    
+        //footShadow.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        //footShadow.SetActive(true);
         Vector3 newPosFoot = player.transform.position + Vector3.up * transform.position.y;
         transform.position = newPosFoot;
         returnPos = newPosFoot;
@@ -90,6 +94,8 @@ public class BossHandler : MonoBehaviour
     
     private void Enter_GROUND() {
         //1OP QUANDO ARRIVA AD ESSERE NEL TERRENO
+        //footShadow.SetActive(false);
+        
         TimeGround = 0;
     }
     private void Enter_LEAVING() {

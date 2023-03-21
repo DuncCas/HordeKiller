@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour, ISpawnable {
     [SerializeField]
+    //public List<Enemy> enemyTypes;
     private GameObject EnemyPrefab;
     public List<GameObject> EnemyOnSite; //List.findWithLambda? da cercare
     public float DistanceOffset;

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
 {
+    //public Enemy en;
+
     public float cooldown = 3f; //seconds
     private float lastAttackedAt = -9999f; // val di init?
     public float hp;
