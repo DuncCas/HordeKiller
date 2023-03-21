@@ -103,6 +103,12 @@ public class PlayerHandling : MonoBehaviour
         }
     }
 
+
+    public void Squashed() {
+        //CODICE NEL CASO VENGO SCHIACCIATO: MUOIO
+        gameObject.SetActive(false);
+        //GAME OVER
+    }
    
 
 

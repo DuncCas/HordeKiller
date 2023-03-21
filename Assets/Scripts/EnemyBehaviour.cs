@@ -40,10 +40,18 @@ public class EnemyBehaviour : MonoBehaviour
 
 
 
+    public bool Cooldown() {
+        if (Time.time > lastAttackedAt + cooldown) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void OnTriggerStay(Collider Coll) {     
         if(Coll.gameObject.tag == "Player") {
             player.GetComponent<PlayerHandling>().ChangeLife(damage, false);
-            if (Time.time > lastAttackedAt + cooldown) {
+            if (Cooldown()) {
                 //do the attack
                 lastAttackedAt = Time.time;
             }
@@ -67,7 +75,10 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
 
-
+    public void Squashed() {
+        OnDeath();
+        //codice per lasciare chiazza di nemico morto
+    }
 
 
 }

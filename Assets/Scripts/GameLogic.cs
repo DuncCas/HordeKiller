@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class GameLogic : MonoBehaviour {
     public GameObject Civilian;
-
+    public static GameLogic instance;
     // Start is called before the first frame update
+
+
+    private void Awake() {
+        instance = this;
+        
+    }
     void Start() {
         Instantiate(Civilian, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(Random.Range(-50f, 50f), 0, Random.Range(-50f, 50f)), transform.rotation);
     }
