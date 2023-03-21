@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour, IDamageable
+public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
 {
     public float cooldown = 3f; //seconds
-    private float lastAttackedAt = -9999f;
-    private float hp;
+    private float lastAttackedAt = -9999f; // val di init?
+    public float hp;
     public float damage;
     public GameObject player;
     public GameObject exp;
@@ -41,21 +41,19 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
 
 
 
-    public bool Cooldown() {
-        if (Time.time > lastAttackedAt + cooldown) {
+    public bool Cooldown(float lastAttTime, float cooldwnDuration) {
+        if (Time.time > lastAttTime + cooldwnDuration) {
             return true;
         } else {
             return false;
         }
     }
 
+    //DA RIFARE IL COOLDOWN NON FUNZIA COME VORREI
+
     public void OnTriggerStay(Collider Coll) {     
         if(Coll.gameObject.tag == "Player") {
-            player.GetComponent<PlayerHandling>().ChangeHealth(damage, false);
-            if (Cooldown()) {
-                //do the attack
-                lastAttackedAt = Time.time;
-            }
+            Attack(Coll.gameObject);     
         }
     }
 
@@ -86,5 +84,12 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
 
     public void OnHit() {
         //Effetti di quando muore enemy
+    }
+
+    public void Attack(GameObject target) {
+        if (Cooldown(lastAttackedAt, cooldown)) {
+            target.GetComponent<PlayerHandling>().ChangeHealth(damage, false);
+            lastAttackedAt = Time.time;
+        }
     }
 }

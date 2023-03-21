@@ -119,8 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31313a296c998f34ea88f8d4e3380485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 3
-  damage: 2
+  cooldown: 1
+  hp: 10
+  damage: 10
   player: {fileID: 6372110915934474332, guid: e76ab33db20eeb244822504ff1f176eb, type: 3}
   exp: {fileID: 4243572546119145831, guid: 3c2422c2094ef874e948e13eb7f70556, type: 3}
 --- !u!195 &3881674689056487708
