@@ -152,7 +152,7 @@ public class BossHandler : MonoBehaviour
             OnGround = true;
         }
         if (collision.gameObject.tag == "Player"){
-            if (OnGround) {
+            if (!OnGround) {
                 player.GetComponent<PlayerHandling>().Squashed();
             } else {
                 player.GetComponent<PlayerHandling>().ChangeLife(dmg, false);
