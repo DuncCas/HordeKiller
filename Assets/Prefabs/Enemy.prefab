@@ -119,12 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31313a296c998f34ea88f8d4e3380485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 3
-  hp: 4
-  damage: 2
+  cooldown: 1
+  hp: 10
+  damage: 10
   player: {fileID: 6372110915934474332, guid: e76ab33db20eeb244822504ff1f176eb, type: 3}
   exp: {fileID: 4243572546119145831, guid: 3c2422c2094ef874e948e13eb7f70556, type: 3}
-  spawner: {fileID: 6372110915934474327, guid: e76ab33db20eeb244822504ff1f176eb, type: 3}
 --- !u!195 &3881674689056487708
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -160,7 +159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 3881674689056487708}
-  Player: {fileID: 7956043529811773957, guid: e76ab33db20eeb244822504ff1f176eb, type: 3}
 --- !u!223 &4473201978460853958
 Canvas:
   m_ObjectHideFlags: 0

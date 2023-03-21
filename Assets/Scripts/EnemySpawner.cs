@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour, ISpawnable {
             while (Spawned < MaxSpawned) {
                 Vector3 newPosition = newLocation();
                 GameObject enemy = Instantiate(EnemyPrefab, newPosition * DistanceOffset, transform.rotation);
-                //}
+                
                 EnemyOnSite.Add(EnemyPrefab);
                 Debug.Log("Spawned");
             }
@@ -49,19 +49,7 @@ public class EnemySpawner : MonoBehaviour, ISpawnable {
         Vector3 newPosition = new Vector3(Random.Range(-5f, 5f), transform.position.y, Random.Range(-5f, 5f));
         Spawned++;
         return newPosition;
-        /*Collider[] intersecting = Physics.OverlapSphere(newPosition, 0.01f);
-        if (intersecting.Length != 0) {
-            SpawnEnemy();        
-        }*/
     }
 
-    /*public void OnDeathEnemy(GameObject Enemy) {
-        if (Enemy) {
-            Debug.Log("Enemy dead, relocating");
-            Spawned--;
-            GameObject ToRelocate = EnemyOnSite.Find(e => e==Enemy);
-            SpawnEnemy(ToRelocate);
-        }
-    }*/
 
 }

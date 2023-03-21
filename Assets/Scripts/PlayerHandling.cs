@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHandling : MonoBehaviour
+public class PlayerHandling : MonoBehaviour, IDamageable
 {
     [Tooltip("Change player starting health")]
     public Experience_bar ExpBar;
@@ -68,7 +68,8 @@ public class PlayerHandling : MonoBehaviour
     }
 
 
-    public void ChangeLife(float tot, bool gained) {
+    public void ChangeHealth(float tot, bool gained) {
+        OnHit();
         if (gained) {
             hp += tot;
             if (hp> Maxhp) {
@@ -99,17 +100,23 @@ public class PlayerHandling : MonoBehaviour
             MaxExp = MaxExp * lvl;
             Maxhp = Maxhp * lvl;
             ExpBar.SetMaxExp(MaxExp);
-            ChangeLife((Maxhp * 0.3f), true);
+            ChangeHealth((Maxhp * 0.3f), true);
         }
     }
 
 
     public void Squashed() {
         //CODICE NEL CASO VENGO SCHIACCIATO: MUOIO
-        gameObject.SetActive(false);
+        Death();
         //GAME OVER
     }
-   
 
 
+    public void Death() {
+        gameObject.SetActive(false);
+    }
+
+    public void OnHit() {
+        //insieme di feedback che mostrano che sono stato colpito, in questo caso la barra della vita che appare
+    }
 }

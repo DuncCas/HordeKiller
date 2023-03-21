@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
 {
     public float cooldown = 3f; //seconds
-    private float lastAttackedAt = -9999f;
-    private float hp;
+    private float lastAttackedAt = -9999f; // val di init?
+    public float hp;
     public float damage;
     public GameObject player;
     public GameObject exp;
@@ -25,32 +25,39 @@ public class EnemyBehaviour : MonoBehaviour
         
     }
 
-    public void GetDamaged(float dmg) {
+    public void ChangeHealth(float dmg, bool gained) {
                 hp -= dmg;
                 if (hp <= 0) {
-                OnDeath();
+                Death();
                 }
             }
 
+
     public void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Projectyle") {
-            GetDamaged(player.GetComponent<PlayerHandling>().damage);
+            ChangeHealth(player.GetComponent<PlayerHandling>().damage, false);
         }
     }
 
 
+
+    public bool Cooldown(float lastAttTime, float cooldwnDuration) {
+        if (Time.time > lastAttTime + cooldwnDuration) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //DA RIFARE IL COOLDOWN NON FUNZIA COME VORREI
 
     public void OnTriggerStay(Collider Coll) {     
         if(Coll.gameObject.tag == "Player") {
-            player.GetComponent<PlayerHandling>().ChangeLife(damage, false);
-            if (Time.time > lastAttackedAt + cooldown) {
-                //do the attack
-                lastAttackedAt = Time.time;
-            }
+            Attack(Coll.gameObject);     
         }
     }
 
-    public void OnDeath() {
+    public void Death() {
         hp = 0;
         //Drop exp al 50%
         if (Random.Range(0, 3) < 2) {
@@ -68,9 +75,21 @@ public class EnemyBehaviour : MonoBehaviour
 
 
     public void Squashed() {
-        OnDeath();
+        Death();
         //codice per lasciare chiazza di nemico morto
     }
 
+ 
 
+
+    public void OnHit() {
+        //Effetti di quando muore enemy
+    }
+
+    public void Attack(GameObject target) {
+        if (Cooldown(lastAttackedAt, cooldown)) {
+            target.GetComponent<PlayerHandling>().ChangeHealth(damage, false);
+            lastAttackedAt = Time.time;
+        }
+    }
 }
