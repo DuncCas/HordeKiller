@@ -155,7 +155,7 @@ public class BossHandler : MonoBehaviour
             if (!OnGround) {
                 player.GetComponent<PlayerHandling>().Squashed();
             } else {
-                player.GetComponent<PlayerHandling>().ChangeLife(dmg, false);
+                player.GetComponent<PlayerHandling>().ChangeHealth(dmg, false);
                 //Creare funzione di cooldown;
             }
         }
@@ -163,7 +163,7 @@ public class BossHandler : MonoBehaviour
             if (!OnGround) {
                 collision.gameObject.GetComponent<EnemyBehaviour>().Squashed();
             } else {
-                collision.gameObject.GetComponent<EnemyBehaviour>().GetDamaged(dmg);
+                collision.gameObject.GetComponent<EnemyBehaviour>().ChangeHealth(dmg, false);
             }
         }
         }
