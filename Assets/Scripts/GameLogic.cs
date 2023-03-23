@@ -67,11 +67,11 @@ public class GameLogic : MonoBehaviour {
     }
 
     private void GameEnd() {
-
+        //mostrare schermata di uscita o whatev
     }
 
-    private void Death() {
-
+    public void Death() {
+        ChangeState(GameState.DEATH);
     }
 
 
@@ -96,6 +96,7 @@ public class GameLogic : MonoBehaviour {
 
     private void Enter_DEATH() {
         //Morte
+        ChangeState(GameState.END);
     }
 
     private void Enter_END() {
@@ -103,49 +104,6 @@ public class GameLogic : MonoBehaviour {
     }
 
 
-    // Update is called once per frame
-    /* void Update() {
-        switch (state) {
-            case GameState.START:
-                UPDATE_START();
-                break;
-            case GameState.PHASE1:
-                UPDATE_PHASE1();
-                break;
-            case GameState.PHASE2:
-                UPDATE_PHASE2();
-                break;
-            case GameState.VICTORY:
-                UPDATE_VICTORY();
-                break;
-            case GameState.DEATH:
-                UPDATE_DEATH();
-                break;
-            case GameState.END:
-                Enter_END();
-                break;
-        }
-    }
-
-    private void UPDATE_START() {
-        //
-    }
-
-    private void UPDATE_PHASE1() {
-        //
-    }
-
-    private void UPDATE_PHASE2() {
-        //
-    }
-
-    private void UPDATE_VICTORY() {
-        //
-    }
-
-    private void UPDATE_DEATH() {
-       //
-    }*/
 
     
 }

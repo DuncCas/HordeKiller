@@ -107,6 +107,8 @@ public class PlayerHandling : MonoBehaviour, IDamageable
             hp -= tot;
             if (hp <= 0) {
                 hp = 0;
+                Death();
+                GameLogic.instance.Death();
             }
         }
     }
