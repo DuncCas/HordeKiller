@@ -403,7 +403,7 @@ MonoBehaviour:
   bulletSpeed: 10
   fireRate: 3
   ArmorPieces: 0
-  amountToPool: 2
+  amountToPool: 8
 --- !u!114 &6372110915934474327
 MonoBehaviour:
   m_ObjectHideFlags: 0
