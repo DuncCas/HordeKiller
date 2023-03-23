@@ -15,11 +15,11 @@ public class BossHandler : MonoBehaviour
 
     }
 
-
+    public Boss data;
 
 
     public ShadowFollow footShadow; //RECUPERO L'OMBRA
-    public float dmg;
+    //public float dmg;
 
     public Vector3 returnPos;
 
@@ -28,15 +28,15 @@ public class BossHandler : MonoBehaviour
     public BOSS_STATES state;
     public BOSS_STATES previousState;
 
-    public float maxTimeBeforeStomp;
+    //public float maxTimeBeforeStomp;
     public float timeBeforeStomp;
 
-    public float fallingSpeed;
+    //public float fallingSpeed;
 
-    public float maxTimeGround;
+    //public float maxTimeGround;
     public float TimeGround;
 
-    public float risingSpeed;
+    //public float risingSpeed;
 
     public bool OnGround;
 
@@ -125,13 +125,13 @@ public class BossHandler : MonoBehaviour
 
     private void UPDATE_IDLE() {
         timeBeforeStomp += Time.deltaTime;
-        if (timeBeforeStomp >= maxTimeBeforeStomp) {
+        if (timeBeforeStomp >= data.maxTimeBeforeStomp) {
             ChangeState(BOSS_STATES.ARRIVING);
         }
     }
 
     private void UPDATE_ARRIVING() {
-        transform.position += Vector3.down * Time.deltaTime * fallingSpeed;
+        transform.position += Vector3.down * Time.deltaTime * data.fallingSpeed;
         if (OnGround) {
             ChangeState(BOSS_STATES.GROUND);
             
@@ -140,13 +140,13 @@ public class BossHandler : MonoBehaviour
 
     private void UPDATE_GROUND() {
         TimeGround += Time.deltaTime;
-        if (TimeGround >= maxTimeGround) {
+        if (TimeGround >= data.maxTimeGround) {
             ChangeState(BOSS_STATES.LEAVING);
         }
     }
 
     private void UPDATE_LEAVING() {
-        transform.position += Vector3.up * risingSpeed * Time.deltaTime;
+        transform.position += Vector3.up * data.risingSpeed * Time.deltaTime;
         if (transform.position.y >= returnPos.y) {
             ChangeState(BOSS_STATES.IDLE);
         }
@@ -161,7 +161,7 @@ public class BossHandler : MonoBehaviour
             if (!OnGround) {
                 player.GetComponent<PlayerHandling>().Squashed();
             } else {
-                player.GetComponent<PlayerHandling>().ChangeHealth(dmg, false);
+                player.GetComponent<PlayerHandling>().ChangeHealth(data.dmg, false);
                 //Creare funzione di cooldown;
             }
         }
@@ -169,7 +169,7 @@ public class BossHandler : MonoBehaviour
             if (!OnGround) {
                 collision.gameObject.GetComponent<EnemyBehaviour>().Squashed();
             } else {
-                collision.gameObject.GetComponent<EnemyBehaviour>().ChangeHealth(dmg, false);
+                collision.gameObject.GetComponent<EnemyBehaviour>().ChangeHealth(data.dmg, false);
             }
         }
         }

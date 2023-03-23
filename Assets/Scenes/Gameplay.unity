@@ -175,7 +175,9 @@ MonoBehaviour:
   civilian: {fileID: 4581649949438616017, guid: 4b9239c731eb5f444a66d52f6827b7df,
     type: 3}
   bossHeight: 40
-  boss: {fileID: 7044115592218857779, guid: 37cef2bc1449d0c43a586efcb19bc99e, type: 3}
+  boss: {fileID: 11400000, guid: 84fb204e33352e24aacf42ed6fee0418, type: 2}
+  bossPref: {fileID: 7044115592218857779, guid: 37cef2bc1449d0c43a586efcb19bc99e,
+    type: 3}
 --- !u!114 &473029921 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5504078591957880802, guid: 51cb705d538fcf24ab78226113dbeacf,

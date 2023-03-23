@@ -16,7 +16,8 @@ public class GameLogic : MonoBehaviour {
     public GameState previousState;
     public GameObject civilian;
     public float bossHeight;
-    public GameObject boss;
+    public Boss boss;
+    public GameObject bossPref;
     public static GameLogic instance;
 
 
@@ -31,8 +32,10 @@ public class GameLogic : MonoBehaviour {
     }
     void Start() {
 
+        
         Instantiate(civilian, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(Random.Range(-50f, 50f), 0, Random.Range(-50f, 50f)), transform.rotation);
-        Instantiate(boss, GameObject.FindGameObjectWithTag("Player").transform.position + Vector3.up * bossHeight, transform.rotation);
+        Instantiate(bossPref, GameObject.FindGameObjectWithTag("Player").transform.position + Vector3.up * bossHeight, transform.rotation);
+        bossPref.GetComponent<BossHandler>().data = boss;
     }
 
 
