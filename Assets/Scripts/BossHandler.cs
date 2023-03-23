@@ -83,11 +83,11 @@ public class BossHandler : MonoBehaviour
     }
 
   private void Enter_ARRIVING() {
-        //1OP QUANDO ARRIVA
-        footShadow.activate = true;
+        //1OP QUANDO ARRIVA      
         Vector3 newPosFoot = player.transform.position + Vector3.up * transform.position.y;
         transform.position = newPosFoot;
         returnPos = newPosFoot;
+        footShadow.Move();
 
 
     } 
@@ -96,6 +96,7 @@ public class BossHandler : MonoBehaviour
         //1OP QUANDO ARRIVA AD ESSERE NEL TERRENO
         footShadow.activate = false;
         TimeGround = 0;
+        footShadow.Hide();
     }
     private void Enter_LEAVING() {
         OnGround = false;

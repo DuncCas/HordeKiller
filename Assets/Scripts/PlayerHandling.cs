@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class PlayerHandling : MonoBehaviour, IDamageable
     public int exp;
     public int MaxExp = 1;
     public Projectile bullet;
+    public List<Projectile> _projectilePool;
     public Transform bulletSpawn;
     public float bulletSpeed =10f;
     public float fireRate;
@@ -22,6 +24,7 @@ public class PlayerHandling : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
+        _projectilePool = new List<Projectile>();
         hp = Maxhp * lvl;
         exp = 0;
         ExpBar.SetMaxExp(MaxExp);
@@ -58,11 +61,18 @@ public class PlayerHandling : MonoBehaviour, IDamageable
         }
     }
 
+
     void Fire() {
         Debug.Log("Shooting " + target.name);
         Vector3 direction = target.transform.position - transform.position;
+        Projectile tmpbullet = bullet;
         //link to spawned arrow, you dont need it, if the arrow has own moving script
-        Projectile tmpbullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
+        if (_projectilePool.Count == 0) {
+            tmpbullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
+        } else {
+            tmpbullet = _projectilePool[0];
+            _projectilePool.Remove(tmpbullet);
+        }
         tmpbullet.transform.right = direction;
         tmpbullet.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
     }

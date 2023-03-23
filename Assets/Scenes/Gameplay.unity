@@ -697,6 +697,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
+      propertyPath: enemyTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
+      propertyPath: enemyTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f6ed1e79b6a6764b923808bd55cca76,
+        type: 2}
     - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
       propertyPath: ExpBar

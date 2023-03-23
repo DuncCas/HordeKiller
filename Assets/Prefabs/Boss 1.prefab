@@ -153,6 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97472516edc8467439d4178744505de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activate: 0
-  shadow: {fileID: 4241410512788797487, guid: a651fbe7291de204d9312f9bd0a1ba2f, type: 3}
+  Shadow: {fileID: 4241410512788797487, guid: a651fbe7291de204d9312f9bd0a1ba2f, type: 3}
   foot: {fileID: 4118772094897005822}
+  activate: 0
