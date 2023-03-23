@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
-    private float Lifetime = 4f;
+    private int Lifetime = 4;
     //public Material baseMat;
     public PlayerHandling pltmp;
     // Start is called before the first frame update
@@ -13,8 +13,18 @@ public class Projectile : MonoBehaviour
 
     void Start()
     {
+        pltmp=GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandling>();
+        //StartCoroutine(DestroyOverLifetime(Lifetime));
+    }
+
+    private void OnEnable() {
         StartCoroutine(DestroyOverLifetime(Lifetime));
     }
+
+    private void OnDisable() {
+        StopCoroutine(DestroyOverLifetime(Lifetime));
+    }
+
 
     // Update is called once per frame
 
@@ -26,14 +36,12 @@ public class Projectile : MonoBehaviour
     public void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag != "Player") {
             gameObject.SetActive(false);
-            pltmp._projectilePool.Add(this);
         }
     }
 
-    private IEnumerator DestroyOverLifetime(float lifetime) {
+ IEnumerator DestroyOverLifetime(int lifetime) {
         yield return new WaitForSeconds(lifetime);
         gameObject.SetActive(false);
-        pltmp._projectilePool.Add(this);
     }
 }
 

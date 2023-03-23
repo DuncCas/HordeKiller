@@ -14,21 +14,37 @@ public class PlayerHandling : MonoBehaviour, IDamageable
     public int lvl = 1;
     public int exp;
     public int MaxExp = 1;
-    public Projectile bullet;
-    public List<Projectile> _projectilePool;
+    public GameObject bullet;
+    public List<GameObject> pooledObjects;
     public Transform bulletSpawn;
     public float bulletSpeed =10f;
     public float fireRate;
     private float nextFire;
     public byte ArmorPieces;
+    public int amountToPool;
     // Start is called before the first frame update
     void Start()
     {
-        _projectilePool = new List<Projectile>();
+        pooledObjects = new List<GameObject>();
+        GameObject tmp;
+        for (int i = 0; i < amountToPool; i++) {
+            tmp = Instantiate(bullet);
+            tmp.SetActive(false);
+            pooledObjects.Add(tmp);
+        }
         hp = Maxhp * lvl;
         exp = 0;
         ExpBar.SetMaxExp(MaxExp);
         ArmorPieces = 0;
+    }
+
+    public GameObject GetPooledObject() {
+        for (int i = 0; i < amountToPool; i++) {
+            if (!pooledObjects[i].activeInHierarchy) {
+                return pooledObjects[i];
+            }
+        }
+        return null;
     }
 
     public void IncreaseArmor() {
@@ -65,16 +81,18 @@ public class PlayerHandling : MonoBehaviour, IDamageable
     void Fire() {
         Debug.Log("Shooting " + target.name);
         Vector3 direction = target.transform.position - transform.position;
-        Projectile tmpbullet = bullet;
+        GameObject bullet = GetPooledObject();
         //link to spawned arrow, you dont need it, if the arrow has own moving script
-        if (_projectilePool.Count == 0) {
-            tmpbullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
+        if (bullet != null) {
+            Debug.Log("Creating bullet");
+            bullet.SetActive(true);
+            bullet.transform.position = bulletSpawn.position;
+            bullet.transform.right = direction;
+            bullet.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
         } else {
-            tmpbullet = _projectilePool[0];
-            _projectilePool.Remove(tmpbullet);
+            Debug.Log("no bullets");
         }
-        tmpbullet.transform.right = direction;
-        tmpbullet.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
+        
     }
 
 

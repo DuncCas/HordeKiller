@@ -397,11 +397,13 @@ MonoBehaviour:
   lvl: 1
   exp: 0
   MaxExp: 1
-  bullet: {fileID: 8142190802647146565, guid: f573ebd416c76484dbabeeabf2f47657, type: 3}
+  bullet: {fileID: 8142190802647146564, guid: f573ebd416c76484dbabeeabf2f47657, type: 3}
+  pooledObjects: []
   bulletSpawn: {fileID: 6372110915931106350}
   bulletSpeed: 10
   fireRate: 3
   ArmorPieces: 0
+  amountToPool: 2
 --- !u!114 &6372110915934474327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,6 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394e17a052704fe4389b01d8acb9e845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyTypes: []
   EnemyPrefab: {fileID: 3881674689056487906, guid: 1e090eff72b91264b85194559d41a650,
     type: 3}
   EnemyOnSite: []
