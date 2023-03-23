@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1368599914806495486}
   - component: {fileID: 249268846963864192}
   - component: {fileID: 559422259468192022}
+  - component: {fileID: 2770993427419912672}
   m_Layer: 10
   m_Name: Boss 1
   m_TagString: Boss
@@ -128,8 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75934e9e3c25ac94ea3dc9cc952bf1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footShadow: {fileID: 3237942257957098591, guid: c9b7d15de366c874b98caead660fff59,
-    type: 3}
+  footShadow: {fileID: 2770993427419912672}
   dmg: 0
   returnPos: {x: 0, y: 0, z: 0}
   state: 0
@@ -141,3 +141,18 @@ MonoBehaviour:
   TimeGround: 0
   risingSpeed: 4
   OnGround: 0
+--- !u!114 &2770993427419912672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7044115592218857779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97472516edc8467439d4178744505de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activate: 0
+  shadow: {fileID: 4241410512788797487, guid: a651fbe7291de204d9312f9bd0a1ba2f, type: 3}
+  foot: {fileID: 4118772094897005822}

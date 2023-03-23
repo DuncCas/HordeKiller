@@ -170,6 +170,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7114eab066f2d3e4b9ed4bca40c31b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
+  previousState: 0
   civilian: {fileID: 4581649949438616017, guid: 4b9239c731eb5f444a66d52f6827b7df,
     type: 3}
   bossHeight: 40
@@ -993,7 +995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1438391232
 AudioSource:
   m_ObjectHideFlags: 0
