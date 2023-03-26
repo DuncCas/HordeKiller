@@ -16,20 +16,14 @@ public class PlayerHandling : MonoBehaviour
     public Projectile bullet;
     public Transform bulletSpawn;
     public float bulletSpeed =10f;
-    public float fireRate;
-    private float nextFire;
-    public byte ArmorPieces;
+    public float fireRate = 2f;
+    private float nextFire = 0f;
     // Start is called before the first frame update
     void Start()
     {
         hp = Maxhp * lvl;
         exp = 0;
         ExpBar.SetMaxExp(MaxExp);
-        ArmorPieces = 0;
-    }
-
-    public void IncreaseArmor() {
-        ArmorPieces++;
     }
 
     public float GetDamage() {
@@ -103,13 +97,8 @@ public class PlayerHandling : MonoBehaviour
         }
     }
 
-
-    public void Squashed() {
-        //CODICE NEL CASO VENGO SCHIACCIATO: MUOIO
-        gameObject.SetActive(false);
-        //GAME OVER
-    }
-   
+    public void Squashed() { }
+    public void IncreaseArmor() { }
 
 
 }
