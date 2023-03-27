@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerHandling : MonoBehaviour, IDamageable
+public class PlayerHandling : MonoBehaviour
 {
     [Tooltip("Change player starting health")]
     public Experience_bar ExpBar;
@@ -11,25 +13,26 @@ public class PlayerHandling : MonoBehaviour, IDamageable
     public float damage=3f;
     public float hp;
     public int lvl = 1;
-    public int exp;
-    public int MaxExp = 1;
+    public float exp;
+    public float MaxExp = 1;
     public Projectile bullet;
     public Transform bulletSpawn;
     public float bulletSpeed =10f;
-    public float fireRate;
-    private float nextFire;
-    public byte ArmorPieces;
+    public float fireRate = 2f;
+    private float nextFire = 0f;
+
+    public TextMeshProUGUI armorText;
+    private int armor = 0;
+    public Experience_bar expBar;
+    private float valueIncreaseExp = 0.3f;
+    
+
     // Start is called before the first frame update
     void Start()
     {
         hp = Maxhp * lvl;
         exp = 0;
-        ExpBar.SetMaxExp(MaxExp);
-        ArmorPieces = 0;
-    }
-
-    public void IncreaseArmor() {
-        ArmorPieces++;
+        ExpBar.SetMaxExp();
     }
 
     public float GetDamage() {
@@ -68,8 +71,7 @@ public class PlayerHandling : MonoBehaviour, IDamageable
     }
 
 
-    public void ChangeHealth(float tot, bool gained) {
-        OnHit();
+    public void ChangeLife(float tot, bool gained) {
         if (gained) {
             hp += tot;
             if (hp> Maxhp) {
@@ -84,7 +86,7 @@ public class PlayerHandling : MonoBehaviour, IDamageable
     }
 
     public void IncreaseExp() {
-        exp++;
+        exp += valueIncreaseExp;
         ExpBar.SetExp(exp);
         if (exp >= MaxExp) {
             lvlUp();
@@ -94,29 +96,22 @@ public class PlayerHandling : MonoBehaviour, IDamageable
 
 
     public void lvlUp() {
-        if (exp == MaxExp) {
+        if (exp >= MaxExp) {
             lvl++;
             exp = 0;
-            MaxExp = MaxExp * lvl;
+            valueIncreaseExp = valueIncreaseExp / 2;
+            //MaxExp = MaxExp * lvl;
             Maxhp = Maxhp * lvl;
-            ExpBar.SetMaxExp(MaxExp);
-            ChangeHealth((Maxhp * 0.3f), true);
+            ExpBar.SetMaxExp();
+            ChangeLife((Maxhp * 0.3f), true);
         }
     }
 
-
-    public void Squashed() {
-        //CODICE NEL CASO VENGO SCHIACCIATO: MUOIO
-        Death();
-        //GAME OVER
+    public void Squashed() { }
+    public void IncreaseArmor() {
+        armor += 1;
+        armorText.text = armor.ToString();
     }
 
 
-    public void Death() {
-        gameObject.SetActive(false);
-    }
-
-    public void OnHit() {
-        //insieme di feedback che mostrano che sono stato colpito, in questo caso la barra della vita che appare
-    }
 }
