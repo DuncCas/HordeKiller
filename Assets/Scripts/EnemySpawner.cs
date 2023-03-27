@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour, ISpawnable {
     [SerializeField]
-    private GameObject EnemyPrefab;
+    public List<Enemy> enemyTypes;
+    public GameObject EnemyPrefab;
     public List<GameObject> EnemyOnSite; //List.findWithLambda? da cercare
     public float DistanceOffset;
     public long MaxSpawned;
@@ -25,14 +26,16 @@ public class EnemySpawner : MonoBehaviour, ISpawnable {
     public void Spawn(Vector3 pos) { //Questo per spawn iniziale nemici
         Debug.Log("InitEnemies");
         if (active) {
-            while (Spawned < MaxSpawned) {
-                Vector3 newPosition = newLocation();
-                GameObject enemy = Instantiate(EnemyPrefab, newPosition * DistanceOffset, transform.rotation);
-                
-                EnemyOnSite.Add(EnemyPrefab);
-                Debug.Log("Spawned");
+            foreach (Enemy en in enemyTypes) {
+                while (Spawned < MaxSpawned) {
+                    Vector3 newPosition = newLocation();
+                    GameObject enemy = Instantiate(EnemyPrefab, newPosition * DistanceOffset, transform.rotation);
+                    EnemyPrefab.GetComponent<EnemyBehaviour>().en = en;
+                    EnemyOnSite.Add(EnemyPrefab);
+                    Debug.Log("Spawned");
+                }
+                Debug.Log("Spawned " + Spawned + " Enemies");
             }
-            Debug.Log("Spawned "+Spawned+" Enemies");
         }
     }
 

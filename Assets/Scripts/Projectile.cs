@@ -5,20 +5,31 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
-    private float Lifetime = 5f;
-    public Material baseMat;
+    private int Lifetime = 4;
+    //public Material baseMat;
+    public PlayerHandling pltmp;
     // Start is called before the first frame update
    
 
     void Start()
     {
+        pltmp=GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandling>();
+        //StartCoroutine(DestroyOverLifetime(Lifetime));
+    }
+
+    private void OnEnable() {
         StartCoroutine(DestroyOverLifetime(Lifetime));
     }
+
+    private void OnDisable() {
+        StopCoroutine(DestroyOverLifetime(Lifetime));
+    }
+
 
     // Update is called once per frame
 
     private void Update() {
-   // mettere un set active qua dopo tot frame
+       
     }
 
 
@@ -28,9 +39,9 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private IEnumerator DestroyOverLifetime(float lifetime) {
+ IEnumerator DestroyOverLifetime(int lifetime) {
         yield return new WaitForSeconds(lifetime);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
 

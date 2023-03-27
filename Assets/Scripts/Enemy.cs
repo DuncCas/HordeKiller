@@ -13,5 +13,5 @@ public class Enemy : ScriptableObject
     public string enemyName;
     public float hp;
     public float damage;
-    //FORSE DA AGGIUNGERE VARIABILI DI DIMENSIONE MESH PER LA TRIGGER BOX
+    
 }

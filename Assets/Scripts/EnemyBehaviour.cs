@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
 {
+    [SerializeField]
+    public Enemy en;
+
     public float cooldown = 3f; //seconds
     private float lastAttackedAt = -9999f; // val di init?
-    public float hp;
-    public float damage;
     public GameObject player;
     public GameObject exp;
     //public EnemySpawner spawner; 
@@ -26,8 +27,8 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
     }
 
     public void ChangeHealth(float dmg, bool gained) {
-                hp -= dmg;
-                if (hp <= 0) {
+        en.hp -= dmg;
+                if (en.hp <= 0) {
                 Death();
                 }
             }
@@ -58,7 +59,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
     }
 
     public void Death() {
-        hp = 0;
+        en.hp = 0;
         //Drop exp al 50%
         if (Random.Range(0, 3) < 2) {
             Instantiate(exp, transform.position, transform.rotation);
@@ -69,7 +70,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
         Spawner.Spawned--;
         Vector3 newPosition = Spawner.newLocation();
         transform.position = newPosition;
-        hp = Spawner.hp_Enemy;
+        en.hp = Spawner.hp_Enemy;
         gameObject.SetActive(true);
     }
 
@@ -88,7 +89,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
 
     public void Attack(GameObject target) {
         if (Cooldown(lastAttackedAt, cooldown)) {
-            target.GetComponent<PlayerHandling>().ChangeHealth(damage, false);
+            target.GetComponent<PlayerHandling>().ChangeHealth(en.damage, false);
             lastAttackedAt = Time.time;
         }
     }

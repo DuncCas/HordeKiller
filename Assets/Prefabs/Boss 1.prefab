@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1368599914806495486}
   - component: {fileID: 249268846963864192}
   - component: {fileID: 559422259468192022}
+  - component: {fileID: 2770993427419912672}
   m_Layer: 10
   m_Name: Boss 1
   m_TagString: Boss
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 7044115592218857779}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 29.6, y: 22.7, z: 10.7}
-  m_LocalScale: {x: 4.6096735, y: 4.6096735, z: 4.6096735}
+  m_LocalScale: {x: 3.1836247, y: 3.1836247, z: 3.1836247}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,7 +101,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!136 &249268846963864192
 CapsuleCollider:
@@ -128,18 +129,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75934e9e3c25ac94ea3dc9cc952bf1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 84fb204e33352e24aacf42ed6fee0418, type: 2}
+  footShadow: {fileID: 2770993427419912672}
   returnPos: {x: 0, y: 0, z: 0}
-  boxSize: {x: 5.25, y: -5.43, z: 5.1}
-  maxDistance: 5.29
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 512
   state: 0
   previousState: 0
-  maxTimeBeforeStomp: 5
   timeBeforeStomp: 0
-  offset: 5
-  fallingSpeed: 4
-  maxTimeGround: 5
   TimeGround: 0
-  risingSpeed: 4
+  OnGround: 0
+--- !u!114 &2770993427419912672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7044115592218857779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97472516edc8467439d4178744505de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shadow: {fileID: 8789634125108177740, guid: a651fbe7291de204d9312f9bd0a1ba2f, type: 3}
+  foot: {fileID: 4118772094897005822}
+  activate: 0
