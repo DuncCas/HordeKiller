@@ -71,7 +71,7 @@ public class PlayerHandling : MonoBehaviour
     }
 
 
-    public void ChangeLife(float tot, bool gained) {
+    public void ChangeHealth(float tot, bool gained) {
         if (gained) {
             hp += tot;
             if (hp> Maxhp) {
@@ -103,7 +103,7 @@ public class PlayerHandling : MonoBehaviour
             //MaxExp = MaxExp * lvl;
             Maxhp = Maxhp * lvl;
             ExpBar.SetMaxExp();
-            ChangeLife((Maxhp * 0.3f), true);
+            ChangeHealth((Maxhp * 0.3f), true);
         }
     }
 
