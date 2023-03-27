@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 
 public class GameLogic : MonoBehaviour {
@@ -12,6 +13,9 @@ public class GameLogic : MonoBehaviour {
         END
     }
 
+    public int maxArmorToCollect;
+    public GameObject player;
+    public Transform playerScndCamera;
     public GameState state;
     public GameState previousState;
     public GameObject civilian;
@@ -31,8 +35,6 @@ public class GameLogic : MonoBehaviour {
 
     }
     void Start() {
-
-        
         Instantiate(civilian, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(Random.Range(-50f, 50f), 0, Random.Range(-50f, 50f)), transform.rotation);
         Instantiate(bossPref, GameObject.FindGameObjectWithTag("Player").transform.position + Vector3.up * bossHeight, transform.rotation);
         bossPref.GetComponent<BossHandler>().data = boss;

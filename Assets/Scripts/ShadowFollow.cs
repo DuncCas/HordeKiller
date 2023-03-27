@@ -16,7 +16,6 @@ public class ShadowFollow : MonoBehaviour {
             activate = true;
             Shadow.GetComponent<SpriteRenderer>().enabled = activate;
             Shadow.transform.position = new Vector3(foot.position.x, 0, foot.position.z);
-            Shadow.transform.localScale = Vector3.zero;
             Debug.Log("I'm moving");
     }
 

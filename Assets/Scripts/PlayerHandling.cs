@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerHandling : MonoBehaviour, IDamageable
 {
     [Tooltip("Change player starting health")]
+    public GameObject secondPhaseCameraPos;
+    public float secondPhaseOverideRotation=30f;
     public Experience_bar ExpBar;
     private GameObject target;  //Per i test switcharlo a public
     public float Maxhp = 100f;
@@ -49,6 +51,10 @@ public class PlayerHandling : MonoBehaviour, IDamageable
 
     public void IncreaseArmor() {
         ArmorPieces++;
+        if (ArmorPieces >= GameLogic.instance.maxArmorToCollect) {
+            GameLogic.instance.ChangeState(GameLogic.GameState.PHASE2);
+        }
+        
     }
 
     public float GetDamage() {
