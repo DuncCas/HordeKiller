@@ -6,16 +6,20 @@ using UnityEngine.UI;
 public class Experience_bar : MonoBehaviour
 {
 
-    public Slider slider;
+    public Image expImage;
+    public PlayerHandling player; 
 
-
-    public void SetMaxExp(int maxExp) {
-        slider.maxValue = (float)maxExp;
-        slider.value = 0;
+    public void SetMaxExp() {
+        //expImage.fillAmount = (float)maxExp;
+        expImage.fillAmount = 0;
     }
 
-    public void SetExp(int exp) {
-        slider.value= (float)exp;
+    public void SetExp(float exp) {
+        expImage.fillAmount= (float)exp;
+        if (exp >= player.MaxExp)
+        {
+            SetMaxExp();
+        }
     }
     // Start is called before the first frame update
     void Start()

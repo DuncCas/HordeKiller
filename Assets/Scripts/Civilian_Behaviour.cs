@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using HordeKiller;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Civilian_Behaviour : MonoBehaviour, ISpawnable
 {
@@ -10,7 +12,9 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable
     public bool CivilianActive = false;
     //public TextAlignment TimerTxt;
 
-
+    public TextMeshProUGUI civilianDeadText;
+    
+    
 
 
 
@@ -20,6 +24,8 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable
     {
         TimeLeft = SetTimer;
         CivilianActive = true;
+
+        civilianDeadText = FindObjectOfType<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -35,6 +41,7 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable
                 CivilianActive = false;
                 GameObject plyer = GameObject.FindGameObjectWithTag("Player");
                 Spawn(plyer.transform.position);
+                civilianDeadText.text += "X";
             }
         }
         
