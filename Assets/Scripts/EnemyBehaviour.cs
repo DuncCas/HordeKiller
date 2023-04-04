@@ -6,7 +6,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
 {
     [SerializeField]
     public Enemy en;
-
+    int prefId = 0;
     public float cooldown = 3f; //seconds
     private float lastAttackedAt = -9999f; // val di init?
     public GameObject player;
@@ -58,7 +58,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
         }
     }
 
-    public void Death() {
+   virtual public void Death() {
         en.hp = 0;
         //Drop exp al 50%
         if (Random.Range(0, 3) < 2) {
@@ -67,7 +67,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
         //Ricolloco oggetto
         gameObject.SetActive(false);
         EnemySpawner Spawner = player.GetComponent<EnemySpawner>();
-        Spawner.Spawned--;
+        Spawner.SpawnedSmall--;
         Vector3 newPosition = Spawner.newLocation();
         transform.position = newPosition;
         en.hp = Spawner.hp_Enemy;
