@@ -23,7 +23,7 @@ public class GameLogic : MonoBehaviour {
     public Boss boss;
     public GameObject bossPref;
     public static GameLogic instance;
-
+    
 
     private void Awake() {
         if (instance) {

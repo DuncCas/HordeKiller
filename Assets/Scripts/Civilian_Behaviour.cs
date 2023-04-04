@@ -39,8 +39,8 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable
                 gameObject.SetActive(false);
                 TimeLeft = 0;
                 CivilianActive = false;
-                GameObject plyer = GameObject.FindGameObjectWithTag("Player");
-                Spawn(plyer.transform.position);
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                Spawn(player.transform.position);
                 civilianDeadText.text += "X";
             }
         }

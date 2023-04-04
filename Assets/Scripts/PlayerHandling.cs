@@ -25,6 +25,7 @@ public class PlayerHandling : MonoBehaviour
     private int armor = 0;
     public Experience_bar expBar;
     private float valueIncreaseExp = 0.3f;
+
     
 
     // Start is called before the first frame update
