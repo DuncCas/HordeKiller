@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5980742969351473975}
   m_Layer: 0
   m_Name: Civilian
-  m_TagString: Untagged
+  m_TagString: Civilian
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,3 +112,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SetTimer: 60
   CivilianActive: 0
+  civilianDeadText: {fileID: 0}
