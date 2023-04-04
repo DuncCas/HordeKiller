@@ -5,6 +5,8 @@ using UnityEngine;
 public class CivilianTarget : MonoBehaviour
 {
     public GameObject target;
+    public Transform targetTransform;
+    public float hideDistance;
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +23,24 @@ public class CivilianTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var dir = transform.position - target.transform.position;
 
-        //var dir = transform.position - target.transform.position;
-        //var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        if (dir.magnitude < hideDistance)
+        {
+            SetChildrenActive(false);
+        }
+        else {
+            SetChildrenActive(true);
+            transform.LookAt(target.transform.position);
+        }
+        
+    }
 
-        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-        transform.LookAt(target.transform.position);
+    void SetChildrenActive(bool value)
+    {
+        foreach (Transform child in targetTransform)
+        {
+            child.gameObject.SetActive(value);
+        }
     }
 }

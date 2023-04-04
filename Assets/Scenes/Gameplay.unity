@@ -2002,6 +2002,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  targetTransform: {fileID: 1144905166}
+  hideDistance: 6.66
 --- !u!1 &1175275186
 GameObject:
   m_ObjectHideFlags: 0
