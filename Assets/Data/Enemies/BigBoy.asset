@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96025ad6d28b0cd4cb76e92f80a80278, type: 3}
-  m_Name: Vermone
+  m_Name: BigBoy
   m_EditorClassIdentifier: 
   mesh: {fileID: 0}
   materials: []
-  enemyName: Vermone
-  hp: 0
-  damage: 1
+  enemyName: BigBoy
+  hp: 4
+  damage: 5
