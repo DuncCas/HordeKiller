@@ -23,17 +23,20 @@ public class CivilianTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var dir = transform.position - target.transform.position;
-
-        if (dir.magnitude < hideDistance)
+        if (target != null)
         {
-            SetChildrenActive(false);
-        }
-        else {
-            SetChildrenActive(true);
-            transform.LookAt(target.transform.position);
-        }
-        
+            var dir = transform.position - target.transform.position;
+
+            if (dir.magnitude < hideDistance)
+            {
+                SetChildrenActive(false);
+            }
+            else
+            {
+                SetChildrenActive(true);
+                transform.LookAt(target.transform.position);
+            }
+        }   
     }
 
     void SetChildrenActive(bool value)
