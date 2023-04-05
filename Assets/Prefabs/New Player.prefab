@@ -401,8 +401,6 @@ MonoBehaviour:
   bulletSpawn: {fileID: 6372110915931106350}
   bulletSpeed: 10
   fireRate: 3
-  armorText: {fileID: 0}
-  expBar: {fileID: 0}
 --- !u!114 &6372110915934474327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,19 +413,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394e17a052704fe4389b01d8acb9e845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefId: 0
-  enemyTypeSmall:
-  - {fileID: 11400000, guid: 1f6ed1e79b6a6764b923808bd55cca76, type: 2}
-  enemyTypeBig:
-  - {fileID: 11400000, guid: 2b7b760135cf03e40a75275a8addafa7, type: 2}
-  EnemyPrefab:
-  - {fileID: 3881674689056487906, guid: 1e090eff72b91264b85194559d41a650, type: 3}
-  - {fileID: 2658375643844872799, guid: f91771d6862dc714c8f309ec3a9fc565, type: 3}
+  EnemyPrefab: {fileID: 3881674689056487906, guid: 1e090eff72b91264b85194559d41a650,
+    type: 3}
   EnemyOnSite: []
   DistanceOffset: 5
-  MaxSpawnedSmall: 1
-  MaxSpawnedBig: 1
-  SpawnedSmall: 0
-  SpawnedBig: 0
+  MaxSpawned: 5
+  Spawned: 0
   hp_Enemy: 0
   active: 1
