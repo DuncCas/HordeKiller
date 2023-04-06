@@ -7,16 +7,18 @@ public class CivilianTarget : MonoBehaviour
     public GameObject target;
     public Transform targetTransform;
     public float hideDistance;
-
+    public SpriteRenderer arrow;
     // Start is called before the first frame update
     void Start()
     {
+        
         StartCoroutine(LateStart(1));
     }
 
     IEnumerator LateStart(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+        arrow.enabled = true;
         target = GameObject.FindGameObjectWithTag("Civilian");
     }
 
@@ -24,6 +26,7 @@ public class CivilianTarget : MonoBehaviour
     void Update()
     {
         if (target != null) {
+
             var dir = transform.position - target.transform.position;
 
             if (dir.magnitude < hideDistance) {
