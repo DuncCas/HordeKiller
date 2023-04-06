@@ -19,9 +19,12 @@ public class PlayerHandling : MonoBehaviour
     public List<GameObject> pooledObjects;
     public Transform bulletSpawn;
     public float bulletSpeed =10f;
-    public float fireRate = 2f;
+    //public float fireRate = 2f;
     private float nextFire = 0f;
     public int amountToPool;
+    private bool canShoot;
+
+    public float delayBetweenShots;
 
     public TextMeshProUGUI armorText;
     private int armor = 0;
@@ -33,6 +36,7 @@ public class PlayerHandling : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canShoot = true;
         pooledObjects = new List<GameObject>();
         GameObject tmp;
         for (int i = 0; i < amountToPool; i++) {
@@ -61,7 +65,7 @@ public class PlayerHandling : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > nextFire) { 
+        if (canShoot) { 
             //canShoot = false;
             //StartCoroutine("AllowToShoot");
             GameObject[] allTargets = GameObject.FindGameObjectsWithTag("Enemy"); //Genera memoryleak da fixare
@@ -75,25 +79,26 @@ public class PlayerHandling : MonoBehaviour
                     }
                 }
                     Fire();
-                nextFire = Time.time + fireRate; 
                 }
         }
     }
 
     void Fire() {
-        Debug.Log("Shooting " + target.name);
-        Vector3 direction = target.transform.position - transform.position;
-        //link to spawned arrow, you dont need it, if the arrow has own moving script
-        GameObject bullet = GetPooledObject();
-        if (bullet != null) {
-            Debug.Log("Creating bullet");
-            bullet.SetActive(true);
-            bullet.transform.position = bulletSpawn.position;
-            bullet.transform.right = direction;
-            bullet.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
+            Debug.Log("Shooting " + target.name);
+            Vector3 direction = target.transform.position - transform.position;
+            //link to spawned arrow, you dont need it, if the arrow has own moving script
+            GameObject bullet = GetPooledObject();
+            if (bullet != null) {
+                Debug.Log("Creating bullet");
+                bullet.SetActive(true);
+                bullet.transform.position = bulletSpawn.position;
+                bullet.transform.right = direction;
+                bullet.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
+                canShoot = false;
+            StartCoroutine("ShootDelay");
         } else {
-            Debug.Log("no bullets");
-        }
+                Debug.Log("no bullets");
+            }
     }
 
 
@@ -138,6 +143,9 @@ public class PlayerHandling : MonoBehaviour
         armor += 1;
         armorText.text = armor.ToString();
     }
-
+    IEnumerator ShootDelay() {
+        yield return new WaitForSeconds(delayBetweenShots);
+        canShoot = true;
+    }
 
 }
