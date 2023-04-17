@@ -24,7 +24,7 @@ public class GameLogic : MonoBehaviour {
     public Boss boss;
     public GameObject bossPref;
     public static GameLogic instance;
-    public FollowCamera camera;
+    public Camera camera;
     
 
     private void Awake() {
@@ -40,6 +40,7 @@ public class GameLogic : MonoBehaviour {
         Instantiate(civilian, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(Random.Range(-50f, 50f), 0, Random.Range(-50f, 50f)), transform.rotation);
         Instantiate(bossPref, GameObject.FindGameObjectWithTag("Player").transform.position + Vector3.up * bossHeight, transform.rotation);
         bossPref.GetComponent<BossHandler>().data = boss;
+        state = GameState.START;
     }
 
 
@@ -93,7 +94,7 @@ public class GameLogic : MonoBehaviour {
 
     private void Enter_START() {
         //Inizio partita
-        camera.followTarget = firstCamera;
+        //camera.followTarget = firstCamera;
         ChangeState(GameState.PHASE1);
     }
 
@@ -103,8 +104,10 @@ public class GameLogic : MonoBehaviour {
 
     private void Enter_PHASE2() {
         //Inizio fase 2
-        player.transform.position = new Vector3(0, 100, 0);
-        camera.followTarget = playerScndCamera;
+        player.transform.position = new Vector3(0, 400f, 0);
+        camera.GetComponent<FollowCamera>().followTarget= playerScndCamera;
+        camera.transform.rotation= Quaternion.Euler(new Vector3(10,0,-90));
+        camera.orthographic = false;
     }
 
     private void Enter_VICTORY() {

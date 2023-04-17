@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7114eab066f2d3e4b9ed4bca40c31b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxArmorToCollect: 4
+  maxArmorToCollect: 1
   player: {fileID: 1421820028}
   firstCamera: {fileID: 0}
   playerScndCamera: {fileID: 1977771683}
@@ -357,7 +357,7 @@ MonoBehaviour:
   boss: {fileID: 11400000, guid: 84fb204e33352e24aacf42ed6fee0418, type: 2}
   bossPref: {fileID: 7044115592218857779, guid: 37cef2bc1449d0c43a586efcb19bc99e,
     type: 3}
-  camera: {fileID: 0}
+  camera: {fileID: 1803092783}
 --- !u!114 &120121061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2927,6 +2927,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8063073397250431797, guid: f0271df749728104eac22c3d897fd8ce,
     type: 3}
   m_PrefabInstance: {fileID: 746329221}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1803092783 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2991250139355905084, guid: d62863777d535eb46afbfd7eab8de893,
+    type: 3}
+  m_PrefabInstance: {fileID: 2991250138913210664}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1962018972
 GameObject:
