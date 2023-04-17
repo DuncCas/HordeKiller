@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerHandling : MonoBehaviour
 {
     [Tooltip("Change player starting health")]
+    
     public Experience_bar ExpBar;
     private GameObject target;  //Per i test switcharlo a public
     public float Maxhp = 100f;
@@ -34,6 +35,7 @@ public class PlayerHandling : MonoBehaviour
         hp = Maxhp * lvl;
         exp = 0;
         ExpBar.SetMaxExp();
+        
     }
 
     public float GetDamage() {
@@ -112,6 +114,7 @@ public class PlayerHandling : MonoBehaviour
     public void IncreaseArmor() {
         armor += 1;
         armorText.text = armor.ToString();
+        GameLogic.instance.checkTotArmor(armor);
     }
 
 

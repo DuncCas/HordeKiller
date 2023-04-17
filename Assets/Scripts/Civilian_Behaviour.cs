@@ -69,10 +69,12 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable
             PlayerHandling player = collision.gameObject.GetComponent<PlayerHandling>();
             //INCREMENTA ARMATURA...
             player.IncreaseArmor();
-            // E SPOSTA Il NUOVO GRUPPO DI CIVILI
             CivilianActive = false;
             gameObject.SetActive(false);
-            Spawn(collision.transform.position);
+            // E SPOSTA Il NUOVO GRUPPO DI CIVILI
+            if (GameLogic.instance.state == GameLogic.GameState.PHASE1) {
+                Spawn(collision.transform.position);
+            }
         }
     }
 

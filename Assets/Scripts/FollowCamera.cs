@@ -12,12 +12,10 @@ public class FollowCamera : MonoBehaviour
 
     public Vector2 safeArea; // (X,Y) valori per i quali la telecamera non si muove
 
-    private void Awake() {
-        
-    }
+
 
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
         followTarget.position += Vector3.up * offset;
     }
 

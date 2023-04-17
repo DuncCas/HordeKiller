@@ -15,6 +15,7 @@ public class GameLogic : MonoBehaviour {
 
     public int maxArmorToCollect;
     public GameObject player;
+    public Transform firstCamera;
     public Transform playerScndCamera;
     public GameState state;
     public GameState previousState;
@@ -23,6 +24,7 @@ public class GameLogic : MonoBehaviour {
     public Boss boss;
     public GameObject bossPref;
     public static GameLogic instance;
+    public FollowCamera camera;
     
 
     private void Awake() {
@@ -68,6 +70,15 @@ public class GameLogic : MonoBehaviour {
         }
     }
 
+    public bool checkTotArmor(int armor) {
+        if (maxArmorToCollect == armor) {
+            ChangeState(GameState.PHASE2);
+            return true;
+        }
+        return false;
+    }
+
+
     private void GameEnd() {
         //mostrare schermata di uscita o whatev
     }
@@ -82,6 +93,8 @@ public class GameLogic : MonoBehaviour {
 
     private void Enter_START() {
         //Inizio partita
+        camera.followTarget = firstCamera;
+        ChangeState(GameState.PHASE1);
     }
 
     private void Enter_PHASE1() {
@@ -90,6 +103,8 @@ public class GameLogic : MonoBehaviour {
 
     private void Enter_PHASE2() {
         //Inizio fase 2
+        player.transform.position = new Vector3(0, 100, 0);
+        camera.followTarget = playerScndCamera;
     }
 
     private void Enter_VICTORY() {
