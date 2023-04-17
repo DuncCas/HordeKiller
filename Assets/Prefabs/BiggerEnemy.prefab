@@ -163,7 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9a35ad99b14a2d4eb21b3cb53341e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  en: {fileID: 0}
+  en: {fileID: 11400000, guid: 2b7b760135cf03e40a75275a8addafa7, type: 2}
+  Maxcooldown: 3
   cooldown: 3
   player: {fileID: 0}
   exp: {fileID: 4243572546119145831, guid: 3c2422c2094ef874e948e13eb7f70556, type: 3}
+  prefId: 1

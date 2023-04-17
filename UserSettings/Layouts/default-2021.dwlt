@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Inspector
   m_RootView: {fileID: 4}
   m_MinSize: {x: 875, y: 421}
   m_MaxSize: {x: 10000, y: 10000}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 118
+  controlID: 31
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 16
+  controlID: 82
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 17
+  controlID: 83
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 18
+  controlID: 84
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -358,24 +358,24 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 247c0000
-      m_LastClickedID: 0
-      m_ExpandedIDs: f2f9ffff
+      scrollPos: {x: 0, y: 390}
+      m_SelectedIDs: 58f9ffff
+      m_LastClickedID: -1704
+      m_ExpandedIDs: 0eb8ffff1eb8ffff28f9ffff2cf9ffff32f9fffff2f9ffffb87200004c730000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: New Player
+        m_OriginalName: New Player
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 29516
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 10}
       m_SearchString: 
@@ -506,7 +506,7 @@ MonoBehaviour:
       containerId: overlay-container--right
       floating: 0
       collapsed: 0
-      displayed: 0
+      displayed: 1
       snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
@@ -666,9 +666,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 7.594654, y: 17.415333, z: -12.349464}
+    m_Target: {x: 153.83003, y: 39.841053, z: -9.254784}
     speed: 2
-    m_Value: {x: 7.594654, y: 17.415333, z: -12.349464}
+    m_Value: {x: 153.83003, y: 39.841053, z: -9.254784}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -715,13 +715,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.34182552, y: 0.017194714, z: -0.006250194, w: 0.93961567}
+    m_Target: {x: 0.16343811, y: -0.05295367, z: 0.008801946, w: 0.9851234}
     speed: 2
-    m_Value: {x: -0.34182552, y: -0.017194714, z: 0.0062501933, w: -0.93961567}
+    m_Value: {x: 0.16343309, y: -0.052952044, z: 0.008801675, w: 0.9850931}
   m_Size:
-    m_Target: 5.710036
+    m_Target: 12.124355
     speed: 2
-    m_Value: 5.710036
+    m_Value: 12.124355
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -788,22 +788,22 @@ MonoBehaviour:
     m_SkipHidden: 1
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Data/Enemies/Boss
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Data/Enemies/Boss
   m_LastFoldersGridSize: -1
   m_LastProjectPath: F:\HordeKiller
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: c07b0000
-    m_LastClickedID: 31680
-    m_ExpandedIDs: 00000000c07b0000c27b0000c47b0000c67b0000c87b0000ca7b0000cc7b0000ce7b0000d07b000000ca9a3b
+    m_SelectedIDs: c8950000
+    m_LastClickedID: 38344
+    m_ExpandedIDs: 00000000c07b0000c27b0000c47b0000c67b0000c87b0000ca7b0000cc7b0000ce7b0000d07b0000047c0000c295000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -856,9 +856,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 247c0000
-    m_LastClickedInstanceID: 31780
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: b20f0100
+    m_LastClickedInstanceID: 69554
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000628d0000608d000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
