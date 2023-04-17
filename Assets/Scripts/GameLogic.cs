@@ -106,8 +106,9 @@ public class GameLogic : MonoBehaviour {
         //Inizio fase 2
         player.transform.position = new Vector3(0, 400f, 0);
         camera.GetComponent<FollowCamera>().followTarget= playerScndCamera;
-        camera.transform.rotation= Quaternion.Euler(new Vector3(10,0,-90));
+        camera.transform.rotation= Quaternion.Euler(new Vector3(10,0,-90)); //Passo da camera ortografica a camera prospettica;
         camera.orthographic = false;
+        player.GetComponent<EnemySpawner>().depopulate();
     }
 
     private void Enter_VICTORY() {

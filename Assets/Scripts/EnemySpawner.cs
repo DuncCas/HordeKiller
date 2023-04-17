@@ -85,6 +85,14 @@ public class EnemySpawner : MonoBehaviour, ISpawnable {
             return newPosition;
         }
 
+
+    public void depopulate() {
+        foreach (GameObject en in EnemyOnSite) {
+            Destroy(en);
+        }
+        active = false;
+    }
+
         //if (!groundHit) {
        // Debug.Log("Ground on spawn. Respawning");
             
