@@ -15,5 +15,5 @@ MonoBehaviour:
   mesh: {fileID: 0}
   materials: []
   enemyName: Vermone
-  hp: 0
-  damage: 1
+  hp: 1
+  damage: 5

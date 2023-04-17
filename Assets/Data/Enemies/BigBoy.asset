@@ -15,5 +15,5 @@ MonoBehaviour:
   mesh: {fileID: 0}
   materials: []
   enemyName: BigBoy
-  hp: 4
-  damage: 5
+  hp: 7
+  damage: 10

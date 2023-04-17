@@ -2,28 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
+public class EnemyBehaviour : MonoBehaviour, IDamageable
 {
     [SerializeField]
     public Enemy en;
     int prefId = 0;
-    public float cooldown = 3f; //seconds
+    public float Maxcooldown = 3f; //seconds
+    public float cooldown;
     private float lastAttackedAt = -9999f; // val di init?
     public GameObject player;
     public GameObject exp;
     //public EnemySpawner spawner; 
 
 
+    private void Awake() {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        cooldown = Maxcooldown;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (cooldown < Maxcooldown) {
+            cooldown += Time.deltaTime;
+        }
     }
 
     public void ChangeHealth(float dmg, bool gained) {
@@ -40,21 +47,10 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
         }
     }
 
-
-
-    public bool Cooldown(float lastAttTime, float cooldwnDuration) {
-        if (Time.time > lastAttTime + cooldwnDuration) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    //DA RIFARE IL COOLDOWN NON FUNZIA COME VORREI
-
-    public void OnTriggerStay(Collider Coll) {     
-        if(Coll.gameObject.tag == "Player") {
-            Attack(Coll.gameObject);     
+    public void OnTriggerStay(Collider Coll) {
+        if (Coll.gameObject.tag == "Player" && cooldown >= Maxcooldown) {
+                Attack(Coll.gameObject);
+                cooldown = 0;
         }
     }
 
@@ -88,9 +84,6 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
     }
 
     public void Attack(GameObject target) {
-        if (Cooldown(lastAttackedAt, cooldown)) {
             target.GetComponent<PlayerHandling>().ChangeHealth(en.damage, false);
-            lastAttackedAt = Time.time;
-        }
     }
 }
