@@ -24,8 +24,7 @@ public class GameLogic : MonoBehaviour {
     public Boss boss;
     public GameObject bossPref;
     public static GameLogic instance;
-    public Camera cameraFollow;
-    public GameObject boss2;
+    public Camera camera;
     
 
     private void Awake() {
@@ -105,17 +104,11 @@ public class GameLogic : MonoBehaviour {
 
     private void Enter_PHASE2() {
         //Inizio fase 2
-        Instantiate(boss2, new Vector3(0, 30, 0), transform.rotation);
-        player.GetComponent<Rigidbody>().useGravity = false;
-        player.GetComponent<ThirdPersonController>().enabled = false;
-        player.transform.position += new Vector3(0, 30f, 0);
-        cameraFollow.GetComponent<FollowCamera>().followTarget= playerScndCamera;
-        cameraFollow.transform.rotation= Quaternion.Euler(new Vector3(10,0,-90)); //Passo da camera ortografica a camera prospettica;
-        cameraFollow.orthographic = false;
+        player.transform.position = new Vector3(0, 400f, 0);
+        camera.GetComponent<FollowCamera>().followTarget= playerScndCamera;
+        camera.transform.rotation= Quaternion.Euler(new Vector3(10,0,-90)); //Passo da camera ortografica a camera prospettica;
+        camera.orthographic = false;
         player.GetComponent<EnemySpawner>().depopulate();
-        bossPref.SetActive(false);
-
-        
     }
 
     private void Enter_VICTORY() {

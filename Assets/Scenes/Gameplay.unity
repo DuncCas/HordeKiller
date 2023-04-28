@@ -357,8 +357,7 @@ MonoBehaviour:
   boss: {fileID: 11400000, guid: 84fb204e33352e24aacf42ed6fee0418, type: 2}
   bossPref: {fileID: 7044115592218857779, guid: 37cef2bc1449d0c43a586efcb19bc99e,
     type: 3}
-  cameraFollow: {fileID: 1803092783}
-  boss2: {fileID: 2315555780379790791, guid: e9dd582a37d33cb46b681c0ac05bb11e, type: 3}
+  camera: {fileID: 1803092783}
 --- !u!114 &120121061
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -88,7 +88,7 @@ public class EnemySpawner : MonoBehaviour, ISpawnable {
 
     public void depopulate() {
         foreach (GameObject en in EnemyOnSite) {
-            en.SetActive(false);
+            Destroy(en);
         }
         active = false;
     }
