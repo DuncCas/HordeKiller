@@ -16,16 +16,11 @@ public class PlayerHandling : MonoBehaviour
     public int lvl = 1;
     public float exp;
     public float MaxExp = 1;
-    public GameObject bullet;
-    public List<GameObject> pooledObjects;
+    public Projectile bullet;
     public Transform bulletSpawn;
     public float bulletSpeed =10f;
-    //public float fireRate = 2f;
+    public float fireRate = 2f;
     private float nextFire = 0f;
-    public int amountToPool;
-    private bool canShoot;
-
-    public float delayBetweenShots;
 
     public TextMeshProUGUI armorText;
     private int armor = 0;
@@ -37,28 +32,11 @@ public class PlayerHandling : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canShoot = true;
-        pooledObjects = new List<GameObject>();
-        GameObject tmp;
-        for (int i = 0; i < amountToPool; i++) {
-            tmp = Instantiate(bullet);
-            tmp.SetActive(false);
-            pooledObjects.Add(tmp);
-        }
         hp = Maxhp * lvl;
         exp = 0;
         ExpBar.SetMaxExp();
         
     }
-    public GameObject GetPooledObject() {
-        for (int i = 0; i < amountToPool; i++) {
-            if (!pooledObjects[i].activeInHierarchy) {
-                return pooledObjects[i];
-            }
-        }
-        return null;
-    }
-
 
     public float GetDamage() {
         return damage;
@@ -67,7 +45,7 @@ public class PlayerHandling : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canShoot) { 
+        if (Time.time > nextFire) { 
             //canShoot = false;
             //StartCoroutine("AllowToShoot");
             GameObject[] allTargets = GameObject.FindGameObjectsWithTag("Enemy"); //Genera memoryleak da fixare
@@ -81,26 +59,18 @@ public class PlayerHandling : MonoBehaviour
                     }
                 }
                     Fire();
+                nextFire = Time.time + fireRate; 
                 }
         }
     }
 
     void Fire() {
-            Debug.Log("Shooting " + target.name);
-            Vector3 direction = target.transform.position - transform.position;
-            //link to spawned arrow, you dont need it, if the arrow has own moving script
-            GameObject bullet = GetPooledObject();
-            if (bullet != null) {
-                Debug.Log("Creating bullet");
-                bullet.SetActive(true);
-                bullet.transform.position = bulletSpawn.position;
-                bullet.transform.right = direction;
-                bullet.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
-                canShoot = false;
-            StartCoroutine("ShootDelay");
-        } else {
-                Debug.Log("no bullets");
-            }
+        Debug.Log("Shooting " + target.name);
+        Vector3 direction = target.transform.position - transform.position;
+        //link to spawned arrow, you dont need it, if the arrow has own moving script
+        Projectile tmpbullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
+        tmpbullet.transform.right = direction;
+        tmpbullet.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
     }
 
 
@@ -146,9 +116,6 @@ public class PlayerHandling : MonoBehaviour
         armorText.text = armor.ToString();
         GameLogic.instance.checkTotArmor(armor);
     }
-    IEnumerator ShootDelay() {
-        yield return new WaitForSeconds(delayBetweenShots);
-        canShoot = true;
-    }
+
 
 }
