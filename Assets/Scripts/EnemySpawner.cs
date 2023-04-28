@@ -6,11 +6,14 @@ using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour { //ISpawnable {
     [SerializeField]
-    int prefId = 0;
+    //int currentPrefId = 0;
+    public GameObject[] EnemyPrefab;
+    public int[] EnemyOnSite;
+    public Enemy[] EnemyType;
+    private List<GameObject> AllEnemiesOnMap;
     public List<Enemy> enemyTypeSmall;
     public List<Enemy> enemyTypeBig;
-    public List<GameObject> EnemyPrefab;
-    public List<GameObject> EnemyOnSite; //List.findWithLambda? da cercare
+     //List.findWithLambda? da cercare
     public float DistanceOffset;
     public long MaxSpawnedSmall=1;
     public long MaxSpawnedBig=1;
@@ -26,18 +29,21 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
     // Start is called before the first frame update
     void Awake()
     {
-        SpawnedSmall = 0;
-        SpawnedBig = 0;
-        Spawn(new Vector3(0,0,0));
+        AllEnemiesOnMap = new List<GameObject>();
+        for(int i=0; i <= EnemyPrefab.Length - 1;i++) {
+            EnemyOnSite[i] = 0;
+        }
+        InitSpawn();
 
     }
 
-    public void Spawn(Vector3 pos) { //Questo per spawn iniziale nemici
+    private void InitSpawn() { //Questo per spawn iniziale nemici
         Debug.Log("InitEnemies");
-        int prefid = 0;
         if (active) {
-            foreach (Enemy en in enemyTypeSmall) {
-                while (SpawnedSmall < MaxSpawnedSmall) {
+        int prefid = 0;
+            //per ora vi è foreach ma sarebbe figo avere diversi tipi di nemici e pigliarne a random
+            for (int i=0; i <= EnemyPrefab.Length-1;i++) {
+                while (EnemyOnSite[i] < MaxSpawnedSmall) {
                     // Vector3 newPosition =
                     newLocation(prefid);
                     
@@ -88,9 +94,9 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
             if (numberOfCollidersFound == 0) {
                 Debug.Log("spawned enemy");
                 GameObject clone = Instantiate(EnemyPrefab[i], hit.point, transform.rotation);
-                EnemyPrefab[i].GetComponent<EnemyBehaviour>().en = enemyTypeSmall[0];
-                EnemyOnSite.Add(EnemyPrefab[i]);
-                SpawnedSmall++;
+                EnemyPrefab[i].GetComponent<EnemyBehaviour>().en = EnemyType[i];
+                EnemyOnSite[i]++;
+                AllEnemiesOnMap.Add(clone);
             } else {
                 Debug.Log("name of collider 0 found " + collidersInsideOverlapBox[0].name);
             }
@@ -115,8 +121,8 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
 
 
     public void depopulate() {
-        foreach (GameObject en in EnemyOnSite) {
-            Destroy(en);
+        foreach(GameObject i in AllEnemiesOnMap) {
+            Destroy(i);
         }
         active = false;
     }
@@ -124,6 +130,40 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
         //if (!groundHit) {
        // Debug.Log("Ground on spawn. Respawning");
             
+
+public void Spawn(Vector3 pos) { //Questo per spawn iniziale nemici
+    Debug.Log("InitEnemies");
+    int prefid = 0;
+    if (active) {
+        foreach (Enemy en in enemyTypeSmall) {
+            while (SpawnedSmall < MaxSpawnedSmall) {
+                // Vector3 newPosition =
+                newLocation(prefid);
+
+
+                /*GameObject enemy = Instantiate(EnemyPrefab[prefId], newPosition * DistanceOffset, transform.rotation);
+                EnemyPrefab[prefId].GetComponent<EnemyBehaviour>().en = en;
+                EnemyOnSite.Add(EnemyPrefab[prefId]);
+                //Debug.Log("Spawned");
+            }*/
+                Debug.Log("Spawned " + SpawnedSmall + " Enemies");
+            }
+
+            /*prefId++;
+            foreach (Enemy en in enemyTypeBig) {
+                while (SpawnedBig < MaxSpawnedBig) {
+                    Vector3 newPosition = newLocation();
+                    SpawnedBig++;
+                    GameObject enemy = Instantiate(EnemyPrefab[prefId], newPosition * DistanceOffset, transform.rotation);
+                    EnemyPrefab[prefId].GetComponent<EnemyBehaviour>().en = en;
+                    EnemyOnSite.Add(EnemyPrefab[prefId]);
+                    //Debug.Log("Spawned");
+                }
+                Debug.Log("Spawned " + SpawnedBig + " Enemies");
+            }*/
+        }
     }
+}
+}
 
 
