@@ -3569,25 +3569,9 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
-      propertyPath: Maxhp
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
-        type: 3}
       propertyPath: ExpBar
       value: 
       objectReference: {fileID: 1746017420}
-    - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
-        type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 8142190802647146565, guid: f573ebd416c76484dbabeeabf2f47657,
-        type: 3}
-    - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
-        type: 3}
-      propertyPath: damage
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
       propertyPath: expBar
@@ -3595,19 +3579,14 @@ PrefabInstance:
       objectReference: {fileID: 1746017420}
     - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
+      propertyPath: fireRate
+      value: 3.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
       propertyPath: armorText
       value: 
       objectReference: {fileID: 414969700}
-    - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
-        type: 3}
-      propertyPath: amountToPool
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
-        type: 3}
-      propertyPath: delayBetweenShots
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7287488041747845300, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
       propertyPath: CameraAngleOverride

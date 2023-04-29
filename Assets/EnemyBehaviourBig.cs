@@ -15,11 +15,9 @@ public class EnemyBehaviourBig : EnemyBehaviour
         //Ricolloco oggetto
         gameObject.SetActive(false);
         EnemySpawner Spawner = player.GetComponent<EnemySpawner>();
-        Spawner.SpawnedBig--;
         //Vector3 newPosition =
-        Spawner.newLocation(1);
+        transform.position=Spawner.newLocation(prefId);
         //transform.position = newPosition;
-        en.hp = Spawner.hp_Enemy;
         gameObject.SetActive(true);
     }
 }

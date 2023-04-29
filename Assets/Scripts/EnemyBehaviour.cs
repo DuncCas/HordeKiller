@@ -6,10 +6,10 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
 {
     [SerializeField]
     public Enemy en;
+    float hp;
     int prefId = 0;
     public float Maxcooldown = 3f; //seconds
     public float cooldown;
-    private float lastAttackedAt = -9999f; // val di init?
     public GameObject player;
     public GameObject exp;
     //public EnemySpawner spawner; 
@@ -22,6 +22,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
+        hp = en.hp;
         cooldown = Maxcooldown;
     }
 
@@ -34,8 +35,8 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     }
 
     public void ChangeHealth(float dmg, bool gained) {
-        en.hp -= dmg;
-                if (en.hp <= 0) {
+        hp -= dmg;
+                if (hp <= 0) {
                 Death();
                 }
             }
@@ -55,7 +56,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     }
 
    virtual public void Death() {
-        en.hp = 0;
+        hp = 0;
         //Drop exp al 50%
         if (Random.Range(0, 3) < 2) {
             Instantiate(exp, transform.position, transform.rotation);
@@ -63,11 +64,10 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
         //Ricolloco oggetto
         gameObject.SetActive(false);
         EnemySpawner Spawner = player.GetComponent<EnemySpawner>();
-        Spawner.SpawnedSmall--;
         //Vector3 newPosition = 
-            Spawner.newLocation(0);
+        transform.position=Spawner.newLocation(prefId);
+        hp = en.hp;
         //transform.position = newPosition;
-        en.hp = Spawner.hp_Enemy;
         gameObject.SetActive(true);
     }
 

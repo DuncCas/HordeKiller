@@ -11,15 +11,9 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
     public int[] EnemyOnSite;
     public Enemy[] EnemyType;
     private List<GameObject> AllEnemiesOnMap;
-    public List<Enemy> enemyTypeSmall;
-    public List<Enemy> enemyTypeBig;
      //List.findWithLambda? da cercare
     public float DistanceOffset;
-    public long MaxSpawnedSmall=1;
-    public long MaxSpawnedBig=1;
-    public long SpawnedSmall;
-    public long SpawnedBig;
-    public long hp_Enemy;
+    public int[] maxSpawned;
     public bool active;
     public GameObject[] itemsToPickFrom;
     public float raycastDistance = 100f;
@@ -30,32 +24,32 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
     void Awake()
     {
         AllEnemiesOnMap = new List<GameObject>();
-        for(int i=0; i <= EnemyPrefab.Length - 1;i++) {
-            EnemyOnSite[i] = 0;
-        }
         InitSpawn();
 
     }
 
     private void InitSpawn() { //Questo per spawn iniziale nemici
         Debug.Log("InitEnemies");
-        if (active) {
-        int prefid = 0;
-            //per ora vi è foreach ma sarebbe figo avere diversi tipi di nemici e pigliarne a random
-            for (int i=0; i <= EnemyPrefab.Length-1;i++) {
-                while (EnemyOnSite[i] < MaxSpawnedSmall) {
-                    // Vector3 newPosition =
-                    newLocation(prefid);
-                    
 
-                    /*GameObject enemy = Instantiate(EnemyPrefab[prefId], newPosition * DistanceOffset, transform.rotation);
-                    EnemyPrefab[prefId].GetComponent<EnemyBehaviour>().en = en;
-                    EnemyOnSite.Add(EnemyPrefab[prefId]);
-                    //Debug.Log("Spawned");
-                }*/
-                    Debug.Log("Spawned " + SpawnedSmall + " Enemies");
-                }
-        
+        //int prefid = 0;
+            //per ora vi è foreach ma sarebbe figo avere diversi tipi di nemici e pigliarne a random
+            for (int i=0; i <= EnemyPrefab.Length;i++) {
+                for (int j=0; j < maxSpawned[i]; j++){
+                    // Vector3 newPosition =
+                    
+                    GameObject clone = Instantiate(EnemyPrefab[i], newLocation(i), transform.rotation);
+                    EnemyPrefab[i].GetComponent<EnemyBehaviour>().en = EnemyType[i];
+                    EnemyOnSite[i]++;
+                    AllEnemiesOnMap.Add(clone);
+
+                /*GameObject enemy = Instantiate(EnemyPrefab[prefId], newPosition * DistanceOffset, transform.rotation);
+                EnemyPrefab[prefId].GetComponent<EnemyBehaviour>().en = en;
+                EnemyOnSite.Add(EnemyPrefab[prefId]);
+                //Debug.Log("Spawned");
+            }*/
+                //Debug.Log("Spawned " + SpawnedSmall + " Enemies");
+            }
+
                 /*prefId++;
                 foreach (Enemy en in enemyTypeBig) {
                     while (SpawnedBig < MaxSpawnedBig) {
@@ -68,8 +62,10 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
                     }
                     Debug.Log("Spawned " + SpawnedBig + " Enemies");
                 }*/
+                Debug.Log("Spawned " + EnemyOnSite[i]+ " enemies");
             }
-        }
+            
+        
     }
 
     // Update is called once per frame
@@ -80,27 +76,25 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
 
 
     //Questo serve per ottenere una nuova posizione dove far spawnare nemico mor
-    public void  newLocation(int i) {
+    public Vector3 newLocation(int i) {
+            RaycastHit hit;
 
-        RaycastHit hit;
+            Vector3 newPosition = new Vector3(Random.Range(-10f, 10f), transform.position.y, Random.Range(-10f, 10f));
+            if (Physics.Raycast(newPosition, Vector3.down, out hit, raycastDistance)) {
+                Vector3 overlapTestBoxScale = new Vector3(overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
+                Collider[] collidersInsideOverlapBox = new Collider[1];
+                int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(hit.point, overlapTestBoxScale, collidersInsideOverlapBox, transform.rotation, spawnedObjectLayer);
+                Debug.Log("number of colliders found " + numberOfCollidersFound);
 
-        Vector3 newPosition = new Vector3(Random.Range(-10f, 10f), transform.position.y, Random.Range(-10f, 10f));
-        if (Physics.Raycast(newPosition, Vector3.down, out hit, raycastDistance)) {
-            Vector3 overlapTestBoxScale = new Vector3(overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
-            Collider[] collidersInsideOverlapBox = new Collider[1];
-            int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(hit.point, overlapTestBoxScale, collidersInsideOverlapBox, transform.rotation, spawnedObjectLayer);
-            Debug.Log("number of colliders found " + numberOfCollidersFound);
-
-            if (numberOfCollidersFound == 0) {
-                Debug.Log("spawned enemy");
-                GameObject clone = Instantiate(EnemyPrefab[i], hit.point, transform.rotation);
-                EnemyPrefab[i].GetComponent<EnemyBehaviour>().en = EnemyType[i];
-                EnemyOnSite[i]++;
-                AllEnemiesOnMap.Add(clone);
-            } else {
-                Debug.Log("name of collider 0 found " + collidersInsideOverlapBox[0].name);
+                if (numberOfCollidersFound == 0) {
+                        Debug.Log("spawned enemy");
+                        return hit.point;                  
+                } else {
+                    Debug.Log("name of collider 0 found " + collidersInsideOverlapBox[0].name);
+                    return newLocation(i);
+                }
             }
-        }
+            return newLocation(i);
     }
 
 
@@ -122,7 +116,8 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
 
     public void depopulate() {
         foreach(GameObject i in AllEnemiesOnMap) {
-            Destroy(i);
+            i.SetActive(false);
+            AllEnemiesOnMap.Remove(i);
         }
         active = false;
     }
@@ -131,7 +126,7 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
        // Debug.Log("Ground on spawn. Respawning");
             
 
-public void Spawn(Vector3 pos) { //Questo per spawn iniziale nemici
+/*public void Spawn(int i) { //Questo per spawn iniziale nemici
     Debug.Log("InitEnemies");
     int prefid = 0;
     if (active) {
@@ -146,7 +141,7 @@ public void Spawn(Vector3 pos) { //Questo per spawn iniziale nemici
                 EnemyOnSite.Add(EnemyPrefab[prefId]);
                 //Debug.Log("Spawned");
             }*/
-                Debug.Log("Spawned " + SpawnedSmall + " Enemies");
+                //Debug.Log("Spawned " + SpawnedSmall + " Enemies");
             }
 
             /*prefId++;
@@ -161,9 +156,5 @@ public void Spawn(Vector3 pos) { //Questo per spawn iniziale nemici
                 }
                 Debug.Log("Spawned " + SpawnedBig + " Enemies");
             }*/
-        }
-    }
-}
-}
 
 
