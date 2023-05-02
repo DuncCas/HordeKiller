@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Experience_orb : MonoBehaviour {
 
+
    public GameObject player;
     // Start is called before the first frame update
 
@@ -20,9 +21,5 @@ public class Experience_orb : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
 }
 

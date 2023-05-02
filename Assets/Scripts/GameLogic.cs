@@ -25,7 +25,9 @@ public class GameLogic : MonoBehaviour {
     public GameObject bossPref;
     public static GameLogic instance;
     public Camera camera;
-    
+    public int EXPamountToPool;
+    List<GameObject> PooledExp;
+    public GameObject Exp;
 
     private void Awake() {
         if (instance) {
@@ -34,14 +36,21 @@ public class GameLogic : MonoBehaviour {
             instance = this;
         }
 
-
     }
     void Start() {
         Instantiate(civilian, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(Random.Range(-50f, 50f), 0, Random.Range(-50f, 50f)), transform.rotation);
         Instantiate(bossPref, GameObject.FindGameObjectWithTag("Player").transform.position + Vector3.up * bossHeight, transform.rotation);
         bossPref.GetComponent<BossHandler>().data = boss;
+        PooledExp = new List<GameObject>();
+        GameObject tmp;
+        for (int i = 0; i < EXPamountToPool; i++) {
+            tmp = Instantiate(Exp);
+            tmp.SetActive(false);
+            PooledExp.Add(tmp);
+        }
         state = GameState.START;
     }
+
 
 
     public void ChangeState(GameState newState) {
@@ -126,5 +135,42 @@ public class GameLogic : MonoBehaviour {
 
 
 
-    
+    public void SpawnExp(Vector3 position) {
+        GameObject tmp = GetPooledObject();
+        if (tmp != null) {
+            tmp.transform.position = position;
+            tmp.SetActive(true);
+        } else {
+            // se sono tutti attivi gli riporto il più lontano
+            tmp = findFarest(position);
+            tmp.transform.position = position;
+        }
+    }
+
+    //Trovami il globo più lontano e portalo qui
+    private GameObject findFarest(Vector3 position) {
+        float distance= 0f;
+        GameObject tmp = PooledExp[0];
+        foreach(GameObject orb in PooledExp) {
+
+            if (Vector3.Distance(position, orb.transform.position) > distance) {
+                distance = Vector3.Distance(tmp.transform.position, orb.transform.position);
+                tmp = orb;
+            }
+        }
+
+        return tmp;
+    }
+
+    private GameObject GetPooledObject() {
+        for (int i = 0; i < EXPamountToPool; i++) {
+            if (!PooledExp[i].activeInHierarchy) {
+                return PooledExp[i];
+            }
+        }
+        return null;
+    }
+
+
+
 }

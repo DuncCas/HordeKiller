@@ -364,6 +364,8 @@ MonoBehaviour:
   bossPref: {fileID: 7044115592218857779, guid: 37cef2bc1449d0c43a586efcb19bc99e,
     type: 3}
   camera: {fileID: 1803092783}
+  EXPamountToPool: 40
+  Exp: {fileID: 4243572546119145831, guid: 3c2422c2094ef874e948e13eb7f70556, type: 3}
 --- !u!114 &120121061
 MonoBehaviour:
   m_ObjectHideFlags: 0
