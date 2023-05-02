@@ -160,5 +160,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be45d5c5ecf19f4b89da891368904ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootSound:
+  - {fileID: 0}
+  shootLandingEnemy:
+  - {fileID: 0}
+  shootLandingWall:
+  - {fileID: 0}
   pltmp: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612, type: 3}
-  _projectilePool: []
