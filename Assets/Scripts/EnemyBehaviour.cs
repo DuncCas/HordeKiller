@@ -12,7 +12,10 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     public float cooldown;
     public GameObject player;
     public GameObject exp;
-    public float distanceToTriggerRespawn;
+
+    public float maxValueBeforeCheck = 5f;
+    float valueBeforeCheck;
+    public float distanceToTriggerRespawn=100f;
     EnemySpawner Spawner;
     //public EnemySpawner spawner; 
 
@@ -30,17 +33,25 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (cooldown < Maxcooldown) {
             cooldown += Time.deltaTime;
         }
-        /*if (Vector3.Distance(player.transform.position, transform.position)>= distanceToTriggerRespawn) {
+        if (valueBeforeCheck >= maxValueBeforeCheck) {
+            checkDistance();
+            valueBeforeCheck = 0;
+        }
+        valueBeforeCheck += Time.deltaTime;
+    }
+
+    private void checkDistance() {
+        if (Vector3.Distance(player.transform.position, transform.position) >= distanceToTriggerRespawn) {
             //Se giocatore troppo distante da nemico respawnalo vicino
+            Debug.Log("Distance" + Vector3.Distance(player.transform.position, transform.position));
             transform.position = Spawner.newLocation(prefId);
             hp = en.hp;
-        }*/
-    }
+        }
+        }
 
     public void ChangeHealth(float dmg, bool gained) {
         hp -= dmg;

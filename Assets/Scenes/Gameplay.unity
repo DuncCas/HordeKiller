@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7114eab066f2d3e4b9ed4bca40c31b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxArmorToCollect: 1
+  maxArmorToCollect: 5
   player: {fileID: 1421820028}
   firstCamera: {fileID: 0}
   playerScndCamera: {fileID: 1977771683}
@@ -359,6 +359,8 @@ MonoBehaviour:
   previousState: 0
   civilian: {fileID: 4581649949438616017, guid: 4b9239c731eb5f444a66d52f6827b7df,
     type: 3}
+  rangeToSpawnCiv: 100
+  minRangeToSpawnCiv: 30
   bossHeight: 60
   boss: {fileID: 11400000, guid: 84fb204e33352e24aacf42ed6fee0418, type: 2}
   bossPref: {fileID: 7044115592218857779, guid: 37cef2bc1449d0c43a586efcb19bc99e,

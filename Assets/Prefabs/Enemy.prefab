@@ -125,7 +125,8 @@ MonoBehaviour:
   cooldown: 1
   player: {fileID: 6372110915934474332, guid: e76ab33db20eeb244822504ff1f176eb, type: 3}
   exp: {fileID: 4243572546119145831, guid: 3c2422c2094ef874e948e13eb7f70556, type: 3}
-  distanceToTriggerRespawn: 1000
+  maxValueBeforeCheck: 5
+  distanceToTriggerRespawn: 30
 --- !u!195 &3881674689056487708
 NavMeshAgent:
   m_ObjectHideFlags: 0
