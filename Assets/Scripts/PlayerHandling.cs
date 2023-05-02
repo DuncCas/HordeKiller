@@ -26,11 +26,17 @@ public class PlayerHandling : MonoBehaviour
     public Experience_bar expBar;
     private float valueIncreaseExp = 0.3f;
 
-    
+    public static PlayerHandling instance;
+    public GameObject levelUpScreen;
 
     // Start is called before the first frame update
     void Start()
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
+
         hp = Maxhp * lvl;
         exp = 0;
         ExpBar.SetMaxExp();
@@ -105,6 +111,9 @@ public class PlayerHandling : MonoBehaviour
             Maxhp = Maxhp * lvl;
             ExpBar.SetMaxExp();
             ChangeHealth((Maxhp * 0.3f), true);
+
+            Time.timeScale = 0f;
+            levelUpScreen.SetActive(true);
         }
     }
 
