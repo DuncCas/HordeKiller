@@ -71,15 +71,11 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable, IRandomNumberGenera
             }
         }
         return newLocation();
-        /*Collider[] intersecting = Physics.OverlapSphere(newPosition, 0.01f);
-        if (intersecting.Length != 0) {
-            SpawnEnemy();        
-        }*/
     }
 
-    public void Spawn(Vector3 pos) { //UGUALE IDENTICO A GETNEWPOSITION IN ENEMYSPAWNER, DA CREARE INTERFACCIA
+    public void Spawn(Vector3 pos) { 
         Debug.Log("Moving");
-        gameObject.transform.position = newLocation(); // da cambiare usa solo val pos.
+        gameObject.transform.position = newLocation(); 
         gameObject.SetActive(true);
         TimeLeft = SetTimer;
         CivilianActive = true;
@@ -103,11 +99,5 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable, IRandomNumberGenera
         float tmp = Random.Range(min, max + 1);
         return tmp;
     }
-
-
-    /*void updateTimer(float currentTime) {
-        currentTime += 1;
-    }*/
-
 }
 

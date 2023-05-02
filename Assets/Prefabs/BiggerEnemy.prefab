@@ -170,4 +170,4 @@ MonoBehaviour:
   player: {fileID: 0}
   exp: {fileID: 4243572546119145831, guid: 3c2422c2094ef874e948e13eb7f70556, type: 3}
   maxValueBeforeCheck: 5
-  distanceToTriggerRespawn: 30
+  distanceToTriggerRespawn: 45

@@ -47,7 +47,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     private void checkDistance() {
         if (Vector3.Distance(player.transform.position, transform.position) >= distanceToTriggerRespawn) {
             //Se giocatore troppo distante da nemico respawnalo vicino
-            Debug.Log("Distance" + Vector3.Distance(player.transform.position, transform.position));
+            //Debug.Log("Distance" + Vector3.Distance(player.transform.position, transform.position));
             transform.position = Spawner.newLocation(prefId);
             hp = en.hp;
         }

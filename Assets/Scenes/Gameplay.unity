@@ -353,8 +353,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxArmorToCollect: 5
   player: {fileID: 1421820028}
-  firstCamera: {fileID: 0}
-  playerScndCamera: {fileID: 1977771683}
+  firstCamera: {fileID: 1977771683}
+  playerScndCamera: {fileID: 242390341}
   state: 0
   previousState: 0
   civilian: {fileID: 4581649949438616017, guid: 4b9239c731eb5f444a66d52f6827b7df,
@@ -492,6 +492,12 @@ Transform:
   m_Father: {fileID: 52988104}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &242390341 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1026660952156527339, guid: 807a2e5e019e31841a7edb767b825612,
+    type: 3}
+  m_PrefabInstance: {fileID: 2082186351}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &273250759
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,7 +728,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3510,6 +3516,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
+      propertyPath: rangeToSpawn
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}

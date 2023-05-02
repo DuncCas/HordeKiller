@@ -30,11 +30,16 @@ public class PlayerHandling : MonoBehaviour
     public Experience_bar expBar;
     private float valueIncreaseExp = 0.3f;
 
-    
+
+
+    private void Awake() {
+        armorText.text = armor.ToString() + "/" + GameLogic.instance.maxArmorToCollect.ToString();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        
         canShoot = true;
         pooledObjects = new List<GameObject>();
         GameObject tmp;
@@ -141,7 +146,7 @@ public class PlayerHandling : MonoBehaviour
     public void Squashed() { }
     public void IncreaseArmor() {
         armor += 1;
-        armorText.text = armor.ToString();
+        armorText.text = armor.ToString() + "/" + GameLogic.instance.maxArmorToCollect.ToString();
         GameLogic.instance.checkTotArmor(armor);
     }
     IEnumerator ShootDelay() {

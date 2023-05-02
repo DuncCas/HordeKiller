@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,14 @@ public class Experience_orb : MonoBehaviour {
 
 
    public GameObject player;
-    // Start is called before the first frame update
+
+    public float maxtìTimeToCheck = 10f;
+    float TimeToCheck;
+    public float maxDistanceFromPlayer;
 
     void Start() {
         player= GameObject.FindGameObjectWithTag("Player");
+        TimeToCheck = 0;
     }
 
 
@@ -21,5 +26,21 @@ public class Experience_orb : MonoBehaviour {
         }
     }
 
+    private void Update() {
+        if (gameObject.activeInHierarchy) {
+            if (TimeToCheck >= maxtìTimeToCheck) {
+                checkDistance();
+                TimeToCheck = 0;
+            }
+            TimeToCheck += Time.deltaTime;
+        }
+    }
+
+    private void checkDistance() {
+        float distance= Vector3.Distance(transform.position, player.transform.position);
+        if (distance>= maxDistanceFromPlayer) {
+            gameObject.SetActive(false);
+        }
+    }
 }
 

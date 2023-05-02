@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour, IRandomNumberGenerator { //ISpawnable
     public float DistanceOffset;
     public int[] maxSpawned;
     public bool active;
-    const float minRangeToSpawn = 10;
+    const float minRangeToSpawn = 15f;
     public float rangeToSpawn;
     public GameObject[] itemsToPickFrom;
     public float raycastDistance = 100f;
@@ -70,11 +70,6 @@ public class EnemySpawner : MonoBehaviour, IRandomNumberGenerator { //ISpawnable
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
 
     //Questo serve per ottenere una nuova posizione dove far spawnare nemico mor

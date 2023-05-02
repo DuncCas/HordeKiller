@@ -6,15 +6,14 @@ public class Projectile : MonoBehaviour
 {
 
     private int Lifetime = 4;
-    //public Material baseMat;
     public PlayerHandling pltmp;
-    // Start is called before the first frame update
+
    
 
     void Start()
     {
         pltmp=GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandling>();
-        //StartCoroutine(DestroyOverLifetime(Lifetime));
+
     }
 
     private void OnEnable() {
@@ -26,11 +25,6 @@ public class Projectile : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-
-    private void Update() {
-       
-    }
 
 
     public void OnTriggerEnter(Collider other) {
