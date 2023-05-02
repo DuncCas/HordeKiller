@@ -120,10 +120,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   en: {fileID: 11400000, guid: 1f6ed1e79b6a6764b923808bd55cca76, type: 2}
+  hp: 0
   Maxcooldown: 1.5
   cooldown: 1
   player: {fileID: 6372110915934474332, guid: e76ab33db20eeb244822504ff1f176eb, type: 3}
   exp: {fileID: 4243572546119145831, guid: 3c2422c2094ef874e948e13eb7f70556, type: 3}
+  distanceToTriggerRespawn: 1000
 --- !u!195 &3881674689056487708
 NavMeshAgent:
   m_ObjectHideFlags: 0

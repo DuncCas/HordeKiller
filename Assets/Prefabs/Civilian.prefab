@@ -112,4 +112,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SetTimer: 60
   CivilianActive: 0
+  itemsToPickFrom: []
+  raycastDistance: 100
+  overlapTestBoxSize: 1
+  spawnedObjectLayer:
+    serializedVersion: 2
+    m_Bits: 512
   civilianDeadText: {fileID: 0}

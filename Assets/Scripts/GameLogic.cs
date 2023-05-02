@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using HordeKiller;
 using StarterAssets;
 using UnityEngine;
 
-public class GameLogic : MonoBehaviour {
+public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
     public enum GameState {
         START,
         PHASE1,
@@ -19,7 +20,15 @@ public class GameLogic : MonoBehaviour {
     public Transform playerScndCamera;
     public GameState state;
     public GameState previousState;
+    
+    
     public GameObject civilian;
+    public float rangeToSpawnCiv;
+    public float minRangeToSpawnCiv;
+
+
+
+
     public float bossHeight;
     public Boss boss;
     public GameObject bossPref;
@@ -38,8 +47,8 @@ public class GameLogic : MonoBehaviour {
 
     }
     void Start() {
-        Instantiate(civilian, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(Random.Range(-50f, 50f), 0, Random.Range(-50f, 50f)), transform.rotation);
-        Instantiate(bossPref, GameObject.FindGameObjectWithTag("Player").transform.position + Vector3.up * bossHeight, transform.rotation);
+        Instantiate(civilian, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(GenerateRandomValue(minRangeToSpawnCiv,rangeToSpawnCiv)+transform.position.x, 0, GenerateRandomValue(minRangeToSpawnCiv, rangeToSpawnCiv)+transform.position.z), transform.rotation);
+        //Instantiate(bossPref, GameObject.FindGameObjectWithTag("Player").transform.position + Vector3.up * bossHeight, transform.rotation);
         bossPref.GetComponent<BossHandler>().data = boss;
         PooledExp = new List<GameObject>();
         GameObject tmp;
@@ -48,14 +57,17 @@ public class GameLogic : MonoBehaviour {
             tmp.SetActive(false);
             PooledExp.Add(tmp);
         }
-        state = GameState.START;
+        Enter_START();
     }
 
 
 
     public void ChangeState(GameState newState) {
-        if (state != newState) {
-            previousState = state;
+        if (state == newState) {
+            return;
+        }
+
+        previousState = state;
             state = newState;
             switch (state) {
                 case GameState.START:
@@ -78,7 +90,6 @@ public class GameLogic : MonoBehaviour {
                     break;
             }
         }
-    }
 
     public bool checkTotArmor(int armor) {
         if (maxArmorToCollect == armor) {
@@ -171,6 +182,13 @@ public class GameLogic : MonoBehaviour {
         return null;
     }
 
-
-
+    public float GenerateRandomValue(float min, float max) {
+        long neg = (long)Random.Range(0, 2);
+        float tmp = Random.Range(min, max + 1);
+        if (neg <= 0) {
+            return -tmp;
+        } else {
+            return tmp;
+        }
+    }
 }

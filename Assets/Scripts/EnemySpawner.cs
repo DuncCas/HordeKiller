@@ -4,7 +4,7 @@ using HordeKiller;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemySpawner : MonoBehaviour { //ISpawnable {
+public class EnemySpawner : MonoBehaviour, IRandomNumberGenerator { //ISpawnable {
     [SerializeField]
     //int currentPrefId = 0;
     public GameObject[] EnemyPrefab;
@@ -15,6 +15,8 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
     public float DistanceOffset;
     public int[] maxSpawned;
     public bool active;
+    const float minRangeToSpawn = 10;
+    public float rangeToSpawn;
     public GameObject[] itemsToPickFrom;
     public float raycastDistance = 100f;
     public float overlapTestBoxSize = 1f;
@@ -79,7 +81,7 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
     public Vector3 newLocation(int i) {
             RaycastHit hit;
 
-            Vector3 newPosition = new Vector3(Random.Range(-10f, 10f), transform.position.y, Random.Range(-10f, 10f));
+            Vector3 newPosition = new Vector3(GenerateRandomValue(minRangeToSpawn, rangeToSpawn) +transform.position.x, transform.position.y, GenerateRandomValue(minRangeToSpawn, rangeToSpawn) + transform.position.z);
             if (Physics.Raycast(newPosition, Vector3.down, out hit, raycastDistance)) {
                 Vector3 overlapTestBoxScale = new Vector3(overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
                 Collider[] collidersInsideOverlapBox = new Collider[1];
@@ -122,27 +124,39 @@ public class EnemySpawner : MonoBehaviour { //ISpawnable {
         active = false;
     }
 
-        //if (!groundHit) {
-       // Debug.Log("Ground on spawn. Respawning");
-            
-
-/*public void Spawn(int i) { //Questo per spawn iniziale nemici
-    Debug.Log("InitEnemies");
-    int prefid = 0;
-    if (active) {
-        foreach (Enemy en in enemyTypeSmall) {
-            while (SpawnedSmall < MaxSpawnedSmall) {
-                // Vector3 newPosition =
-                newLocation(prefid);
 
 
-                /*GameObject enemy = Instantiate(EnemyPrefab[prefId], newPosition * DistanceOffset, transform.rotation);
-                EnemyPrefab[prefId].GetComponent<EnemyBehaviour>().en = en;
-                EnemyOnSite.Add(EnemyPrefab[prefId]);
-                //Debug.Log("Spawned");
-            }*/
-                //Debug.Log("Spawned " + SpawnedSmall + " Enemies");
-            }
+   public float GenerateRandomValue(float min, float max) {
+        long neg = (long)Random.Range(0, 2);
+        float tmp = Random.Range(min, max + 1);
+        if (neg <= 0) {
+            return -tmp;
+        } else {
+            return tmp;
+        }
+    }
+
+    //if (!groundHit) {
+    // Debug.Log("Ground on spawn. Respawning");
+
+
+    /*public void Spawn(int i) { //Questo per spawn iniziale nemici
+        Debug.Log("InitEnemies");
+        int prefid = 0;
+        if (active) {
+            foreach (Enemy en in enemyTypeSmall) {
+                while (SpawnedSmall < MaxSpawnedSmall) {
+                    // Vector3 newPosition =
+                    newLocation(prefid);
+
+
+                    /*GameObject enemy = Instantiate(EnemyPrefab[prefId], newPosition * DistanceOffset, transform.rotation);
+                    EnemyPrefab[prefId].GetComponent<EnemyBehaviour>().en = en;
+                    EnemyOnSite.Add(EnemyPrefab[prefId]);
+                    //Debug.Log("Spawned");
+                }*/
+    //Debug.Log("Spawned " + SpawnedSmall + " Enemies");
+}
 
             /*prefId++;
             foreach (Enemy en in enemyTypeBig) {

@@ -6,17 +6,20 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
 {
     [SerializeField]
     public Enemy en;
-    float hp;
-    int prefId = 0;
+    public float hp;
+    protected int prefId = 0;
     public float Maxcooldown = 3f; //seconds
     public float cooldown;
     public GameObject player;
     public GameObject exp;
+    public float distanceToTriggerRespawn;
+    EnemySpawner Spawner;
     //public EnemySpawner spawner; 
 
 
     private void Awake() {
         player = GameObject.FindGameObjectWithTag("Player");
+        Spawner = player.GetComponent<EnemySpawner>();
     }
 
     // Start is called before the first frame update
@@ -32,6 +35,11 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
         if (cooldown < Maxcooldown) {
             cooldown += Time.deltaTime;
         }
+        /*if (Vector3.Distance(player.transform.position, transform.position)>= distanceToTriggerRespawn) {
+            //Se giocatore troppo distante da nemico respawnalo vicino
+            transform.position = Spawner.newLocation(prefId);
+            hp = en.hp;
+        }*/
     }
 
     public void ChangeHealth(float dmg, bool gained) {
@@ -55,7 +63,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
         }
     }
 
-   virtual public void Death() {
+  virtual public void Death() {
         hp = 0;
         //Drop exp al 50%
         if (Random.Range(0, 3) < 2) {
@@ -63,7 +71,6 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
         }
         //Ricolloco oggetto
         gameObject.SetActive(false);
-        EnemySpawner Spawner = player.GetComponent<EnemySpawner>();
         //Vector3 newPosition = 
         transform.position=Spawner.newLocation(prefId);
         hp = en.hp;
