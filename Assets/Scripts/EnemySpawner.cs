@@ -35,7 +35,7 @@ public class EnemySpawner : MonoBehaviour, IRandomNumberGenerator { //ISpawnable
 
         //int prefid = 0;
             //per ora vi è foreach ma sarebbe figo avere diversi tipi di nemici e pigliarne a random
-            for (int i=0; i <= EnemyPrefab.Length;i++) {
+            for (int i=0; i < EnemyPrefab.Length;i++) {
                 for (int j=0; j < maxSpawned[i]; j++){
                     // Vector3 newPosition =
                     
