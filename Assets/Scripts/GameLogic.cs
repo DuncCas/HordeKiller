@@ -1,10 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using HordeKiller;
-using StarterAssets;
 using UnityEngine;
 
 public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
+
+   
     public enum GameState {
         START,
         PHASE1,
@@ -12,18 +12,31 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
         VICTORY,
         DEATH,
         END
-    }
-
-    public int maxArmorToCollect;
-    public GameObject player;
-    public Transform firstCamera;
-    public Transform playerScndCamera;
+    } 
+    [Header("State")]    
     public GameState state;
     public GameState previousState;
-    
-    
+
+    [Header("Player Settings")]
+    [Tooltip ("The max number of armor the player must collect to progress." )]
+    [Range (1,99)]
+    public int maxArmorToCollect;
+    [Tooltip ("The player prefab necessary to handle events")]
+    public GameObject player;
+    [Tooltip ("PHASE1 camera position")]
+    public Transform firstCamera;
+    [Tooltip("PHASE2 camera position")]
+    public Transform playerScndCamera;
+
+
+    [Header("Civilians Settings")]
+    [Tooltip("The civilian prefab")]
     public GameObject civilian;
+    [Tooltip("Max distance the Civilian must spawn")]
+    [Range(51, 100)]
     public float rangeToSpawnCiv;
+    [Tooltip("Minimal distance the civilian must spawn")]
+    [Range(10, 50)]
     public float minRangeToSpawnCiv;
 
 
@@ -33,7 +46,7 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
     public Boss boss;
     public GameObject bossPref;
     public static GameLogic instance;
-    public Camera camera;
+    //public Camera camera;
     public int EXPamountToPool;
     List<GameObject> PooledExp;
     public GameObject Exp;
@@ -125,9 +138,9 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
     private void Enter_PHASE2() {
         //Inizio fase 2
         player.transform.position = new Vector3(0, 400f, 0);
-        camera.GetComponent<FollowCamera>().followTarget= playerScndCamera;
-        camera.transform.rotation= Quaternion.Euler(new Vector3(10,0,-90)); //Passo da camera ortografica a camera prospettica;
-        camera.orthographic = false;
+        GetComponent<Camera>().GetComponent<FollowCamera>().followTarget= playerScndCamera;
+        GetComponent<Camera>().transform.rotation= Quaternion.Euler(new Vector3(10,0,-90)); //Passo da camera ortografica a camera prospettica;
+        GetComponent<Camera>().orthographic = false;
         player.GetComponent<EnemySpawner>().depopulate();
     }
 
@@ -152,13 +165,13 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
             tmp.transform.position = position;
             tmp.SetActive(true);
         } else {
-            // se sono tutti attivi gli riporto il più lontano
+            // se sono tutti attivi gli riporto il piï¿½ lontano
             tmp = findFarest(position);
             tmp.transform.position = position;
         }
     }
 
-    //Trovami il globo più lontano e portalo qui
+    //Trovami il globo piï¿½ lontano e portalo qui
     private GameObject findFarest(Vector3 position) {
         float distance= 0f;
         GameObject tmp = PooledExp[0];
