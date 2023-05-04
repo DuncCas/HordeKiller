@@ -3602,6 +3602,11 @@ PrefabInstance:
       propertyPath: armorText
       value: 
       objectReference: {fileID: 414969700}
+    - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
+      propertyPath: delayBetweenShots
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7287488041747845300, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
       propertyPath: CameraAngleOverride
