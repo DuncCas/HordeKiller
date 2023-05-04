@@ -9,7 +9,7 @@ public class Experience_orb : MonoBehaviour {
 
    public GameObject player;
 
-    public float maxtìTimeToCheck = 10f;
+    public float maxTimeToCheck = 10f;
     float TimeToCheck;
     public float maxDistanceFromPlayer;
 
@@ -28,7 +28,7 @@ public class Experience_orb : MonoBehaviour {
 
     private void Update() {
         if (gameObject.activeInHierarchy) {
-            if (TimeToCheck >= maxtìTimeToCheck) {
+            if (TimeToCheck >= maxTimeToCheck) {
                 checkDistance();
                 TimeToCheck = 0;
             }

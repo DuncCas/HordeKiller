@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7114eab066f2d3e4b9ed4bca40c31b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxArmorToCollect: 5
+  maxArmorToCollect: 1
   player: {fileID: 1421820028}
   firstCamera: {fileID: 1977771683}
   playerScndCamera: {fileID: 242390341}
@@ -2242,12 +2242,12 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438391231}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 02c8d23b24d702f498c8653db0f0c72d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.473
   m_Pitch: 1
   Loop: 1
   Mute: 0
