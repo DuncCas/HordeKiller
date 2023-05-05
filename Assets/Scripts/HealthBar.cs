@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public GameObject player;
-    PlayerHandling playerHp;
+    PlayerHandling player;
     Vector3 canvaPosition;
     Vector3 deltaDistance;
     Vector3 currentDeltaDistance;
@@ -14,13 +13,13 @@ public class HealthBar : MonoBehaviour
 
     private void Awake()
     { // deltaDistance è la differenza tra le posizioni inizali del player e del canva in cui c'è la barra della vita
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandling>();
         deltaDistance = transform.position - player.transform.position;
         canvaPosition = transform.position;
     }
     private void Start()
     {
         slider = this.GetComponentInChildren<Slider>();
-        playerHp = player.GetComponent<PlayerHandling>();
     }
 
     private void Update()
@@ -37,7 +36,7 @@ public class HealthBar : MonoBehaviour
             canvaPosition.z = player.transform.position.z + deltaDistance.z;
             transform.position = canvaPosition;
             // Aggiorno il fill della barra della vita 
-            slider.value = playerHp.GetHealth();
+            slider.value = player.GetHealth();
         }
     }
 }

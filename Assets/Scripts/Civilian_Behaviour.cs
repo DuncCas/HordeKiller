@@ -7,16 +7,18 @@ using UnityEngine.UI;
 
 public class Civilian_Behaviour : MonoBehaviour, ISpawnable, IRandomNumberGenerator
 {
+    [Tooltip("Set the timer when civilian 'dies'")]
     public float SetTimer;
-    private float TimeLeft;
-    public bool CivilianActive = false;
+    [Tooltip("Define all the layer mask where it's ok to spawn in. Default= ground")]
+    public LayerMask spawnedObjectLayer;
+    float TimeLeft;
+    bool CivilianActive = false;
     float minDistance;
     float maxDistance;
-    public float raycastDistance = 100f;
-    public float overlapTestBoxSize = 1f;
-    public LayerMask spawnedObjectLayer;
+    const float RAYCAST_DISTANCE = 100f;
+    const float OVERLAP_BOX_SIZE = 1f;
     //public TextAlignment TimerTxt;
-
+    [Tooltip("UI text for keeping track of dead civilians")]
     public TextMeshProUGUI civilianDeadText;
     
     
@@ -53,11 +55,12 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable, IRandomNumberGenera
         
     }
 
+    #region SPAWN
     public Vector3 newLocation() {
         RaycastHit hit;
         Vector3 newPosition = new Vector3(-GenerateRandomValue(minDistance, maxDistance)+transform.position.x, transform.position.y, -GenerateRandomValue(minDistance, maxDistance)+transform.position.z);
-        if (Physics.Raycast(newPosition, Vector3.down, out hit, raycastDistance)) {
-            Vector3 overlapTestBoxScale = new Vector3(overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
+        if (Physics.Raycast(newPosition, Vector3.down, out hit, RAYCAST_DISTANCE)) {
+            Vector3 overlapTestBoxScale = new Vector3(OVERLAP_BOX_SIZE, OVERLAP_BOX_SIZE, OVERLAP_BOX_SIZE);
             Collider[] collidersInsideOverlapBox = new Collider[1];
             int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(hit.point, overlapTestBoxScale, collidersInsideOverlapBox, transform.rotation, spawnedObjectLayer);
             Debug.Log("number of colliders found " + numberOfCollidersFound);
@@ -80,6 +83,11 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable, IRandomNumberGenera
         TimeLeft = SetTimer;
         CivilianActive = true;
     }
+    public float GenerateRandomValue(float min, float max) {
+        float tmp = Random.Range(min, max + 1);
+        return tmp;
+    }
+    #endregion
 
     private void OnTriggerEnter(Collider collision) {
         if (collision.gameObject.tag == "Player") { //SE TI TOCCA IL PLAYER..
@@ -95,9 +103,5 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable, IRandomNumberGenera
         }
     }
 
-    public float GenerateRandomValue(float min, float max) {
-        float tmp = Random.Range(min, max + 1);
-        return tmp;
-    }
 }
 

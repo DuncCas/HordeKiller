@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9972215e5a07dcb45ab975dee1901ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1421820028}
   GameOverMenu: {fileID: 1188721513}
   pauseButton: {fileID: 1379496057}
 --- !u!1 &146956877
@@ -2196,18 +2195,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2082186351}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1421820030 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
-    type: 3}
-  m_PrefabInstance: {fileID: 2082186351}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1421820028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf862154e0876c148ad72326336ccdfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1421820031 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7956043529811773957, guid: 807a2e5e019e31841a7edb767b825612,
@@ -2824,7 +2811,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expImage: {fileID: 1020283942}
-  player: {fileID: 1421820030}
 --- !u!114 &1746017421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2994,7 +2980,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 203b83349bd23114cb7c090fdcd98347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1421820028}
 --- !u!1818360608 &1962018975
 PositionConstraint:
   m_ObjectHideFlags: 0

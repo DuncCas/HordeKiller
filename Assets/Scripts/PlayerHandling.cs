@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerHandling : MonoBehaviour
 {
     [Header("Damage and Health")]
+    const float MAX_EXP = 1;
     [Tooltip("Change player init max health.")]
     public float startingHp;
     [Tooltip("Change player starting damage")]
@@ -17,11 +18,8 @@ public class PlayerHandling : MonoBehaviour
     [Header("Experience settings")]
     [Tooltip("Class to handle ExpBar of the experience bar")]
     public Experience_bar ExpBar;
-    [Tooltip("Change player starting max exp to reach for level up")]
-    public float startingMaxExp;
     [Tooltip("Set the increment of maxExp for every level up")]
     public float valueIncreaseExp = 0.3f;
-    float _MaxExp = 1;
     float _currentExp=0;
     int _lvl = 1;
     [Header("Shoot settings")]
@@ -48,7 +46,6 @@ public class PlayerHandling : MonoBehaviour
 
     private void Awake() {
         armorText.text = _armor.ToString() + "/" + GameLogic.instance.maxArmorToCollect.ToString();
-        _MaxExp = startingMaxExp;
         _maxHp = startingHp;
     }
 
@@ -63,7 +60,7 @@ public class PlayerHandling : MonoBehaviour
             tmp.SetActive(false);
             _pooledObjects.Add(tmp);
         }
-        _hp = _maxHp * _lvl;
+        _hp = _maxHp;
         _currentExp = 0;
         ExpBar.SetMaxExp();
 
@@ -154,39 +151,42 @@ public class PlayerHandling : MonoBehaviour
     public void revive() {
         _maxHp = startingHp;
         _hp = _maxHp;
-        _MaxExp = startingMaxExp;
         _lvl = 1;
         _currentExp = 0;
+        valueIncreaseExp = 0.3f;
     }
 
     #endregion
 
     #region EXPERIENCE
 
-    public float GetMaxExp() {
-        return _MaxExp;
+
+    public float GetExp() {
+        return _currentExp;
     }
 
     public void IncreaseExp() {
         _currentExp += valueIncreaseExp;
         ExpBar.SetExp(_currentExp);
-        if (_currentExp >= _MaxExp) {
+        if (_currentExp >= MAX_EXP) {
             lvlUp();
         }
 
     }
 
+    public int GetLvl() {
+        return _lvl;
+    }
 
     void lvlUp() {
-        if (_currentExp >= _MaxExp) {
             _lvl++;
+            Debug.Log(_lvl);
             _currentExp = 0;
             valueIncreaseExp = valueIncreaseExp / 2;
-            //MaxExp = MaxExp * lvl;
             _maxHp = _maxHp * _lvl;
+            
             ExpBar.SetMaxExp();
             ChangeHealth((_maxHp * 0.3f), true);
-        }
     }
 
     #endregion

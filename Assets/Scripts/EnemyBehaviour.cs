@@ -5,43 +5,50 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour, IDamageable
 {
     [SerializeField]
+    [Header("General")]
+    [Tooltip("Player prefab NOTE: Must remain none, the player gets recovered on runtime")]
+    public PlayerHandling player;
+    [Tooltip("Experience prefab")]
+    public GameObject exp;
+    [Tooltip("Scriptable Object of enemy type to associate with the prefab")]
     public Enemy en;
     public float hp;
     protected int prefId;
+    [Tooltip("Cooldown between attacks")]
     public float Maxcooldown = 3f; //seconds
-    public float cooldown;
-    public GameObject player;
-    public GameObject exp;
-
+    float _cooldown;
+    [Header("Respawn settings")]
+    [Tooltip("Time to pass before checking if enemy is far from player")]
     public float maxValueBeforeCheck = 5f;
-    float valueBeforeCheck;
+    [Tooltip("From how much far from player the enemy has to respawn")]
     public float distanceToTriggerRespawn=100f;
+    float _valueBeforeCheck;
     EnemySpawner Spawner;
-    //public EnemySpawner spawner; 
 
 
     private void Awake() {
-        player = GameObject.FindGameObjectWithTag("Player");
-        Spawner = player.GetComponent<EnemySpawner>();
+        GameObject tmp = GameObject.FindGameObjectWithTag("Player");
+        player = tmp.GetComponent<PlayerHandling>();
+        Spawner = tmp.GetComponent<EnemySpawner>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         hp = en.hp;
-        cooldown = Maxcooldown;
+        _cooldown = Maxcooldown;
     }
 
     // Update is called once per frame
     void Update() {
-        if (cooldown < Maxcooldown) {
-            cooldown += Time.deltaTime;
+        if (_cooldown < Maxcooldown) {
+            _cooldown += Time.deltaTime;
         }
-        if (valueBeforeCheck >= maxValueBeforeCheck) {
+        if (_valueBeforeCheck >= maxValueBeforeCheck) {
             checkDistance();
-            valueBeforeCheck = 0;
+            _valueBeforeCheck = 0;
         }
-        valueBeforeCheck += Time.deltaTime;
+        _valueBeforeCheck += Time.deltaTime;
     }
 
     private void checkDistance() {
@@ -52,6 +59,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
             hp = en.hp;
         }
         }
+    #region DAMAGE AND ATTACK
 
     public void ChangeHealth(float dmg, bool gained) {
         hp -= dmg;
@@ -63,18 +71,18 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
 
     public void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Projectyle") {
-            ChangeHealth(player.GetComponent<PlayerHandling>().damage, false);
+            ChangeHealth(player.damage, false);
         }
     }
 
     public void OnTriggerStay(Collider Coll) {
-        if (Coll.gameObject.tag == "Player" && cooldown >= Maxcooldown) {
+        if (Coll.gameObject.tag == "Player" && _cooldown >= Maxcooldown) {
                 Attack(Coll.gameObject);
-                cooldown = 0;
+                _cooldown = 0;
         }
     }
 
-  virtual public void Death() {
+    virtual public void Death() {
         hp = 0;
         //Drop exp al 50%
         if (Random.Range(0, 3) < 2) {
@@ -103,6 +111,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     }
 
     public void Attack(GameObject target) {
-            target.GetComponent<PlayerHandling>().ChangeHealth(en.damage, false);
+            player.ChangeHealth(en.damage, false);
     }
+    #endregion
 }

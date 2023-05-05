@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyBehaviourBig : EnemyBehaviour
 {
    //int prefId = 1;
-    // Start is called before the first frame update
   override public void Death() {
         hp = 0;
         //Drop exp al 50%
@@ -15,9 +14,9 @@ public class EnemyBehaviourBig : EnemyBehaviour
         //Ricolloco oggetto
         gameObject.SetActive(false);
         EnemySpawner Spawner = player.GetComponent<EnemySpawner>();
-        //Vector3 newPosition =
         transform.position=Spawner.newLocation(1);
-        //transform.position = newPosition;
+        hp = en.hp;
         gameObject.SetActive(true);
+
     }
 }

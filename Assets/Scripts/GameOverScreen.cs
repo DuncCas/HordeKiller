@@ -7,21 +7,20 @@ public class GameOverScreen : MonoBehaviour
 {
     // Script provvisorio, da mettere successivamente in GameLogic
 
-    public GameObject player;
-    private float playerHp;
+    private PlayerHandling player;
     public GameObject GameOverMenu;
     public Button pauseButton;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandling>();
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerHp = player.GetComponent<PlayerHandling>().GetHealth();
         PlayerDeath();
     }
 
@@ -34,7 +33,7 @@ public class GameOverScreen : MonoBehaviour
 
     public void PlayerDeath()
     {
-        if (playerHp <= 0)
+        if (player.GetHealth() <= 0)
         {
             Time.timeScale = 0;
             GameOverMenu.SetActive(true);
