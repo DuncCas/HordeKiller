@@ -37,7 +37,7 @@ public class HealthBar : MonoBehaviour
             canvaPosition.z = player.transform.position.z + deltaDistance.z;
             transform.position = canvaPosition;
             // Aggiorno il fill della barra della vita 
-            slider.value = playerHp.hp;
+            slider.value = playerHp.GetHealth();
         }
     }
 }

@@ -16,7 +16,7 @@ public class Experience_bar : MonoBehaviour
 
     public void SetExp(float exp) {
         expImage.fillAmount= (float)exp;
-        if (exp >= player.MaxExp)
+        if (exp >= player.GetMaxExp())
         {
             SetMaxExp();
         }

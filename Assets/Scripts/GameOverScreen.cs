@@ -21,14 +21,13 @@ public class GameOverScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerHp = player.GetComponent<PlayerHandling>().hp;
+        playerHp = player.GetComponent<PlayerHandling>().GetHealth();
         PlayerDeath();
     }
 
     public void RevivePlayer()
     {
-        playerHp = player.GetComponent<PlayerHandling>().Maxhp;
-        player.GetComponent<PlayerHandling>().hp = playerHp;
+        player.GetComponent<PlayerHandling>().revive();
         Time.timeScale = 1;
         
     }

@@ -6,81 +6,87 @@ using UnityEngine.UI;
 
 public class PlayerHandling : MonoBehaviour
 {
-    [Tooltip("Change player starting health")]
-    public Experience_bar ExpBar;
-    private GameObject target;  //Per i test switcharlo a public
-    public float Maxhp = 100f;
+    [Header("Damage and Health")]
+    [Tooltip("Change player init max health.")]
+    public float startingHp;
+    [Tooltip("Change player starting damage")]
     public float damage = 3f;
-    public float hp;
-    public int lvl = 1;
-    public float exp;
-    public float MaxExp = 1;
+    float _maxHp;
+    float _hp;
+
+    [Header("Experience settings")]
+    [Tooltip("Class to handle ExpBar of the experience bar")]
+    public Experience_bar ExpBar;
+    [Tooltip("Change player starting max exp to reach for level up")]
+    public float startingMaxExp;
+    [Tooltip("Set the increment of maxExp for every level up")]
+    public float valueIncreaseExp = 0.3f;
+    float _MaxExp = 1;
+    float _currentExp=0;
+    int _lvl = 1;
+    [Header("Shoot settings")]
+    [Tooltip("Bullet prefab used by the player")]
     public GameObject bullet;
-    public List<GameObject> pooledObjects;
+    [Tooltip("The position over wich the bullet shoots from")]
     public Transform bulletSpawn;
+    [Tooltip("Sets the bullet speed")]
     public float bulletSpeed = 10f;
-    //private float nextFire = 0f;
-    public int amountToPool;
-    private bool canShoot;
-
+    [Tooltip("Sets bullet rate of fire")]
     public float delayBetweenShots;
+    [Tooltip("Sets total number of bullets to the pool")]
+    public int amountToPool;
+    List<GameObject> _pooledObjects;
+    bool _canShoot;
+    GameObject _target;  //Per i test switcharlo a public
 
+    [Header("Armor settings")]
+    [Tooltip("The armor UI text")]
     public TextMeshProUGUI armorText;
-    private int armor = 0;
-    public Experience_bar expBar;
-    private float valueIncreaseExp = 0.3f;
+    int _armor = 0;
 
-
+    #region INIT
 
     private void Awake() {
-        armorText.text = armor.ToString() + "/" + GameLogic.instance.maxArmorToCollect.ToString();
+        armorText.text = _armor.ToString() + "/" + GameLogic.instance.maxArmorToCollect.ToString();
+        _MaxExp = startingMaxExp;
+        _maxHp = startingHp;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        canShoot = true;
-        pooledObjects = new List<GameObject>();
+        _canShoot = true;
+        _pooledObjects = new List<GameObject>();
         GameObject tmp;
         for (int i = 0; i < amountToPool; i++) {
             tmp = Instantiate(bullet);
             tmp.SetActive(false);
-            pooledObjects.Add(tmp);
+            _pooledObjects.Add(tmp);
         }
-        hp = Maxhp * lvl;
-        exp = 0;
+        _hp = _maxHp * _lvl;
+        _currentExp = 0;
         ExpBar.SetMaxExp();
 
     }
 
-    public GameObject GetPooledObject() {
-        for (int i = 0; i < amountToPool; i++) {
-            if (!pooledObjects[i].activeInHierarchy) {
-                return pooledObjects[i];
-            }
-        }
-        return null;
-    }
+    #endregion
 
-    public float GetDamage() {
-        return damage;
-    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (canShoot) {
+        if (_canShoot) {
             //canShoot = false;
             //StartCoroutine("AllowToShoot");
             GameObject[] allTargets = GameObject.FindGameObjectsWithTag("Enemy"); //Genera memoryleak da fixare
             //GameObject[] someTargets = new GameObject[5];
             //System.Array.Copy(allTargets, someTargets, 5);
             if (allTargets != null && allTargets.Length > 0) {//manca settare l'eccezzione nel caso non ci siano nemici altrimenti mi sbrocca unity
-                target = allTargets[0];
+                _target = allTargets[0];
                 foreach (GameObject tmptarget in allTargets) {
-                    if (Vector3.Distance(transform.position, tmptarget.transform.position) < Vector3.Distance(transform.position, target.transform.position)) {
-                        target = tmptarget;
+                    if (Vector3.Distance(transform.position, tmptarget.transform.position) < Vector3.Distance(transform.position, _target.transform.position)) {
+                        _target = tmptarget;
                     }
                 }
                     Fire();
@@ -88,9 +94,10 @@ public class PlayerHandling : MonoBehaviour
         }
     }
 
+    #region SHOOT
     void Fire() {
-        Debug.Log("Shooting " + target.name);
-        Vector3 direction = target.transform.position - transform.position;
+        Debug.Log("Shooting " + _target.name);
+        Vector3 direction = _target.transform.position - transform.position;
         //link to spawned arrow, you dont need it, if the arrow has own moving script
         GameObject bullet = GetPooledObject();
         if (bullet != null) {
@@ -99,59 +106,93 @@ public class PlayerHandling : MonoBehaviour
             bullet.transform.position = bulletSpawn.position;
             bullet.transform.right = direction;
             bullet.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
-            canShoot = false;
+            _canShoot = false;
             StartCoroutine("ShootDelay");
         } else {
             Debug.Log("no bullets");
         }
     }
 
+    GameObject GetPooledObject() {
+        for (int i = 0; i < amountToPool; i++) {
+            if (!_pooledObjects[i].activeInHierarchy) {
+                return _pooledObjects[i];
+            }
+        }
+        return null;
+    }
+    public float GetDamage() {
+        return damage;
+    }
+    IEnumerator ShootDelay() {
+        yield return new WaitForSeconds(delayBetweenShots);
+        _canShoot = true;
+    }
+    #endregion
 
+    #region HEALTH
     public void ChangeHealth(float tot, bool gained) {
         if (gained) {
-            hp += tot;
-            if (hp> Maxhp) {
-                hp = Maxhp;
+            _hp += tot;
+            if (_hp > _maxHp) {
+                _hp = _maxHp;
             }
         } else {
-            hp -= tot;
-            if (hp <= 0) {
-                hp = 0;
+            _hp -= tot;
+            if (_hp <= 0) {
+                _hp = 0;
             }
         }
     }
+    public void Squashed() {
+        ChangeHealth(_hp, false);
+    }
+
+    public float GetHealth() {
+        return _hp;
+    }
+    public void revive() {
+        _maxHp = startingHp;
+        _hp = _maxHp;
+        _MaxExp = startingMaxExp;
+        _lvl = 1;
+        _currentExp = 0;
+    }
+
+    #endregion
+
+    #region EXPERIENCE
+
+    public float GetMaxExp() {
+        return _MaxExp;
+    }
 
     public void IncreaseExp() {
-        exp += valueIncreaseExp;
-        ExpBar.SetExp(exp);
-        if (exp >= MaxExp) {
+        _currentExp += valueIncreaseExp;
+        ExpBar.SetExp(_currentExp);
+        if (_currentExp >= _MaxExp) {
             lvlUp();
         }
 
     }
 
 
-    public void lvlUp() {
-        if (exp >= MaxExp) {
-            lvl++;
-            exp = 0;
+    void lvlUp() {
+        if (_currentExp >= _MaxExp) {
+            _lvl++;
+            _currentExp = 0;
             valueIncreaseExp = valueIncreaseExp / 2;
             //MaxExp = MaxExp * lvl;
-            Maxhp = Maxhp * lvl;
+            _maxHp = _maxHp * _lvl;
             ExpBar.SetMaxExp();
-            ChangeHealth((Maxhp * 0.3f), true);
+            ChangeHealth((_maxHp * 0.3f), true);
         }
     }
 
-    public void Squashed() { }
+    #endregion
     public void IncreaseArmor() {
-        armor += 1;
-        armorText.text = armor.ToString() + "/" + GameLogic.instance.maxArmorToCollect.ToString();
-        GameLogic.instance.checkTotArmor(armor);
+        _armor += 1;
+        armorText.text = _armor.ToString() + "/" + GameLogic.instance.maxArmorToCollect.ToString();
+        GameLogic.instance.checkTotArmor(_armor);
     }
-    IEnumerator ShootDelay() {
-        yield return new WaitForSeconds(delayBetweenShots);
-        canShoot = true;
-    }
-
 }

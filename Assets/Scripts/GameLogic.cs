@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
 
+    public static GameLogic instance;
    
     public enum GameState {
         START,
@@ -12,10 +13,9 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
         VICTORY,
         DEATH,
         END
-    } 
-    [Header("State")]    
-    public GameState state;
-    public GameState previousState;
+    }    
+    GameState _state;
+    GameState _previousState;
 
     [Header("Player Settings")]
     [Tooltip ("The max number of armor the player must collect to progress." )]
@@ -39,17 +39,24 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
     [Range(10, 50)]
     public float minRangeToSpawnCiv;
 
-
-
-
-    public float bossHeight;
+    [Header("Boss Settings")]
+    //public float bossHeight;
+    [Tooltip("The boss scriptable object to reference for the scene")]
     public Boss boss;
+    [Tooltip("The boss prefab")]
     public GameObject bossPref;
-    public static GameLogic instance;
+
     //public Camera camera;
-    public int EXPamountToPool;
-    List<GameObject> PooledExp;
+
+    [Header("Exp orbs Settings")]
+    [Tooltip("Experience prefab")]
     public GameObject Exp;
+    [Tooltip("Size of Experience pool")]
+    [Range(8, 99)]
+    public int EXPamountToPool;
+    List<GameObject> _PooledExp;
+
+    #region INIT
 
     private void Awake() {
         if (instance) {
@@ -63,26 +70,28 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
         Instantiate(civilian, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(GenerateRandomValue(minRangeToSpawnCiv,rangeToSpawnCiv)+transform.position.x, 0, GenerateRandomValue(minRangeToSpawnCiv, rangeToSpawnCiv)+transform.position.z), transform.rotation);
         //Instantiate(bossPref, GameObject.FindGameObjectWithTag("Player").transform.position + Vector3.up * bossHeight, transform.rotation);
         bossPref.GetComponent<BossHandler>().data = boss;
-        PooledExp = new List<GameObject>();
+        _PooledExp = new List<GameObject>();
         GameObject tmp;
         for (int i = 0; i < EXPamountToPool; i++) {
             tmp = Instantiate(Exp);
             tmp.SetActive(false);
-            PooledExp.Add(tmp);
+            _PooledExp.Add(tmp);
         }
         Enter_START();
     }
 
+    #endregion
 
-
+    #region STATES
     public void ChangeState(GameState newState) {
-        if (state == newState) {
+        if (_state == newState) {
             return;
         }
 
-        previousState = state;
-            state = newState;
-            switch (state) {
+        _previousState = _state;
+            _state = newState;
+                Debug.Log("Now playing " + _state + " state. Previous state is " + _previousState);
+            switch (_state) {
                 case GameState.START:
                     Enter_START();
                     break;
@@ -104,30 +113,8 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
             }
         }
 
-    public bool checkTotArmor(int armor) {
-        if (maxArmorToCollect == armor) {
-            ChangeState(GameState.PHASE2);
-            return true;
-        }
-        return false;
-    }
-
-
-    private void GameEnd() {
-        //mostrare schermata di uscita o whatev
-    }
-
-    public void Death() {
-        ChangeState(GameState.DEATH);
-    }
-
-
-
-
-
     private void Enter_START() {
         //Inizio partita
-        //camera.followTarget = firstCamera;
         ChangeState(GameState.PHASE1);
     }
 
@@ -157,8 +144,13 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
         GameEnd();
     }
 
+    public GameState getGameState() {
+        return _state;
+    }
 
+    #endregion
 
+    #region EXPERIENCE
     public void SpawnExp(Vector3 position) {
         GameObject tmp = GetPooledObject();
         if (tmp != null) {
@@ -174,8 +166,8 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
     //Trovami il globo pi� lontano e portalo qui
     private GameObject findFarest(Vector3 position) {
         float distance= 0f;
-        GameObject tmp = PooledExp[0];
-        foreach(GameObject orb in PooledExp) {
+        GameObject tmp = _PooledExp[0];
+        foreach(GameObject orb in _PooledExp) {
 
             if (Vector3.Distance(position, orb.transform.position) > distance) {
                 distance = Vector3.Distance(tmp.transform.position, orb.transform.position);
@@ -188,8 +180,8 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
 
     private GameObject GetPooledObject() {
         for (int i = 0; i < EXPamountToPool; i++) {
-            if (!PooledExp[i].activeInHierarchy) {
-                return PooledExp[i];
+            if (!_PooledExp[i].activeInHierarchy) {
+                return _PooledExp[i];
             }
         }
         return null;
@@ -204,4 +196,25 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
             return tmp;
         }
     }
+
+    public bool checkTotArmor(int armor) {
+        if (maxArmorToCollect == armor) {
+            ChangeState(GameState.PHASE2);
+            return true;
+        }
+        return false;
+    }
+
+    #endregion
+
+    private void GameEnd() {
+        //mostrare schermata di uscita o whatev
+    }
+
+    public void Death() {
+        ChangeState(GameState.DEATH);
+    }
+
+
+
 }

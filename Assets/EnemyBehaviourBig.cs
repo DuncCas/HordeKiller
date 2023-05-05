@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBehaviourBig : EnemyBehaviour
 {
-   int prefId = 1;
+   //int prefId = 1;
     // Start is called before the first frame update
   override public void Death() {
         hp = 0;
@@ -16,7 +16,7 @@ public class EnemyBehaviourBig : EnemyBehaviour
         gameObject.SetActive(false);
         EnemySpawner Spawner = player.GetComponent<EnemySpawner>();
         //Vector3 newPosition =
-        transform.position=Spawner.newLocation(prefId);
+        transform.position=Spawner.newLocation(1);
         //transform.position = newPosition;
         gameObject.SetActive(true);
     }

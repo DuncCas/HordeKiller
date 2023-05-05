@@ -2,17 +2,18 @@ using UnityEngine;
 using UnityEngine.AI;
 public class EnemyFollow : MonoBehaviour
 {
+    [Tooltip("Navmesh for the enemy")]
     public NavMeshAgent nav;
-    private GameObject Player;
+    GameObject _player;
     void Start()
     {
-        Player = GameObject.FindGameObjectWithTag("Player");
+        _player = GameObject.FindGameObjectWithTag("Player");
         nav = GetComponent<NavMeshAgent>();
     }
 
     void Update() { 
-        if (Player) {
-            nav.destination = Player.transform.position;
+        if (_player) {
+            nav.destination = _player.transform.position;
         }
     }
 }

@@ -7,7 +7,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     [SerializeField]
     public Enemy en;
     public float hp;
-    protected int prefId = 0;
+    protected int prefId;
     public float Maxcooldown = 3f; //seconds
     public float cooldown;
     public GameObject player;

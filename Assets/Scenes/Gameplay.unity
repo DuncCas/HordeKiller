@@ -355,19 +355,15 @@ MonoBehaviour:
   player: {fileID: 1421820028}
   firstCamera: {fileID: 1977771683}
   playerScndCamera: {fileID: 242390341}
-  state: 0
-  previousState: 0
   civilian: {fileID: 4581649949438616017, guid: 4b9239c731eb5f444a66d52f6827b7df,
     type: 3}
   rangeToSpawnCiv: 100
   minRangeToSpawnCiv: 30
-  bossHeight: 60
   boss: {fileID: 11400000, guid: 84fb204e33352e24aacf42ed6fee0418, type: 2}
   bossPref: {fileID: 7044115592218857779, guid: 37cef2bc1449d0c43a586efcb19bc99e,
     type: 3}
-  camera: {fileID: 1803092783}
-  EXPamountToPool: 40
   Exp: {fileID: 4243572546119145831, guid: 3c2422c2094ef874e948e13eb7f70556, type: 3}
+  EXPamountToPool: 40
 --- !u!114 &120121061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2944,12 +2940,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 746329221}
   m_PrefabAsset: {fileID: 0}
---- !u!20 &1803092783 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 2991250139355905084, guid: d62863777d535eb46afbfd7eab8de893,
-    type: 3}
-  m_PrefabInstance: {fileID: 2991250138913210664}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1962018972
 GameObject:
   m_ObjectHideFlags: 0
@@ -3602,6 +3592,16 @@ PrefabInstance:
       propertyPath: armorText
       value: 
       objectReference: {fileID: 414969700}
+    - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
+      propertyPath: startingHp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
+      propertyPath: startingMaxExp
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6372110915934474332, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
       propertyPath: delayBetweenShots

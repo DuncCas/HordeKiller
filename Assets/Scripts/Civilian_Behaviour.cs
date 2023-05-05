@@ -89,7 +89,7 @@ public class Civilian_Behaviour : MonoBehaviour, ISpawnable, IRandomNumberGenera
             CivilianActive = false;
             gameObject.SetActive(false);
             // E SPOSTA Il NUOVO GRUPPO DI CIVILI
-            if (GameLogic.instance.state == GameLogic.GameState.PHASE1) {
+            if (GameLogic.instance.getGameState() == GameLogic.GameState.PHASE1) {
                 Spawn(Vector3.zero);
             }
         }
