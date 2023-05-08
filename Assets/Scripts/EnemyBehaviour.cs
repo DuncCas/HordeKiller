@@ -32,14 +32,12 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
         Spawner = tmp.GetComponent<EnemySpawner>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         hp = en.hp;
         _cooldown = Maxcooldown;
     }
 
-    // Update is called once per frame
     void Update() {
         if (_cooldown < Maxcooldown) {
             _cooldown += Time.deltaTime;
@@ -54,11 +52,10 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     private void checkDistance() {
         if (Vector3.Distance(player.transform.position, transform.position) >= distanceToTriggerRespawn) {
             //Se giocatore troppo distante da nemico respawnalo vicino
-            //Debug.Log("Distance" + Vector3.Distance(player.transform.position, transform.position));
             transform.position = Spawner.newLocation(prefId);
             hp = en.hp;
         }
-        }
+    }
     #region DAMAGE AND ATTACK
 
     public void ChangeHealth(float dmg, bool gained) {

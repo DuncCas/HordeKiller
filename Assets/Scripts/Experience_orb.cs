@@ -7,37 +7,40 @@ using UnityEngine;
 public class Experience_orb : MonoBehaviour {
 
 
-   public GameObject player;
 
+    [Tooltip("Timer to trigger check of the player distance")]
     public float maxTimeToCheck = 10f;
-    float TimeToCheck;
+    [Tooltip("The max distance from player to trigger exp deactivation/repositioning")]
     public float maxDistanceFromPlayer;
+    GameObject _player;
+    float _TimeToCheck;
 
     void Start() {
-        player= GameObject.FindGameObjectWithTag("Player");
-        TimeToCheck = 0;
+        _player= GameObject.FindGameObjectWithTag("Player");
+        _TimeToCheck = 0;
+    }
+
+    private void Update() {
+        if (gameObject.activeInHierarchy) {
+            if (_TimeToCheck >= maxTimeToCheck) {
+                checkDistance();
+                _TimeToCheck = 0;
+            }
+            _TimeToCheck += Time.deltaTime;
+        }
     }
 
 
     public void OnTriggerEnter(Collider collider) {
         if (collider.gameObject.tag == "Player") {
-            player.GetComponent<PlayerHandling>().IncreaseExp();
+            _player.GetComponent<PlayerHandling>().IncreaseExp();
             gameObject.SetActive(false);
         }
     }
 
-    private void Update() {
-        if (gameObject.activeInHierarchy) {
-            if (TimeToCheck >= maxTimeToCheck) {
-                checkDistance();
-                TimeToCheck = 0;
-            }
-            TimeToCheck += Time.deltaTime;
-        }
-    }
 
     private void checkDistance() {
-        float distance= Vector3.Distance(transform.position, player.transform.position);
+        float distance= Vector3.Distance(transform.position, _player.transform.position);
         if (distance>= maxDistanceFromPlayer) {
             gameObject.SetActive(false);
         }

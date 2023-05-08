@@ -5,18 +5,19 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [Tooltip("Set Time Of Life of projectile")]
+    public int Lifetime = 4;
+[Header("Projectile Sounds")]
     public AudioClip[] shootSound;
     public AudioClip[] shootLandingEnemy;
     public AudioClip[] shootLandingWall;
-
-    private int Lifetime = 4;
-    public PlayerHandling pltmp;
+    PlayerHandling _pltmp;
 
    
 
     void Start()
     {
-        pltmp=GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandling>();
+        _pltmp=GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandling>();
 
     }
 
@@ -25,9 +26,6 @@ public class Projectile : MonoBehaviour
         StartCoroutine(DestroyOverLifetime(Lifetime));
     }
 
-    private AudioClip pickShootSound(AudioClip[] type) {
-        return type[(int)UnityEngine.Random.Range(0, type.Length)];
-    }
 
     private void OnDisable() {
         StopCoroutine(DestroyOverLifetime(Lifetime));
@@ -51,6 +49,10 @@ public class Projectile : MonoBehaviour
         yield return new WaitForSeconds(lifetime);
         gameObject.SetActive(false);
     }
+    private AudioClip pickShootSound(AudioClip[] type) {
+        return type[(int)UnityEngine.Random.Range(0, type.Length)];
+    }
+
 }
 
 
