@@ -525,21 +525,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf862154e0876c148ad72326336ccdfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExpBar: {fileID: 0}
-  Maxhp: 100
+  startingHp: 100
   damage: 2
-  hp: 0
-  lvl: 1
-  exp: 0
-  MaxExp: 1
+  ExpBar: {fileID: 0}
+  valueIncreaseExp: 0.3
   bullet: {fileID: 8142190802647146564, guid: f573ebd416c76484dbabeeabf2f47657, type: 3}
-  pooledObjects: []
   bulletSpawn: {fileID: 6372110915931106350}
   bulletSpeed: 10
-  amountToPool: 10
   delayBetweenShots: 0.5
+  amountToPool: 10
   armorText: {fileID: 0}
-  expBar: {fileID: 0}
 --- !u!114 &6372110915934474327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,14 +550,12 @@ MonoBehaviour:
   EnemyPrefab:
   - {fileID: 3881674689056487906, guid: 1e090eff72b91264b85194559d41a650, type: 3}
   - {fileID: 2658375643844872799, guid: f91771d6862dc714c8f309ec3a9fc565, type: 3}
-  EnemyOnSite: 0000000000000000
+  maxSpawned: 0800000003000000
   EnemyType:
   - {fileID: 11400000, guid: 1f6ed1e79b6a6764b923808bd55cca76, type: 2}
   - {fileID: 11400000, guid: 2b7b760135cf03e40a75275a8addafa7, type: 2}
-  DistanceOffset: 5
-  maxSpawned: 0800000003000000
   active: 1
-  itemsToPickFrom: []
+  rangeToSpawn: 0
   raycastDistance: 100
   overlapTestBoxSize: 1
   spawnedObjectLayer:

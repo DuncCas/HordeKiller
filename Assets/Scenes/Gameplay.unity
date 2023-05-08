@@ -690,9 +690,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414969698}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0000038146973}
+  m_LocalScale: {x: 1, y: 1, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 406471894}
@@ -700,7 +700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -922, y: 227}
+  m_AnchoredPosition: {x: -921.9999, y: 226.99992}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &414969700
@@ -3514,6 +3514,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
+      propertyPath: _EnemyOnSite.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
       propertyPath: enemyTypeBig.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -3551,6 +3556,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2b7b760135cf03e40a75275a8addafa7,
         type: 2}
+    - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
+        type: 3}
+      propertyPath: _AllEnemiesOnMap.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
       propertyPath: enemyTypeSmall.Array.data[0]
