@@ -117,7 +117,9 @@ public class PlayerHandling : MonoBehaviour
         }
     }
 
-    public void Squashed() { }
+    public void Squashed() {
+        hp = 0;
+    }
     public void IncreaseArmor() {
         armor += 1;
         armorText.text = armor.ToString();

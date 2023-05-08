@@ -36,8 +36,11 @@ public class GameLogic : MonoBehaviour {
     }
     void Start() {
         Instantiate(civilian, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(Random.Range(-50f, 50f), 0, Random.Range(-50f, 50f)), transform.rotation);
-        Instantiate(bossPref, GameObject.FindGameObjectWithTag("Player").transform.position + Vector3.up * bossHeight, transform.rotation);
-        bossPref.GetComponent<BossHandler>().data = boss;
+        //GameObject pref = Instantiate(bossPref);
+        //pref.GetComponent<MeshRenderer>().enabled = false;
+
+        //pref.GetComponent<BossHandler>().data = boss;
+        bossPref.GetComponent<BossAttackPhase1>().enabled = true;
     }
 
 

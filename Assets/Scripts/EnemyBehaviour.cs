@@ -62,7 +62,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable, IAttack
         en.hp = 0;
         //Drop exp al 50%
         if (Random.Range(0, 3) < 2) {
-            Instantiate(exp, transform.position, transform.rotation);
+            Instantiate(exp, new Vector3(transform.position.x, transform.position.y / transform.localScale.y, transform.position.z), transform.rotation);
         }
         //Ricolloco oggetto
         gameObject.SetActive(false);

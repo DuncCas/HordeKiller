@@ -16,7 +16,7 @@ MonoBehaviour:
   materials:
   - {fileID: -3661639628750336703, guid: 7e0223e1d3e1733499accfa5ebffb67e, type: 3}
   dmg: 1
-  maxTimeBeforeStomp: 2
+  maxTimeBeforeStomp: 10
   fallingSpeed: 5
   maxTimeGround: 20
   risingSpeed: 3

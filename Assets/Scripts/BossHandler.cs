@@ -40,15 +40,18 @@ public class BossHandler : MonoBehaviour
 
     public bool OnGround;
 
+    public GameObject shadow;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        ChangeState(BOSS_STATES.IDLE);
+        Enter_IDLE();
         previousState = BOSS_STATES.IDLE;
         footShadow.activate = false;
+        
     }
 
     #region STATES
@@ -88,7 +91,7 @@ public class BossHandler : MonoBehaviour
         transform.position = newPosFoot;
         returnPos = newPosFoot;
         footShadow.Move();
-
+        shadow.GetComponentInChildren<SpriteRenderer>().enabled = true;
 
     } 
     
@@ -97,9 +100,12 @@ public class BossHandler : MonoBehaviour
         footShadow.activate = false;
         TimeGround = 0;
         footShadow.Hide();
+
+        //BossAttackPhase1.instance.MissileAttack();
     }
     private void Enter_LEAVING() {
         OnGround = false;
+        shadow.GetComponentInChildren<SpriteRenderer>().enabled = false;
     }
     #endregion
 
@@ -134,7 +140,6 @@ public class BossHandler : MonoBehaviour
         transform.position += Vector3.down * Time.deltaTime * data.fallingSpeed;
         if (OnGround) {
             ChangeState(BOSS_STATES.GROUND);
-            
         }
     }
 
@@ -153,24 +158,34 @@ public class BossHandler : MonoBehaviour
     }
     #endregion
 
-    private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.layer == 9) {
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 9)
+        {
             OnGround = true;
         }
-        if (collision.gameObject.tag == "Player"){
-            if (!OnGround) {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (!OnGround)
+            {
                 player.GetComponent<PlayerHandling>().Squashed();
-            } else {
+            }
+            else
+            {
                 player.GetComponent<PlayerHandling>().ChangeHealth(data.dmg, false);
                 //Creare funzione di cooldown;
             }
         }
-        if (collision.gameObject.tag == "Enemy") {
-            if (!OnGround) {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            if (!OnGround)
+            {
                 collision.gameObject.GetComponent<EnemyBehaviour>().Squashed();
-            } else {
+            }
+            else
+            {
                 collision.gameObject.GetComponent<EnemyBehaviour>().ChangeHealth(data.dmg, false);
             }
         }
-        }
     }
+}
