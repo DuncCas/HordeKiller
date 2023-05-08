@@ -137,6 +137,7 @@ MonoBehaviour:
   timeBeforeStomp: 0
   TimeGround: 0
   OnGround: 0
+  shadow: {fileID: 6821413699562334384, guid: c45d3645e0e1601418ba9f56662886fe, type: 3}
 --- !u!114 &2770993427419912672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97472516edc8467439d4178744505de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Shadow: {fileID: 8789634125108177740, guid: a651fbe7291de204d9312f9bd0a1ba2f, type: 3}
+  Shadow: {fileID: 6821413699562334384, guid: c45d3645e0e1601418ba9f56662886fe, type: 3}
   foot: {fileID: 4118772094897005822}
   activate: 0

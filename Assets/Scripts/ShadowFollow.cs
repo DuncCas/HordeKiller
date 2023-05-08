@@ -14,14 +14,14 @@ public class ShadowFollow : MonoBehaviour {
 
     public void Move() {
             activate = true;
-            Shadow.GetComponent<SpriteRenderer>().enabled = activate;
+            Shadow.GetComponentInChildren<SpriteRenderer>().enabled = activate;
             Shadow.transform.position = new Vector3(foot.position.x, 0, foot.position.z);
             Debug.Log("I'm moving");
     }
 
     public void Hide() {
         activate = false;
-        Shadow.GetComponent<SpriteRenderer>().enabled = false;
+        Shadow.GetComponentInChildren<SpriteRenderer>().enabled = false;
     }
 
 
