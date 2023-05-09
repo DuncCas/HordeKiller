@@ -19,7 +19,7 @@ public class LevelUpChoice : MonoBehaviour
         player.delayBetweenShots -= 0.1f;
     }
 
-    public void DamegeUp()
+    public void DamageUp()
     {
         player.damage += 1;
     }

@@ -42,6 +42,8 @@ public class PlayerHandling : MonoBehaviour
     public TextMeshProUGUI armorText;
     int _armor = 0;
 
+    public GameObject levelUpUIScreen;
+
     #region INIT
 
     private void Awake() {
@@ -179,14 +181,17 @@ public class PlayerHandling : MonoBehaviour
     }
 
     void lvlUp() {
-            _lvl++;
-            Debug.Log(_lvl);
-            _currentExp = 0;
-            valueIncreaseExp = valueIncreaseExp / 2;
-            _maxHp = _maxHp * _lvl;
+        _lvl++;
+        Debug.Log(_lvl);
+        _currentExp = 0;
+        valueIncreaseExp = valueIncreaseExp / 2;
+        _maxHp = _maxHp * _lvl;
             
-            ExpBar.SetMaxExp();
-            ChangeHealth((_maxHp * 0.3f), true);
+        ExpBar.SetMaxExp();
+        ChangeHealth((_maxHp * 0.3f), true);
+
+        levelUpUIScreen.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     #endregion
