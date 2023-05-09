@@ -206,7 +206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6821413699562334384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.6036453, y: 0, z: 2.8409977}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -247,6 +247,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 84fb204e33352e24aacf42ed6fee0418, type: 2}
   currentTimeBeforeFalling: 0
   calloutTime: 4
+  speed: 2
   bossExplosionCollider: {fileID: 6821413699715997638}
   bossTargetRenderer: {fileID: 6821413699401778136}
 --- !u!1 &6821413699715997636

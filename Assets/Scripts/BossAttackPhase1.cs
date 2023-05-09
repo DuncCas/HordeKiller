@@ -72,7 +72,7 @@ public class BossAttackPhase1 : MonoBehaviour
                     //-------------->SE FUNZIONA, METTERE LE OPERAZIONI CHE DICONO CHE STA PER ARRIVARE LA BOMBA<------------------------ 
                     if (bossTargetRenderer.enabled) { return; } 
                     else {
-                        transform.position = player.transform.position;
+                        transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 0.4f, player.transform.position.z);
                         bossTargetRenderer.enabled = true; }
                     //Debug.Log("Se vedi questa scritta vuol dire che fra " + calloutTime + " arrivano i missili");
                 }
