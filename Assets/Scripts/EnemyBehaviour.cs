@@ -60,10 +60,10 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
 
     public void ChangeHealth(float dmg, bool gained) {
         hp -= dmg;
-                if (hp <= 0) {
-                Death();
-                }
+        if (hp <= 0) {
+            Death();
             }
+        }
 
 
     public void OnTriggerEnter(Collider other) {
@@ -73,10 +73,14 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     }
 
     public void OnTriggerStay(Collider Coll) {
-        if (Coll.gameObject.tag == "Player" && _cooldown >= Maxcooldown) {
+        if (IsPlayer(Coll.gameObject) && _cooldown >= Maxcooldown) {
                 Attack(Coll.gameObject);
                 _cooldown = 0;
         }
+    }
+
+    public bool IsPlayer(GameObject gameObject) {
+        return gameObject.tag == "Player";
     }
 
     virtual public void Death() {

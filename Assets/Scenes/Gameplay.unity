@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7114eab066f2d3e4b9ed4bca40c31b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxArmorToCollect: 1
+  maxArmorToCollect: 2
   player: {fileID: 1421820028}
   firstCamera: {fileID: 1977771683}
   playerScndCamera: {fileID: 242390341}
@@ -3538,7 +3538,7 @@ PrefabInstance:
         type: 3}
       propertyPath: EnemyPrefab.Array.data[1]
       value: 
-      objectReference: {fileID: 2658375643844872799, guid: f91771d6862dc714c8f309ec3a9fc565,
+      objectReference: {fileID: 6165510941995840390, guid: 4e1a443b2a915cd4b87435ddf933151a,
         type: 3}
     - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}

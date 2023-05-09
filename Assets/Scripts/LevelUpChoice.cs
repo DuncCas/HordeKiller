@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class LevelUpChoice : MonoBehaviour
 {
+        PlayerHandling player;
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandling>();
+    }
     public void BulletSpeedUp()
     {
-        PlayerHandling.instance.bulletSpeed += 1;
+        player.bulletSpeed += 1;
     }
 
     public void FireRateUp()
     {
-        PlayerHandling.instance.fireRate += 1;
+        player.delayBetweenShots -= 0.1f;
     }
 
     public void DamegeUp()
     {
-        PlayerHandling.instance.damage += 1;
+        player.damage += 1;
     }
 }

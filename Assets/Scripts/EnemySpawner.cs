@@ -13,7 +13,7 @@ public class EnemySpawner : MonoBehaviour, IRandomNumberGenerator { //ISpawnable
     public int[] maxSpawned;
     [Tooltip("Assign the scriptable object to assign to enemy prefabs. 0: SO for small enemies, 1:SO for big enemies")]
     public Enemy[] EnemyType;
-    public int[] _EnemyOnSite;
+    private int[] _EnemyOnSite = new int[2];
     public List<GameObject> _AllEnemiesOnMap;
      //List.findWithLambda? da cercare
     //public float DistanceOffset;
