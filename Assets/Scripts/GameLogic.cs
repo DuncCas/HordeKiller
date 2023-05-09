@@ -14,7 +14,7 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
         DEATH,
         END
     }    
-    GameState _state;
+    GameState _state = GameState.START;
     GameState _previousState;
 
     [Header("Player Settings")]
@@ -214,7 +214,5 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
     public void Death() {
         ChangeState(GameState.DEATH);
     }
-
-
 
 }

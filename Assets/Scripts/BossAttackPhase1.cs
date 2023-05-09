@@ -103,7 +103,8 @@ public class BossAttackPhase1 : MonoBehaviour
         if (!allMissileUp() && !bossExplosionCollider.enabled)
         {// SE IL 1* MISSILE è CADUTO (VA' AGGIUNTO IL CONTROLLO CHE IL TRIGGER NON SIA GIA' ATTIVO)
             //--------------->QUI VA' MESSO L'ATTIVAZIONE DEL TRIGGER CHE AMMAZZA IL PLAYER<------------------
-            bossExplosionCollider.enabled = true; 
+            bossExplosionCollider.enabled = true;
+            Debug.Log("AAAAAAAAAA");
         }
         for (int i = 0; i < missile.Length; i++)
         {// PER OGNI MISSILE

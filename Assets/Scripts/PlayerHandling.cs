@@ -20,7 +20,7 @@ public class PlayerHandling : MonoBehaviour
     public Experience_bar ExpBar;
     [Tooltip("Set the increment of maxExp for every level up")]
     public float valueIncreaseExp = 0.3f;
-    float _currentExp=0;
+    float _currentExp = 0;
     int _lvl = 1;
     [Header("Shoot settings")]
     [Tooltip("Bullet prefab used by the player")]
@@ -43,12 +43,17 @@ public class PlayerHandling : MonoBehaviour
     int _armor = 0;
 
     public GameObject levelUpUIScreen;
+    public static PlayerHandling instance;
 
     #region INIT
 
     private void Awake() {
         armorText.text = _armor.ToString() + "/" + GameLogic.instance.maxArmorToCollect.ToString();
         _maxHp = startingHp;
+
+        _hp = startingHp;
+        instance = this;
+    
     }
 
     // Start is called before the first frame update
@@ -88,8 +93,8 @@ public class PlayerHandling : MonoBehaviour
                         _target = tmptarget;
                     }
                 }
-                    Fire();
-                }
+                Fire();
+            }
         }
     }
 
@@ -186,7 +191,7 @@ public class PlayerHandling : MonoBehaviour
         _currentExp = 0;
         valueIncreaseExp = valueIncreaseExp / 2;
         _maxHp = _maxHp * _lvl;
-            
+
         ExpBar.SetMaxExp();
         ChangeHealth((_maxHp * 0.3f), true);
 
@@ -200,4 +205,6 @@ public class PlayerHandling : MonoBehaviour
         armorText.text = _armor.ToString() + "/" + GameLogic.instance.maxArmorToCollect.ToString();
         GameLogic.instance.checkTotArmor(_armor);
     }
+
+    public int Armor => _armor;
 }

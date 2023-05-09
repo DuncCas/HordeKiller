@@ -33,11 +33,14 @@ public class GameOverScreen : MonoBehaviour
 
     public void PlayerDeath()
     {
-        if (player.GetHealth() <= 0)
+        if(GameLogic.instance.getGameState() != GameLogic.GameState.START)
         {
-            Time.timeScale = 0;
-            GameOverMenu.SetActive(true);
-            pauseButton.interactable = false;
-        }
+            if (player.GetHealth() <= 0)
+            {
+                Time.timeScale = 0;
+                GameOverMenu.SetActive(true);
+                pauseButton.interactable = false;
+            }
+        }  
     }
 }
