@@ -87,7 +87,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
         hp = 0;
         //Drop exp al 50%
         if (Random.Range(0, 3) < 2) {
-            GameLogic.instance.SpawnExp(transform.position);
+            GameLogic.instance.SpawnExp(new Vector3 (transform.position.x, transform.position.y / transform.localScale.y, transform.position.z));
         }
         //Ricolloco oggetto
         gameObject.SetActive(false);
