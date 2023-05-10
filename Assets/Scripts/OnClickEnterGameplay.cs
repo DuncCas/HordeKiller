@@ -10,6 +10,6 @@ public class OnClickEnterGameplay : MonoBehaviour
     }
     public void SceneSwitcher() 
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 }

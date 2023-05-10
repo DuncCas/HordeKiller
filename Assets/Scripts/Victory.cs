@@ -24,11 +24,11 @@ public class Victory : MonoBehaviour
 
     public void LoadMainMenuScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void LoadGameplayScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 }

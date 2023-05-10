@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
     }
 
     private void OnEnable() {
-        //AudioSource.PlayClipAtPoint(pickShootSound(shootSound), transform.position, 0.5f);
+        AudioSource.PlayClipAtPoint(pickShootSound(shootSound), transform.position, 0.5f);
         StartCoroutine(DestroyOverLifetime(Lifetime));
     }
 
@@ -36,11 +36,14 @@ public class Projectile : MonoBehaviour
 
     public void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag != "Player") {
-            /*if (other.tag == "Enemy") {
+            if (other.tag == "Enemy")
+            {
                 AudioSource.PlayClipAtPoint(pickShootSound(shootLandingEnemy), transform.position, 0.5f);
-            } else {
+            }
+            else
+            {
                 AudioSource.PlayClipAtPoint(pickShootSound(shootLandingWall), transform.position, 0.5f);
-            }*/
+            }
             gameObject.SetActive(false);
         }
     }

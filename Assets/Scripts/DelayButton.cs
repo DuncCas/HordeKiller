@@ -5,7 +5,7 @@ using UnityEngine;
 public class DelayButton : MonoBehaviour
 {
     public void Delay() {
-        Invoke("SetActiveButton", 1.5f);
+        Invoke("SetActiveButton", 2f);
     }
     
     public void SetActiveButton() {
