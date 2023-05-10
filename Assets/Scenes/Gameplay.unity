@@ -276,7 +276,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 52988104}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 120121060}
   - component: {fileID: 120121061}
   - component: {fileID: 120121062}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,7 +477,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 191748422}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UI_Old
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1597,6 +1597,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI_EventSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992104595683069851, guid: f0271df749728104eac22c3d897fd8ce,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1992104595683069851, guid: f0271df749728104eac22c3d897fd8ce,
         type: 3}
@@ -5481,7 +5486,7 @@ PrefabInstance:
     - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
       propertyPath: spawnedObjectLayer.m_Bits
-      value: 512
+      value: 544
       objectReference: {fileID: 0}
     - target: {fileID: 6372110915934474327, guid: 807a2e5e019e31841a7edb767b825612,
         type: 3}
