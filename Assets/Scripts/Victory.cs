@@ -6,25 +6,21 @@ using UnityEngine.SceneManagement;
 public class Victory : MonoBehaviour
 {
     public GameObject victoryScreen;
-    int armor;
+    int armor = 0;
     
     // Start is called before the first frame update
     void Start()
     {
-        armor = PlayerHandling.instance.Armor;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    public void checkForVictory() {
         armor = PlayerHandling.instance.Armor;
-
-        if (PlayerHandling.instance.Armor >= 2)
-        {
+        if (PlayerHandling.instance.Armor >= GameLogic.instance.maxArmorToCollect) {
             Time.timeScale = 0f;
             victoryScreen.SetActive(true);
         }
     }
+
 
     public void LoadMainMenuScene()
     {

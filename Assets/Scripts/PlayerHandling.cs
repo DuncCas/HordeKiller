@@ -9,11 +9,11 @@ public class PlayerHandling : MonoBehaviour
     [Header("Damage and Health")]
     const float MAX_EXP = 1;
     [Tooltip("Change player init max health.")]
-    public float startingHp;
+    public float startingHp=100;
     [Tooltip("Change player starting damage")]
     public float damage = 3f;
-    float _maxHp;
-    float _hp;
+    float _maxHp=100f;
+    float _hp = 100f;
 
     [Header("Experience settings")]
     [Tooltip("Class to handle ExpBar of the experience bar")]

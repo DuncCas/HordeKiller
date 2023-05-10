@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using HordeKiller;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
 
@@ -16,6 +17,9 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
     }    
     GameState _state = GameState.START;
     GameState _previousState;
+    float timerMax = 3f;
+    float currentTime = 0f;
+    public GameObject victoryScreen;
 
     [Header("Player Settings")]
     [Tooltip ("The max number of armor the player must collect to progress." )]
@@ -113,9 +117,18 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
             }
         }
 
+
+    private void Update() {
+        if (_state == GameState.START) {
+            if (currentTime >= timerMax) {
+        ChangeState(GameState.PHASE1);
+        return;
+            }
+            currentTime += Time.deltaTime;
+        }
+    }
     private void Enter_START() {
         //Inizio partita
-        ChangeState(GameState.PHASE1);
     }
 
     private void Enter_PHASE1() {
@@ -133,10 +146,13 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
 
     private void Enter_VICTORY() {
         //Vittoria
+        Time.timeScale = 0f;
+        victoryScreen.SetActive(true);
     }
 
     private void Enter_DEATH() {
         //Morte
+        Time.timeScale = 0f;
         ChangeState(GameState.END);
     }
 
@@ -199,7 +215,8 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
 
     public bool checkTotArmor(int armor) {
         if (maxArmorToCollect == armor) {
-            ChangeState(GameState.PHASE2);
+
+            ChangeState(GameState.VICTORY);
             return true;
         }
         return false;
@@ -213,6 +230,15 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
 
     public void Death() {
         ChangeState(GameState.DEATH);
+    }
+
+
+    public void LoadMainMenuScene() {
+        SceneManager.LoadScene(0);
+    }
+
+    public void LoadGameplayScene() {
+        SceneManager.LoadScene(1);
     }
 
 }
