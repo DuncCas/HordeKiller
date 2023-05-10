@@ -7,7 +7,7 @@ public class NewBossAttack : MonoBehaviour
 {
     public SpriteRenderer sprite;
     GameObject player;
-    public ParticleSystem explosion;
+    public List<ParticleSystem> explosions;
     float currentTimer=0;
     public Boss data;
     public float killTimeMax;
@@ -54,8 +54,14 @@ public class NewBossAttack : MonoBehaviour
         currentTimer = 0;
         attack = true;
         GetComponent<SphereCollider>().enabled = true;
-       
+        
+        for (int i = 0; i < 3; i++)
+        {
+            ParticleSystem ps = Instantiate(explosions[i], transform.position, Quaternion.identity);
+            ps.Emit(40);
+            Destroy(ps.gameObject, killTimeMax);
 
+        }
     }
 
     void ShowTarget() {

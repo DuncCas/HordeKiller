@@ -12,12 +12,13 @@ public class GameOverScreen : MonoBehaviour
     public GameObject GameOverMenu;
     public Button pauseButton;
     public GameObject civilian;
+    private string civilianTxt;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandling>();
-        
+        civilianTxt = civilian.GetComponent<TextMeshPro>().text;
     }
 
     // Update is called once per frame
@@ -37,7 +38,7 @@ public class GameOverScreen : MonoBehaviour
     {
         if(GameLogic.instance.getGameState() != GameLogic.GameState.START)
         {
-            if (player.GetHealth() <= 0 || civilian.GetComponent<TextMeshPro>().text == "XXX")
+            if (player.GetHealth() <= 0 || civilianTxt == "XXX")
             {
                 Time.timeScale = 0;
                 GameOverMenu.SetActive(true);
