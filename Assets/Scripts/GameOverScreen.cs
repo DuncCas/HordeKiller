@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class GameOverScreen : MonoBehaviour
     private PlayerHandling player;
     public GameObject GameOverMenu;
     public Button pauseButton;
+    public GameObject civilian;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +37,7 @@ public class GameOverScreen : MonoBehaviour
     {
         if(GameLogic.instance.getGameState() != GameLogic.GameState.START)
         {
-            if (player.GetHealth() <= 0)
+            if (player.GetHealth() <= 0 || civilian.GetComponent<TextMeshPro>().text == "XXX")
             {
                 Time.timeScale = 0;
                 GameOverMenu.SetActive(true);
