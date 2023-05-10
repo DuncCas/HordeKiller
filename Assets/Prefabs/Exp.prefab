@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 434928771474878524}
   m_LocalRotation: {x: 0.41237664, y: -0, z: -0, w: 0.9110135}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.42548, y: 0.42548, z: 0.42548}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5006637851786910822}
@@ -130,8 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8956ee46be89c48ae80e59cc892a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7287488041747845311, guid: 807a2e5e019e31841a7edb767b825612, type: 3}
-  "maxt\xECTimeToCheck": 10
+  maxTimeToCheck: 10
   maxDistanceFromPlayer: 100
 --- !u!135 &2321904405735796495
 SphereCollider:
