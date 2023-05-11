@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Projectile : MonoBehaviour
 {
@@ -18,12 +19,13 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         _pltmp=GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandling>();
-
     }
 
     private void OnEnable() {
         AudioSource.PlayClipAtPoint(pickShootSound(shootSound), transform.position, 0.5f);
         StartCoroutine(DestroyOverLifetime(Lifetime));
+
+        this.transform.DOShakeScale(2, 1);
     }
 
 

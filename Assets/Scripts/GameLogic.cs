@@ -119,6 +119,7 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
 
 
     private void Update() {
+
         if (_state == GameState.START) {
             if (currentTime >= timerMax) {
         ChangeState(GameState.PHASE1);
@@ -126,6 +127,7 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
             }
             currentTime += Time.deltaTime;
         }
+
     }
     private void Enter_START() {
         //Inizio partita
@@ -240,5 +242,4 @@ public class GameLogic : MonoBehaviour, IRandomNumberGenerator {
     public void LoadGameplayScene() {
         SceneManager.LoadScene(1);
     }
-
 }

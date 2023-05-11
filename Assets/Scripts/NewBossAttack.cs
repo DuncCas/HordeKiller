@@ -2,9 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class NewBossAttack : MonoBehaviour
 {
+    public AudioClip explosionSfx;
+    public Transform explosionTrans;
+    public Transform mainCamera;
     public SpriteRenderer sprite;
     GameObject player;
     public List<ParticleSystem> explosions;
@@ -62,11 +66,17 @@ public class NewBossAttack : MonoBehaviour
             Destroy(ps.gameObject, killTimeMax);
 
         }
+
+        AudioSource.PlayClipAtPoint(explosionSfx, transform.position);
+        mainCamera.DOShakePosition(2);
     }
 
     void ShowTarget() {
         transform.position = player.transform.position;
         sprite.enabled = true;
+        explosionTrans.DOScale(8, calloutTime);
+        sprite.DOFade(255, calloutTime);
+
     }
 
     private void OnTriggerEnter(Collider other) {
